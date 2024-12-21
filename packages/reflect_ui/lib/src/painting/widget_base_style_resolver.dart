@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:reflect_ui/src/extensions/brightness.dart';
 import 'package:reflect_ui/src/painting/widget_base_style.dart';
 import 'package:reflect_ui/src/painting/widget_kind.dart';
 import 'package:reflect_ui/src/painting/widget_variant.dart';
 import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
 
+/// A color that is configured for a specific state.
 class WidgetStateConfiguredColor extends WidgetStateProperty<Color> {
   WidgetStateConfiguredColor({
     required this.color,
@@ -83,24 +85,25 @@ class WidgetBaseStyleResolver {
     Color? color,
   }) {
     final themeData = ExtendedTheme.of(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final brightness = themeData.brightness;
+    final colorScheme = themeData.colorScheme;
     late Color seedColor;
     if (color != null) {
       seedColor = color;
     } else {
       switch (kind.name) {
         case WidgetKind.primary:
-          seedColor = themeData.colors.primary;
+          seedColor = colorScheme.primary;
         case WidgetKind.secondary:
-          seedColor = themeData.colors.secondary;
+          seedColor = colorScheme.secondary;
         case WidgetKind.success:
-          seedColor = themeData.colors.success;
+          seedColor = colorScheme.success;
         case WidgetKind.danger:
-          seedColor = themeData.colors.danger;
+          seedColor = colorScheme.danger;
         case WidgetKind.warning:
-          seedColor = themeData.colors.warning;
+          seedColor = colorScheme.warning;
         case WidgetKind.info:
-          seedColor = themeData.colors.info;
+          seedColor = colorScheme.info;
       }
     }
     switch (variant.name) {
@@ -120,12 +123,12 @@ class WidgetBaseStyleResolver {
         return WidgetBaseStyle(
           backgroundColor: WidgetStateConfiguredColor(
             color: seedColor,
-            colorShade: !isDark ? 50 : null,
-            colorOpacity: isDark ? 0.15 : null,
-            hoveredColorShade: !isDark ? 100 : null,
-            hoveredColorOpacity: isDark ? 0.2 : null,
-            pressedColorShade: !isDark ? 50 : null,
-            pressedColorOpacity: isDark ? 0.15 : null,
+            colorShade: brightness.isLight() ? 50 : null,
+            colorOpacity: brightness.isDark() ? 0.15 : null,
+            hoveredColorShade: brightness.isLight() ? 100 : null,
+            hoveredColorOpacity: brightness.isDark() ? 0.2 : null,
+            pressedColorShade: brightness.isLight() ? 50 : null,
+            pressedColorOpacity: brightness.isDark() ? 0.15 : null,
           ),
           foregroundColor: WidgetStateConfiguredColor(
             color: seedColor,
@@ -137,10 +140,10 @@ class WidgetBaseStyleResolver {
           backgroundColor: WidgetStateConfiguredColor(
             color: seedColor,
             colorShade: -1,
-            hoveredColorShade: !isDark ? 50 : null,
-            hoveredColorOpacity: isDark ? 0.2 : null,
-            pressedColorShade: !isDark ? 50 : null,
-            pressedColorOpacity: isDark ? 0.2 : null,
+            hoveredColorShade: brightness.isLight() ? 50 : null,
+            hoveredColorOpacity: brightness.isDark() ? 0.2 : null,
+            pressedColorShade: brightness.isLight() ? 50 : null,
+            pressedColorOpacity: brightness.isDark() ? 0.2 : null,
           ),
           foregroundColor: WidgetStateConfiguredColor(
             color: seedColor,
@@ -156,10 +159,10 @@ class WidgetBaseStyleResolver {
           backgroundColor: WidgetStateConfiguredColor(
             color: seedColor,
             colorShade: -1,
-            hoveredColorShade: !isDark ? 50 : null,
-            hoveredColorOpacity: isDark ? 0.2 : null,
-            pressedColorShade: !isDark ? 50 : null,
-            pressedColorOpacity: isDark ? 0.2 : null,
+            hoveredColorShade: brightness.isLight() ? 50 : null,
+            hoveredColorOpacity: brightness.isDark() ? 0.2 : null,
+            pressedColorShade: brightness.isLight() ? 50 : null,
+            pressedColorOpacity: brightness.isDark() ? 0.2 : null,
           ),
           foregroundColor: WidgetStateConfiguredColor(
             color: seedColor,

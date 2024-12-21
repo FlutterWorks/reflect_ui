@@ -1,5 +1,6 @@
 import 'package:reflect_ui/src/painting/widget_kind.dart';
 
+/// The kind of an alert.
 enum AlertKind with WidgetKind {
   /// A success alert.
   success,

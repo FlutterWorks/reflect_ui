@@ -1,16 +1,13 @@
 // ignore_for_file: annotate_overrides
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart'
-    show MaterialColor, Theme, ThemeExtension;
-import 'package:reflect_ui/reflect_ui.dart';
+import 'package:flutter/material.dart' show Theme, ThemeExtension;
+import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/painting/widget_base_style_resolver.dart';
+import 'package:reflect_ui/src/widgets/extended_theme/extended_color_scheme.dart';
 import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
 
-export 'theme_base_colors.dart';
-export 'theme_base_corners.dart';
-export 'theme_base_icons.dart';
-export 'theme_base_shadows.dart';
-export 'theme_base_spacing.dart';
+export 'extended_icons.dart';
 
 part 'extended_theme.tailor.dart';
 
@@ -18,36 +15,31 @@ part 'extended_theme.tailor.dart';
 class ExtendedThemeData extends ThemeExtension<ExtendedThemeData>
     with DiagnosticableTreeMixin, _$ExtendedThemeDataTailorMixin {
   const ExtendedThemeData({
-    required this.colors,
-    required this.corners,
-    required this.shadows,
-    required this.spacing,
-    required this.icons,
-    required this.baseStyleResolver,
     required this.brightness,
+    required this.colorScheme,
     this.userInteractiveDimension = 28.0,
     this.userInteractivePadding = const EdgeInsets.all(6.0),
     this.userInteractiveBorderRadius =
         const BorderRadius.all(Radius.circular(6.0)),
     this.userInteractiveBorderWidth = 1.0,
+    this.smallUserInteractiveDimension = 24.0,
+    this.smallUserInteractivePadding = const EdgeInsets.all(4.0),
+    this.smallUserInteractiveBorderRadius =
+        const BorderRadius.all(Radius.circular(4.0)),
+    this.smallUserInteractiveBorderWidth = 1.0,
+    this.largeUserInteractiveDimension = 32.0,
+    this.largeUserInteractivePadding = const EdgeInsets.all(8.0),
+    this.largeUserInteractiveBorderRadius =
+        const BorderRadius.all(Radius.circular(8.0)),
+    this.largeUserInteractiveBorderWidth = 1.0,
+    required this.baseStyleResolver,
   });
-
-  final ThemeBaseColors colors;
-  final ThemeBaseCorners corners;
-  final ThemeBaseShadows shadows;
-  final ThemeBaseSpacing spacing;
-  final ThemeBaseIcons icons;
-  final WidgetBaseStyleResolver baseStyleResolver;
-
-  Color get primaryColor {
-    if (colors.primary is MaterialColor) {
-      return (colors.primary as MaterialColor).shade600;
-    }
-    return colors.primary;
-  }
 
   /// The brightness of the theme.
   final Brightness brightness;
+
+  /// The color scheme of the theme.
+  final ExtendedColorScheme colorScheme;
 
   /// The minimum dimension for user interactive widgets.
   final double userInteractiveDimension;
@@ -60,6 +52,40 @@ class ExtendedThemeData extends ThemeExtension<ExtendedThemeData>
 
   /// The border radius for user interactive widgets.
   final BorderRadius userInteractiveBorderRadius;
+
+  // #region Small User Interactive Widgets
+
+  /// The dimension for small user interactive widgets.
+  final double smallUserInteractiveDimension;
+
+  /// The padding for small user interactive widgets.
+  final EdgeInsets smallUserInteractivePadding;
+
+  /// The border radius for small user interactive widgets.
+  final BorderRadius smallUserInteractiveBorderRadius;
+
+  /// The border width for small user interactive widgets.
+  final double smallUserInteractiveBorderWidth;
+
+  // #endregion
+
+  // #region Large User Interactive Widgets
+
+  /// The dimension for large user interactive widgets.
+  final double largeUserInteractiveDimension;
+
+  /// The padding for large user interactive widgets.
+  final EdgeInsets largeUserInteractivePadding;
+
+  /// The border radius for large user interactive widgets.
+  final BorderRadius largeUserInteractiveBorderRadius;
+
+  /// The border width for large user interactive widgets.
+  final double largeUserInteractiveBorderWidth;
+
+  // #endregion
+
+  final WidgetBaseStyleResolver baseStyleResolver;
 }
 
 class ExtendedTheme extends InheritedTheme {

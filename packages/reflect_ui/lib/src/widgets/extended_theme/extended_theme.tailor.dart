@@ -10,42 +10,43 @@ part of 'extended_theme.dart';
 
 mixin _$ExtendedThemeDataTailorMixin
     on ThemeExtension<ExtendedThemeData>, DiagnosticableTreeMixin {
-  ThemeBaseColors get colors;
-  ThemeBaseCorners get corners;
-  ThemeBaseShadows get shadows;
-  ThemeBaseSpacing get spacing;
-  ThemeBaseIcons get icons;
-  WidgetBaseStyleResolver get baseStyleResolver;
   Brightness get brightness;
+  ExtendedColorScheme get colorScheme;
   double get userInteractiveDimension;
   EdgeInsets get userInteractivePadding;
   double get userInteractiveBorderWidth;
   BorderRadius get userInteractiveBorderRadius;
-  Color get primaryColor;
+  double get smallUserInteractiveDimension;
+  EdgeInsets get smallUserInteractivePadding;
+  BorderRadius get smallUserInteractiveBorderRadius;
+  double get smallUserInteractiveBorderWidth;
+  double get largeUserInteractiveDimension;
+  EdgeInsets get largeUserInteractivePadding;
+  BorderRadius get largeUserInteractiveBorderRadius;
+  double get largeUserInteractiveBorderWidth;
+  WidgetBaseStyleResolver get baseStyleResolver;
 
   @override
   ExtendedThemeData copyWith({
-    ThemeBaseColors? colors,
-    ThemeBaseCorners? corners,
-    ThemeBaseShadows? shadows,
-    ThemeBaseSpacing? spacing,
-    ThemeBaseIcons? icons,
-    WidgetBaseStyleResolver? baseStyleResolver,
     Brightness? brightness,
+    ExtendedColorScheme? colorScheme,
     double? userInteractiveDimension,
     EdgeInsets? userInteractivePadding,
     double? userInteractiveBorderWidth,
     BorderRadius? userInteractiveBorderRadius,
-    Color? primaryColor,
+    double? smallUserInteractiveDimension,
+    EdgeInsets? smallUserInteractivePadding,
+    BorderRadius? smallUserInteractiveBorderRadius,
+    double? smallUserInteractiveBorderWidth,
+    double? largeUserInteractiveDimension,
+    EdgeInsets? largeUserInteractivePadding,
+    BorderRadius? largeUserInteractiveBorderRadius,
+    double? largeUserInteractiveBorderWidth,
+    WidgetBaseStyleResolver? baseStyleResolver,
   }) {
     return ExtendedThemeData(
-      colors: colors ?? this.colors,
-      corners: corners ?? this.corners,
-      shadows: shadows ?? this.shadows,
-      spacing: spacing ?? this.spacing,
-      icons: icons ?? this.icons,
-      baseStyleResolver: baseStyleResolver ?? this.baseStyleResolver,
       brightness: brightness ?? this.brightness,
+      colorScheme: colorScheme ?? this.colorScheme,
       userInteractiveDimension:
           userInteractiveDimension ?? this.userInteractiveDimension,
       userInteractivePadding:
@@ -54,6 +55,23 @@ mixin _$ExtendedThemeDataTailorMixin
           userInteractiveBorderWidth ?? this.userInteractiveBorderWidth,
       userInteractiveBorderRadius:
           userInteractiveBorderRadius ?? this.userInteractiveBorderRadius,
+      smallUserInteractiveDimension:
+          smallUserInteractiveDimension ?? this.smallUserInteractiveDimension,
+      smallUserInteractivePadding:
+          smallUserInteractivePadding ?? this.smallUserInteractivePadding,
+      smallUserInteractiveBorderRadius: smallUserInteractiveBorderRadius ??
+          this.smallUserInteractiveBorderRadius,
+      smallUserInteractiveBorderWidth: smallUserInteractiveBorderWidth ??
+          this.smallUserInteractiveBorderWidth,
+      largeUserInteractiveDimension:
+          largeUserInteractiveDimension ?? this.largeUserInteractiveDimension,
+      largeUserInteractivePadding:
+          largeUserInteractivePadding ?? this.largeUserInteractivePadding,
+      largeUserInteractiveBorderRadius: largeUserInteractiveBorderRadius ??
+          this.largeUserInteractiveBorderRadius,
+      largeUserInteractiveBorderWidth: largeUserInteractiveBorderWidth ??
+          this.largeUserInteractiveBorderWidth,
+      baseStyleResolver: baseStyleResolver ?? this.baseStyleResolver,
     );
   }
 
@@ -62,13 +80,8 @@ mixin _$ExtendedThemeDataTailorMixin
       covariant ThemeExtension<ExtendedThemeData>? other, double t) {
     if (other is! ExtendedThemeData) return this as ExtendedThemeData;
     return ExtendedThemeData(
-      colors: t < 0.5 ? colors : other.colors,
-      corners: t < 0.5 ? corners : other.corners,
-      shadows: t < 0.5 ? shadows : other.shadows,
-      spacing: t < 0.5 ? spacing : other.spacing,
-      icons: t < 0.5 ? icons : other.icons,
-      baseStyleResolver: t < 0.5 ? baseStyleResolver : other.baseStyleResolver,
       brightness: t < 0.5 ? brightness : other.brightness,
+      colorScheme: t < 0.5 ? colorScheme : other.colorScheme,
       userInteractiveDimension:
           t < 0.5 ? userInteractiveDimension : other.userInteractiveDimension,
       userInteractivePadding:
@@ -79,6 +92,31 @@ mixin _$ExtendedThemeDataTailorMixin
       userInteractiveBorderRadius: t < 0.5
           ? userInteractiveBorderRadius
           : other.userInteractiveBorderRadius,
+      smallUserInteractiveDimension: t < 0.5
+          ? smallUserInteractiveDimension
+          : other.smallUserInteractiveDimension,
+      smallUserInteractivePadding: t < 0.5
+          ? smallUserInteractivePadding
+          : other.smallUserInteractivePadding,
+      smallUserInteractiveBorderRadius: t < 0.5
+          ? smallUserInteractiveBorderRadius
+          : other.smallUserInteractiveBorderRadius,
+      smallUserInteractiveBorderWidth: t < 0.5
+          ? smallUserInteractiveBorderWidth
+          : other.smallUserInteractiveBorderWidth,
+      largeUserInteractiveDimension: t < 0.5
+          ? largeUserInteractiveDimension
+          : other.largeUserInteractiveDimension,
+      largeUserInteractivePadding: t < 0.5
+          ? largeUserInteractivePadding
+          : other.largeUserInteractivePadding,
+      largeUserInteractiveBorderRadius: t < 0.5
+          ? largeUserInteractiveBorderRadius
+          : other.largeUserInteractiveBorderRadius,
+      largeUserInteractiveBorderWidth: t < 0.5
+          ? largeUserInteractiveBorderWidth
+          : other.largeUserInteractiveBorderWidth,
+      baseStyleResolver: t < 0.5 ? baseStyleResolver : other.baseStyleResolver,
     );
   }
 
@@ -87,15 +125,10 @@ mixin _$ExtendedThemeDataTailorMixin
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ExtendedThemeData &&
-            const DeepCollectionEquality().equals(colors, other.colors) &&
-            const DeepCollectionEquality().equals(corners, other.corners) &&
-            const DeepCollectionEquality().equals(shadows, other.shadows) &&
-            const DeepCollectionEquality().equals(spacing, other.spacing) &&
-            const DeepCollectionEquality().equals(icons, other.icons) &&
-            const DeepCollectionEquality()
-                .equals(baseStyleResolver, other.baseStyleResolver) &&
             const DeepCollectionEquality()
                 .equals(brightness, other.brightness) &&
+            const DeepCollectionEquality()
+                .equals(colorScheme, other.colorScheme) &&
             const DeepCollectionEquality().equals(
                 userInteractiveDimension, other.userInteractiveDimension) &&
             const DeepCollectionEquality()
@@ -104,26 +137,49 @@ mixin _$ExtendedThemeDataTailorMixin
                 userInteractiveBorderWidth, other.userInteractiveBorderWidth) &&
             const DeepCollectionEquality().equals(userInteractiveBorderRadius,
                 other.userInteractiveBorderRadius) &&
+            const DeepCollectionEquality().equals(smallUserInteractiveDimension,
+                other.smallUserInteractiveDimension) &&
+            const DeepCollectionEquality().equals(smallUserInteractivePadding,
+                other.smallUserInteractivePadding) &&
+            const DeepCollectionEquality().equals(
+                smallUserInteractiveBorderRadius,
+                other.smallUserInteractiveBorderRadius) &&
+            const DeepCollectionEquality().equals(
+                smallUserInteractiveBorderWidth,
+                other.smallUserInteractiveBorderWidth) &&
+            const DeepCollectionEquality().equals(largeUserInteractiveDimension,
+                other.largeUserInteractiveDimension) &&
+            const DeepCollectionEquality().equals(largeUserInteractivePadding,
+                other.largeUserInteractivePadding) &&
+            const DeepCollectionEquality().equals(
+                largeUserInteractiveBorderRadius,
+                other.largeUserInteractiveBorderRadius) &&
+            const DeepCollectionEquality().equals(
+                largeUserInteractiveBorderWidth,
+                other.largeUserInteractiveBorderWidth) &&
             const DeepCollectionEquality()
-                .equals(primaryColor, other.primaryColor));
+                .equals(baseStyleResolver, other.baseStyleResolver));
   }
 
   @override
   int get hashCode {
     return Object.hash(
       runtimeType.hashCode,
-      const DeepCollectionEquality().hash(colors),
-      const DeepCollectionEquality().hash(corners),
-      const DeepCollectionEquality().hash(shadows),
-      const DeepCollectionEquality().hash(spacing),
-      const DeepCollectionEquality().hash(icons),
-      const DeepCollectionEquality().hash(baseStyleResolver),
       const DeepCollectionEquality().hash(brightness),
+      const DeepCollectionEquality().hash(colorScheme),
       const DeepCollectionEquality().hash(userInteractiveDimension),
       const DeepCollectionEquality().hash(userInteractivePadding),
       const DeepCollectionEquality().hash(userInteractiveBorderWidth),
       const DeepCollectionEquality().hash(userInteractiveBorderRadius),
-      const DeepCollectionEquality().hash(primaryColor),
+      const DeepCollectionEquality().hash(smallUserInteractiveDimension),
+      const DeepCollectionEquality().hash(smallUserInteractivePadding),
+      const DeepCollectionEquality().hash(smallUserInteractiveBorderRadius),
+      const DeepCollectionEquality().hash(smallUserInteractiveBorderWidth),
+      const DeepCollectionEquality().hash(largeUserInteractiveDimension),
+      const DeepCollectionEquality().hash(largeUserInteractivePadding),
+      const DeepCollectionEquality().hash(largeUserInteractiveBorderRadius),
+      const DeepCollectionEquality().hash(largeUserInteractiveBorderWidth),
+      const DeepCollectionEquality().hash(baseStyleResolver),
     );
   }
 
@@ -132,13 +188,8 @@ mixin _$ExtendedThemeDataTailorMixin
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'ExtendedThemeData'))
-      ..add(DiagnosticsProperty('colors', colors))
-      ..add(DiagnosticsProperty('corners', corners))
-      ..add(DiagnosticsProperty('shadows', shadows))
-      ..add(DiagnosticsProperty('spacing', spacing))
-      ..add(DiagnosticsProperty('icons', icons))
-      ..add(DiagnosticsProperty('baseStyleResolver', baseStyleResolver))
       ..add(DiagnosticsProperty('brightness', brightness))
+      ..add(DiagnosticsProperty('colorScheme', colorScheme))
       ..add(DiagnosticsProperty(
           'userInteractiveDimension', userInteractiveDimension))
       ..add(
@@ -147,23 +198,35 @@ mixin _$ExtendedThemeDataTailorMixin
           'userInteractiveBorderWidth', userInteractiveBorderWidth))
       ..add(DiagnosticsProperty(
           'userInteractiveBorderRadius', userInteractiveBorderRadius))
-      ..add(DiagnosticsProperty('primaryColor', primaryColor));
+      ..add(DiagnosticsProperty(
+          'smallUserInteractiveDimension', smallUserInteractiveDimension))
+      ..add(DiagnosticsProperty(
+          'smallUserInteractivePadding', smallUserInteractivePadding))
+      ..add(DiagnosticsProperty(
+          'smallUserInteractiveBorderRadius', smallUserInteractiveBorderRadius))
+      ..add(DiagnosticsProperty(
+          'smallUserInteractiveBorderWidth', smallUserInteractiveBorderWidth))
+      ..add(DiagnosticsProperty(
+          'largeUserInteractiveDimension', largeUserInteractiveDimension))
+      ..add(DiagnosticsProperty(
+          'largeUserInteractivePadding', largeUserInteractivePadding))
+      ..add(DiagnosticsProperty(
+          'largeUserInteractiveBorderRadius', largeUserInteractiveBorderRadius))
+      ..add(DiagnosticsProperty(
+          'largeUserInteractiveBorderWidth', largeUserInteractiveBorderWidth))
+      ..add(DiagnosticsProperty('baseStyleResolver', baseStyleResolver));
   }
 }
 
 extension ExtendedThemeDataBuildContextProps on BuildContext {
   ExtendedThemeData get extendedThemeData =>
       Theme.of(this).extension<ExtendedThemeData>()!;
-  ThemeBaseColors get colors => extendedThemeData.colors;
-  ThemeBaseCorners get corners => extendedThemeData.corners;
-  ThemeBaseShadows get shadows => extendedThemeData.shadows;
-  ThemeBaseSpacing get spacing => extendedThemeData.spacing;
-  ThemeBaseIcons get icons => extendedThemeData.icons;
-  WidgetBaseStyleResolver get baseStyleResolver =>
-      extendedThemeData.baseStyleResolver;
 
   /// The brightness of the theme.
   Brightness get brightness => extendedThemeData.brightness;
+
+  /// The color scheme of the theme.
+  ExtendedColorScheme get colorScheme => extendedThemeData.colorScheme;
 
   /// The minimum dimension for user interactive widgets.
   double get userInteractiveDimension =>
@@ -180,5 +243,38 @@ extension ExtendedThemeDataBuildContextProps on BuildContext {
   /// The border radius for user interactive widgets.
   BorderRadius get userInteractiveBorderRadius =>
       extendedThemeData.userInteractiveBorderRadius;
-  Color get primaryColor => extendedThemeData.primaryColor;
+
+  /// The dimension for small user interactive widgets.
+  double get smallUserInteractiveDimension =>
+      extendedThemeData.smallUserInteractiveDimension;
+
+  /// The padding for small user interactive widgets.
+  EdgeInsets get smallUserInteractivePadding =>
+      extendedThemeData.smallUserInteractivePadding;
+
+  /// The border radius for small user interactive widgets.
+  BorderRadius get smallUserInteractiveBorderRadius =>
+      extendedThemeData.smallUserInteractiveBorderRadius;
+
+  /// The border width for small user interactive widgets.
+  double get smallUserInteractiveBorderWidth =>
+      extendedThemeData.smallUserInteractiveBorderWidth;
+
+  /// The dimension for large user interactive widgets.
+  double get largeUserInteractiveDimension =>
+      extendedThemeData.largeUserInteractiveDimension;
+
+  /// The padding for large user interactive widgets.
+  EdgeInsets get largeUserInteractivePadding =>
+      extendedThemeData.largeUserInteractivePadding;
+
+  /// The border radius for large user interactive widgets.
+  BorderRadius get largeUserInteractiveBorderRadius =>
+      extendedThemeData.largeUserInteractiveBorderRadius;
+
+  /// The border width for large user interactive widgets.
+  double get largeUserInteractiveBorderWidth =>
+      extendedThemeData.largeUserInteractiveBorderWidth;
+  WidgetBaseStyleResolver get baseStyleResolver =>
+      extendedThemeData.baseStyleResolver;
 }

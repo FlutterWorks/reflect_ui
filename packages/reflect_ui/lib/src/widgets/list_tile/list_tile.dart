@@ -5,7 +5,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' show Theme, ThemeData;
+import 'package:flutter/material.dart' show Theme;
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/extensions/color.dart';
 import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
@@ -182,12 +182,13 @@ class _ListTileState extends State<ListTile> {
 
   @override
   Widget build(BuildContext context) {
-    final ExtendedThemeData extendedTheme = ExtendedTheme.of(context);
-    final ThemeData themeData = Theme.of(context);
-    final TextStyle textStyle =
-        themeData.textTheme.bodyMedium ?? const TextStyle();
+    final ExtendedThemeData themeData = ExtendedTheme.of(context);
+    final colorScheme = themeData.colorScheme;
+
+    final textTheme = Theme.of(context).textTheme;
+    final TextStyle textStyle = textTheme.bodyMedium ?? const TextStyle();
     final TextStyle coloredStyle = textStyle.copyWith(
-      color: themeData.colorScheme.onSurfaceVariant,
+      color: colorScheme.onSurface,
     );
 
     final Widget title = DefaultTextStyle(
@@ -214,7 +215,7 @@ class _ListTileState extends State<ListTile> {
     Color? backgroundColor = widget.backgroundColor;
     if (_tapped) {
       backgroundColor = widget.backgroundColorActivated ??
-          extendedTheme.colors.gray
+          colorScheme.secondary
               .withShade(themeData.brightness == Brightness.dark ? 800 : 200);
     }
 
@@ -314,12 +315,11 @@ class ListTileChevron extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final extendedThemeData = ExtendedTheme.of(context);
-
+    final colorScheme = ExtendedTheme.of(context).colorScheme;
     return Icon(
-      extendedThemeData.icons.chevronRight,
+      ExtendedIcons.defaultInstance.chevronRight,
       size: 18.0,
-      color: extendedThemeData.colors.gray.withShade(400),
+      color: colorScheme.secondary.withShade(400),
     );
   }
 }

@@ -8,8 +8,10 @@ import 'package:reflect_ui/src/widgets/gapped_column/gapped_column.dart';
 import 'package:reflect_ui/src/widgets/gapped_row/gapped_row.dart';
 
 export 'alert_kind.dart';
+export 'alert_style.dart';
 export 'alert_variant.dart';
 
+/// A alert widget.
 class Alert extends StatefulWidget {
   const Alert({
     super.key,

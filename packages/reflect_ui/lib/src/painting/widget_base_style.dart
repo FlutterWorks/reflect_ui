@@ -8,8 +8,13 @@ class WidgetBaseStyle {
     this.borderColor,
   });
 
+  /// The background color of the widget.
   final WidgetStateProperty<Color?>? backgroundColor;
+
+  /// The foreground color of the widget.
   final WidgetStateProperty<Color?>? foregroundColor;
+
+  /// The border color of the widget.
   final WidgetStateProperty<Color?>? borderColor;
 
   WidgetStateProperty<BorderSide?>? get side {

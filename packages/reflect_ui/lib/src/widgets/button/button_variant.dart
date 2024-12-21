@@ -1,9 +1,19 @@
 import 'package:reflect_ui/src/painting/widget_variant.dart';
 
+/// The variant of a button.
 enum ButtonVariant with WidgetVariant {
+  /// A filled button.
   filled,
+
+  /// A tinted button.
   tinted,
+
+  /// An outlined button.
   outlined,
+
+  /// A subtle button.
   subtle,
+
+  /// A transparent button.
   transparent,
 }

@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart';
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart'
     show Colors, MaterialApp, SelectableText, Theme, ThemeData;
 import 'package:preview_app/storybook_config.g.dart';
@@ -141,7 +140,8 @@ class StorybookPreviewApp extends StorybookPreviewer
       builder: (context, child) {
         child = ExtendedTheme(
           data: ExtendedThemeData(
-            colors: ThemeBaseColors(
+            brightness: Brightness.light,
+            colorScheme: const ExtendedColorScheme.light(
               primary: ReflectColors.indigo,
               secondary: ReflectColors.neutral,
               success: ReflectColors.green,
@@ -149,15 +149,7 @@ class StorybookPreviewApp extends StorybookPreviewer
               warning: ReflectColors.amber,
               info: ReflectColors.sky,
             ),
-            corners: const ThemeBaseCorners(),
-            shadows: const ThemeBaseShadows(),
-            spacing: const ThemeBaseSpacing(),
-            icons: const ThemeBaseIcons(
-              chevronLeft: FluentIcons.chevron_left_16_regular,
-              chevronRight: FluentIcons.chevron_right_16_regular,
-            ),
             baseStyleResolver: WidgetBaseStyleResolver(),
-            brightness: Brightness.light,
           ),
           child: child!,
         );

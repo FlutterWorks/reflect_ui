@@ -20,7 +20,7 @@ const EdgeInsets _kBackgroundBadgePadding = EdgeInsets.symmetric(
   horizontal: 6.0,
 );
 
-/// An iOS-style badge.
+/// A badge widget.
 ///
 /// Takes in a text or an icon that fades out and in on touch. May optionally have a
 /// background.

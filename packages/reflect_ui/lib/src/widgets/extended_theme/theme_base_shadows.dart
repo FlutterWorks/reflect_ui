@@ -1,3 +1,0 @@
-class ThemeBaseShadows {
-  const ThemeBaseShadows();
-}

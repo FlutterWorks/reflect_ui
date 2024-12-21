@@ -15,7 +15,7 @@ export 'package:reflect_ui/src/widgets/button/button_kind.dart';
 export 'package:reflect_ui/src/widgets/button/button_style.dart';
 export 'package:reflect_ui/src/widgets/button/button_variant.dart';
 
-/// An iOS-style button.
+/// A button widget.
 ///
 /// Takes in a text or an icon that fades out and in on touch. May optionally have a
 /// background.

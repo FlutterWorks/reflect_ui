@@ -5,7 +5,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' show Theme, ThemeData;
+import 'package:flutter/material.dart' show Theme;
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/extensions/color.dart';
 import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
@@ -169,17 +169,19 @@ class NavListItem extends StatefulWidget {
 class _NavListItemState extends State<NavListItem> {
   @override
   Widget build(BuildContext context) {
-    final ExtendedThemeData extendedTheme = ExtendedTheme.of(context);
-    final ThemeData themeData = Theme.of(context);
+    final ExtendedThemeData themeData = ExtendedTheme.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = themeData.colorScheme;
+
     final TextStyle textStyle =
-        (themeData.textTheme.bodyMedium ?? const TextStyle()).copyWith(
+        (textTheme.bodyMedium ?? const TextStyle()).copyWith(
       fontWeight: FontWeight.w500,
       color: themeData.brightness == Brightness.light
-          ? extendedTheme.colors.gray.withShade(700)
-          : extendedTheme.colors.gray.withShade(300),
+          ? colorScheme.secondary.withShade(700)
+          : colorScheme.secondary.withShade(300),
     );
     final TextStyle coloredStyle = textStyle.copyWith(
-      color: themeData.colorScheme.onSurfaceVariant,
+      color: colorScheme.onSurface,
     );
 
     final Widget title = DefaultTextStyle(
@@ -199,8 +201,8 @@ class _NavListItemState extends State<NavListItem> {
     if (widget.selected) {
       backgroundColor = widget.backgroundColorActivated ??
           (themeData.brightness == Brightness.light
-              ? extendedTheme.colors.gray.withShade(100)
-              : extendedTheme.colors.gray.withShade(700));
+              ? colorScheme.secondary.withShade(100)
+              : colorScheme.secondary.withShade(700));
     }
 
     final Widget child = Container(
@@ -224,8 +226,8 @@ class _NavListItemState extends State<NavListItem> {
                     data: IconThemeData(
                       size: widget.leadingSize,
                       color: (themeData.brightness == Brightness.light
-                          ? extendedTheme.colors.gray.withShade(700)
-                          : extendedTheme.colors.gray.withShade(300)),
+                          ? colorScheme.secondary.withShade(700)
+                          : colorScheme.secondary.withShade(300)),
                     ),
                     child: leading,
                   ),

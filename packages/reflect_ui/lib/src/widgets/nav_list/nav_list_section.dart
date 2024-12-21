@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/material.dart' show TextTheme, Theme, ThemeData;
+import 'package:flutter/material.dart' show TextTheme, Theme;
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/extensions/color.dart';
 import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
@@ -169,16 +169,17 @@ class NavListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ExtendedThemeData extendedThemeData = ExtendedTheme.of(context);
-    ThemeData themeData = Theme.of(context);
-    TextTheme textTheme = themeData.textTheme;
+    ExtendedThemeData themeData = ExtendedTheme.of(context);
+    TextTheme textTheme = Theme.of(context).textTheme;
+
+    final colorScheme = themeData.colorScheme;
 
     Widget? headerWidget, footerWidget;
 
     if (header != null) {
       headerWidget = DefaultTextStyle(
         style: textTheme.bodySmall!.copyWith(
-          color: extendedThemeData.colors.gray.withShade(500),
+          color: colorScheme.secondary.withShade(500),
           fontWeight: FontWeight.w600,
         ),
         child: header!,
@@ -187,7 +188,7 @@ class NavListSection extends StatelessWidget {
     if (footer != null) {
       footerWidget = DefaultTextStyle(
         style: textTheme.bodySmall!.copyWith(
-          color: themeData.colorScheme.onSurfaceVariant,
+          color: colorScheme.onSurface,
         ),
         child: footer!,
       );

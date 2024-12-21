@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show TextTheme, Theme;
+import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/extensions/brightness.dart';
 import 'package:reflect_ui/src/extensions/color.dart';
 import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
 
@@ -18,22 +20,14 @@ class Kbd extends StatefulWidget {
 class _KbdState extends State<Kbd> {
   @override
   Widget build(BuildContext context) {
-    final ExtendedThemeData extendedThemeData = ExtendedTheme.of(context);
-    final ThemeData themeData = Theme.of(context);
-    final TextTheme textTheme = themeData.textTheme;
-    final bool isDark = themeData.brightness == Brightness.dark;
+    final ExtendedThemeData themeData = ExtendedTheme.of(context);
 
-    final backgroundColor = isDark
-        ? extendedThemeData.colors.gray.withShade(500)
-        : extendedThemeData.colors.gray.withShade(50);
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    final colorScheme = themeData.colorScheme;
 
-    final borderColor = isDark
-        ? extendedThemeData.colors.gray.withShade(300)
-        : extendedThemeData.colors.gray.withShade(300);
-
-    final labelColor = isDark
-        ? extendedThemeData.colors.gray.withShade(50)
-        : extendedThemeData.colors.gray.withShade(700);
+    final backgroundColor = colorScheme.surfaceContainer;
+    final borderColor = colorScheme.outline;
+    final labelColor = colorScheme.onSurface;
 
     final TextStyle textStyle =
         (textTheme.labelMedium ?? const TextStyle()).copyWith(

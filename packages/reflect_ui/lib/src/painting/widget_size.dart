@@ -1,8 +1,10 @@
 import 'package:flutter/widgets.dart';
 
+/// The size of a widget.
 class WidgetSize extends Size {
   const WidgetSize(this.name) : super(0.0, 0.0);
 
+  /// The name of the size.
   final String name;
 
   @override

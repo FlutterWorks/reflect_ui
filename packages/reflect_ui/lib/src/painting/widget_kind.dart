@@ -1,3 +1,4 @@
+/// The kind of a widget.
 mixin WidgetKind on Enum {
   static const String primary = 'primary';
   static const String secondary = 'secondary';

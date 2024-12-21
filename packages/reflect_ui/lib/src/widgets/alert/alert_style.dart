@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
+/// The style of an alert.
 class AlertStyle with Diagnosticable {
   AlertStyle({
     this.textStyle,

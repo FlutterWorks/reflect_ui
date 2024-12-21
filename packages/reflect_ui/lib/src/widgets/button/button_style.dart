@@ -4,6 +4,9 @@ import 'package:reflect_ui/src/painting/widget_base_style_resolver.dart';
 import 'package:reflect_ui/src/widgets/button/button_kind.dart';
 import 'package:reflect_ui/src/widgets/button/button_variant.dart';
 
+/// The style of a button.
+///
+/// A button style is a set of properties that define the appearance of a button.
 class ButtonStyle with Diagnosticable {
   ButtonStyle({
     this.textStyle,
