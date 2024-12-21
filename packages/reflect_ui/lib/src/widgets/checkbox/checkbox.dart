@@ -6,7 +6,6 @@
 
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/widgets.dart';
-import 'package:reflect_ui/src/foundation/constants.dart';
 import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
 
 // The relative values needed to transform a color to it's equivalent focus
@@ -232,7 +231,7 @@ class _CheckboxState extends State<Checkbox>
         focusNode: widget.focusNode,
         autofocus: widget.autofocus,
         onFocusChange: onFocusChange,
-        size: const Size.square(kMinInteractiveDimensionReflect),
+        size: Size.square(themeData.userInteractiveDimension),
         painter: _painter
           ..focusColor = effectiveFocusOverlayColor
           ..isFocused = focused
@@ -245,7 +244,7 @@ class _CheckboxState extends State<Checkbox>
           ..isActive = widget.onChanged != null
           ..shape = widget.shape ??
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4.0),
+                borderRadius: themeData.userInteractiveBorderRadius,
               )
           ..side = widget.side,
       ),

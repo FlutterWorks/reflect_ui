@@ -110,7 +110,7 @@ class WidgetBaseStyleResolver {
             color: seedColor,
             colorShade: 600,
             hoveredColorShade: 700,
-            pressedColorShade: 700,
+            pressedColorShade: 600,
           ),
           foregroundColor: WidgetStateConfiguredColor(
             color: Colors.white,
@@ -124,8 +124,8 @@ class WidgetBaseStyleResolver {
             colorOpacity: isDark ? 0.15 : null,
             hoveredColorShade: !isDark ? 100 : null,
             hoveredColorOpacity: isDark ? 0.2 : null,
-            pressedColorShade: !isDark ? 100 : null,
-            pressedColorOpacity: isDark ? 0.2 : null,
+            pressedColorShade: !isDark ? 50 : null,
+            pressedColorOpacity: isDark ? 0.15 : null,
           ),
           foregroundColor: WidgetStateConfiguredColor(
             color: seedColor,

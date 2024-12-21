@@ -24,6 +24,12 @@ class ExtendedThemeData extends ThemeExtension<ExtendedThemeData>
     required this.spacing,
     required this.icons,
     required this.baseStyleResolver,
+    required this.brightness,
+    this.userInteractiveDimension = 28.0,
+    this.userInteractivePadding = const EdgeInsets.all(6.0),
+    this.userInteractiveBorderRadius =
+        const BorderRadius.all(Radius.circular(6.0)),
+    this.userInteractiveBorderWidth = 1.0,
   });
 
   final ThemeBaseColors colors;
@@ -39,6 +45,21 @@ class ExtendedThemeData extends ThemeExtension<ExtendedThemeData>
     }
     return colors.primary;
   }
+
+  /// The brightness of the theme.
+  final Brightness brightness;
+
+  /// The minimum dimension for user interactive widgets.
+  final double userInteractiveDimension;
+
+  /// The padding for user interactive widgets.
+  final EdgeInsets userInteractivePadding;
+
+  /// The border width for user interactive widgets.
+  final double userInteractiveBorderWidth;
+
+  /// The border radius for user interactive widgets.
+  final BorderRadius userInteractiveBorderRadius;
 }
 
 class ExtendedTheme extends InheritedTheme {

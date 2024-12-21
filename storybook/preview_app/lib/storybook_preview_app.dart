@@ -157,6 +157,7 @@ class StorybookPreviewApp extends StorybookPreviewer
               chevronRight: FluentIcons.chevron_right_16_regular,
             ),
             baseStyleResolver: WidgetBaseStyleResolver(),
+            brightness: Brightness.light,
           ),
           child: child!,
         );

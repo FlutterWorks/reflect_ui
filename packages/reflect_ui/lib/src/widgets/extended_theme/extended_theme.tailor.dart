@@ -16,6 +16,11 @@ mixin _$ExtendedThemeDataTailorMixin
   ThemeBaseSpacing get spacing;
   ThemeBaseIcons get icons;
   WidgetBaseStyleResolver get baseStyleResolver;
+  Brightness get brightness;
+  double get userInteractiveDimension;
+  EdgeInsets get userInteractivePadding;
+  double get userInteractiveBorderWidth;
+  BorderRadius get userInteractiveBorderRadius;
   Color get primaryColor;
 
   @override
@@ -26,6 +31,11 @@ mixin _$ExtendedThemeDataTailorMixin
     ThemeBaseSpacing? spacing,
     ThemeBaseIcons? icons,
     WidgetBaseStyleResolver? baseStyleResolver,
+    Brightness? brightness,
+    double? userInteractiveDimension,
+    EdgeInsets? userInteractivePadding,
+    double? userInteractiveBorderWidth,
+    BorderRadius? userInteractiveBorderRadius,
     Color? primaryColor,
   }) {
     return ExtendedThemeData(
@@ -35,6 +45,15 @@ mixin _$ExtendedThemeDataTailorMixin
       spacing: spacing ?? this.spacing,
       icons: icons ?? this.icons,
       baseStyleResolver: baseStyleResolver ?? this.baseStyleResolver,
+      brightness: brightness ?? this.brightness,
+      userInteractiveDimension:
+          userInteractiveDimension ?? this.userInteractiveDimension,
+      userInteractivePadding:
+          userInteractivePadding ?? this.userInteractivePadding,
+      userInteractiveBorderWidth:
+          userInteractiveBorderWidth ?? this.userInteractiveBorderWidth,
+      userInteractiveBorderRadius:
+          userInteractiveBorderRadius ?? this.userInteractiveBorderRadius,
     );
   }
 
@@ -49,6 +68,17 @@ mixin _$ExtendedThemeDataTailorMixin
       spacing: t < 0.5 ? spacing : other.spacing,
       icons: t < 0.5 ? icons : other.icons,
       baseStyleResolver: t < 0.5 ? baseStyleResolver : other.baseStyleResolver,
+      brightness: t < 0.5 ? brightness : other.brightness,
+      userInteractiveDimension:
+          t < 0.5 ? userInteractiveDimension : other.userInteractiveDimension,
+      userInteractivePadding:
+          t < 0.5 ? userInteractivePadding : other.userInteractivePadding,
+      userInteractiveBorderWidth: t < 0.5
+          ? userInteractiveBorderWidth
+          : other.userInteractiveBorderWidth,
+      userInteractiveBorderRadius: t < 0.5
+          ? userInteractiveBorderRadius
+          : other.userInteractiveBorderRadius,
     );
   }
 
@@ -65,6 +95,16 @@ mixin _$ExtendedThemeDataTailorMixin
             const DeepCollectionEquality()
                 .equals(baseStyleResolver, other.baseStyleResolver) &&
             const DeepCollectionEquality()
+                .equals(brightness, other.brightness) &&
+            const DeepCollectionEquality().equals(
+                userInteractiveDimension, other.userInteractiveDimension) &&
+            const DeepCollectionEquality()
+                .equals(userInteractivePadding, other.userInteractivePadding) &&
+            const DeepCollectionEquality().equals(
+                userInteractiveBorderWidth, other.userInteractiveBorderWidth) &&
+            const DeepCollectionEquality().equals(userInteractiveBorderRadius,
+                other.userInteractiveBorderRadius) &&
+            const DeepCollectionEquality()
                 .equals(primaryColor, other.primaryColor));
   }
 
@@ -78,6 +118,11 @@ mixin _$ExtendedThemeDataTailorMixin
       const DeepCollectionEquality().hash(spacing),
       const DeepCollectionEquality().hash(icons),
       const DeepCollectionEquality().hash(baseStyleResolver),
+      const DeepCollectionEquality().hash(brightness),
+      const DeepCollectionEquality().hash(userInteractiveDimension),
+      const DeepCollectionEquality().hash(userInteractivePadding),
+      const DeepCollectionEquality().hash(userInteractiveBorderWidth),
+      const DeepCollectionEquality().hash(userInteractiveBorderRadius),
       const DeepCollectionEquality().hash(primaryColor),
     );
   }
@@ -93,6 +138,15 @@ mixin _$ExtendedThemeDataTailorMixin
       ..add(DiagnosticsProperty('spacing', spacing))
       ..add(DiagnosticsProperty('icons', icons))
       ..add(DiagnosticsProperty('baseStyleResolver', baseStyleResolver))
+      ..add(DiagnosticsProperty('brightness', brightness))
+      ..add(DiagnosticsProperty(
+          'userInteractiveDimension', userInteractiveDimension))
+      ..add(
+          DiagnosticsProperty('userInteractivePadding', userInteractivePadding))
+      ..add(DiagnosticsProperty(
+          'userInteractiveBorderWidth', userInteractiveBorderWidth))
+      ..add(DiagnosticsProperty(
+          'userInteractiveBorderRadius', userInteractiveBorderRadius))
       ..add(DiagnosticsProperty('primaryColor', primaryColor));
   }
 }
@@ -107,5 +161,24 @@ extension ExtendedThemeDataBuildContextProps on BuildContext {
   ThemeBaseIcons get icons => extendedThemeData.icons;
   WidgetBaseStyleResolver get baseStyleResolver =>
       extendedThemeData.baseStyleResolver;
+
+  /// The brightness of the theme.
+  Brightness get brightness => extendedThemeData.brightness;
+
+  /// The minimum dimension for user interactive widgets.
+  double get userInteractiveDimension =>
+      extendedThemeData.userInteractiveDimension;
+
+  /// The padding for user interactive widgets.
+  EdgeInsets get userInteractivePadding =>
+      extendedThemeData.userInteractivePadding;
+
+  /// The border width for user interactive widgets.
+  double get userInteractiveBorderWidth =>
+      extendedThemeData.userInteractiveBorderWidth;
+
+  /// The border radius for user interactive widgets.
+  BorderRadius get userInteractiveBorderRadius =>
+      extendedThemeData.userInteractiveBorderRadius;
   Color get primaryColor => extendedThemeData.primaryColor;
 }

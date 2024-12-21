@@ -7,13 +7,8 @@
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:reflect_ui/src/foundation/constants.dart';
 import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
 
-const Size _size = Size(
-  kMinInteractiveDimensionReflect,
-  kMinInteractiveDimensionReflect,
-);
 const double _kOuterRadius = 8.0;
 const double _kInnerRadius = 3.6;
 
@@ -299,8 +294,9 @@ class _RadioState<T> extends State<Radio<T>>
         focusNode: widget.focusNode,
         autofocus: widget.autofocus,
         onFocusChange: onFocusChange,
-        size: _size,
+        size: Size.square(themeData.userInteractiveDimension),
         painter: _painter
+          ..size = Size.square(themeData.userInteractiveDimension)
           ..focusColor = effectiveFocusOverlayColor
           ..downPosition = downPosition
           ..isFocused = focused
@@ -324,6 +320,16 @@ class _RadioPainter extends ToggleablePainter {
       return;
     }
     _value = value;
+    notifyListeners();
+  }
+
+  Size? _size;
+
+  set size(Size value) {
+    if (_size == value) {
+      return;
+    }
+    _size = value;
     notifyListeners();
   }
 
@@ -372,7 +378,7 @@ class _RadioPainter extends ToggleablePainter {
           ..style = PaintingStyle.stroke
           ..strokeWidth = 1.8
           ..strokeCap = StrokeCap.round;
-        final double width = _size.width * 0.56;
+        final double width = _size!.width * 0.56;
         final Offset origin =
             Offset(center.dx - (width / 2), center.dy - (width / 2));
         final Offset start = Offset(width * 0.28, width * 0.5);
