@@ -7,6 +7,7 @@
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:reflect_ui/reflect_ui.dart';
 import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
 
 const double _kOuterRadius = 8.0;
@@ -297,7 +298,8 @@ class _RadioState<T> extends State<Radio<T>>
         onFocusChange: onFocusChange,
         size: Size.square(themeData.userInteractiveDimension),
         painter: _painter
-          ..size = Size.square(themeData.userInteractiveDimension)
+          ..dimension = themeData.userInteractiveDimension *
+              kUserInteractiveDimensionTertiaryScale
           ..focusColor = effectiveFocusOverlayColor
           ..downPosition = downPosition
           ..isFocused = focused
@@ -314,6 +316,16 @@ class _RadioState<T> extends State<Radio<T>>
 }
 
 class _RadioPainter extends ToggleablePainter {
+  double? _dimension;
+
+  set dimension(double value) {
+    if (_dimension == value) {
+      return;
+    }
+    _dimension = value;
+    notifyListeners();
+  }
+
   bool? get value => _value;
   bool? _value;
   set value(bool? value) {
@@ -321,16 +333,6 @@ class _RadioPainter extends ToggleablePainter {
       return;
     }
     _value = value;
-    notifyListeners();
-  }
-
-  Size? _size;
-
-  set size(Size value) {
-    if (_size == value) {
-      return;
-    }
-    _size = value;
     notifyListeners();
   }
 
@@ -356,6 +358,12 @@ class _RadioPainter extends ToggleablePainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    final double scale =
+        _dimension! / (28.0 * kUserInteractiveDimensionTertiaryScale);
+
+    final double outerRadius = _kOuterRadius * scale;
+    final double innerRadius = _kInnerRadius * scale;
+
     final Offset center = (Offset.zero & size).center;
 
     final Paint paint = Paint()
@@ -368,9 +376,9 @@ class _RadioPainter extends ToggleablePainter {
         // Draw the circle
         paint.color = activeColor;
         paint.style = PaintingStyle.stroke;
-        canvas.drawCircle(center, _kOuterRadius, paint);
+        canvas.drawCircle(center, outerRadius, paint);
         paint.style = PaintingStyle.fill;
-        canvas.drawCircle(center, _kOuterRadius, paint);
+        canvas.drawCircle(center, outerRadius, paint);
 
         // Draw the check mark.
         final Path path = Path();
@@ -379,7 +387,7 @@ class _RadioPainter extends ToggleablePainter {
           ..style = PaintingStyle.stroke
           ..strokeWidth = 1.8
           ..strokeCap = StrokeCap.round;
-        final double width = _size!.width * 0.56;
+        final double width = _dimension!;
         final Offset origin =
             Offset(center.dx - (width / 2), center.dy - (width / 2));
         final Offset start = Offset(width * 0.28, width * 0.5);
@@ -394,18 +402,18 @@ class _RadioPainter extends ToggleablePainter {
       }
     } else {
       // Outer border
-      canvas.drawCircle(center, _kOuterRadius, paint);
+      canvas.drawCircle(center, outerRadius, paint);
 
       paint.style = PaintingStyle.stroke;
       paint.color = value == true ? activeColor : CupertinoColors.inactiveGray;
-      canvas.drawCircle(center, _kOuterRadius, paint);
+      canvas.drawCircle(center, outerRadius, paint);
 
       if (value ?? false) {
         paint.style = PaintingStyle.fill;
         paint.color = activeColor;
-        canvas.drawCircle(center, _kOuterRadius, paint);
+        canvas.drawCircle(center, outerRadius, paint);
         paint.color = fillColor;
-        canvas.drawCircle(center, _kInnerRadius, paint);
+        canvas.drawCircle(center, innerRadius, paint);
       }
     }
 
@@ -413,7 +421,7 @@ class _RadioPainter extends ToggleablePainter {
       paint.style = PaintingStyle.stroke;
       paint.color = focusColor;
       paint.strokeWidth = 3.0;
-      canvas.drawCircle(center, _kOuterRadius + 1.5, paint);
+      canvas.drawCircle(center, outerRadius + (1.5 * scale), paint);
     }
   }
 }

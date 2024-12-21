@@ -1351,8 +1351,8 @@ class CheckboxMenuButton extends StatelessWidget {
         child: IgnorePointer(
           child: ConstrainedBox(
             constraints: const BoxConstraints(
-              maxHeight: Checkbox.width,
-              maxWidth: Checkbox.width,
+              // maxHeight: Checkbox.width,
+              // maxWidth: Checkbox.width,
             ),
             child: Checkbox(
               tristate: tristate,
@@ -1549,8 +1549,8 @@ class RadioMenuButton<T> extends StatelessWidget {
         child: IgnorePointer(
           child: ConstrainedBox(
             constraints: const BoxConstraints(
-              maxHeight: Checkbox.width,
-              maxWidth: Checkbox.width,
+              // maxHeight: Checkbox.width,
+              // maxWidth: Checkbox.width,
             ),
             child: Radio<T>(
               value: value,

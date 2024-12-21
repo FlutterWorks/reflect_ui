@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart'
-    show Colors, MaterialApp, SelectableText, Theme, ThemeData;
+    show Colors, MaterialApp, SelectableText, Theme;
 import 'package:preview_app/storybook_config.g.dart';
+import 'package:preview_app/themes/dark.dart';
 import 'package:preview_app/themes/light.dart';
-import 'package:reflect_colors/reflect_colors.dart';
 import 'package:reflect_ui/reflect_ui.dart';
 import 'package:storybook_dart/annotations.dart' as storybook;
 import 'package:storybook_dart/storybook_dart.dart';
@@ -22,6 +22,9 @@ class _HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<_HomePage> {
+  Brightness _brightness = Brightness.light;
+  bool _useMobileTheme = false;
+
   String _selectedStoryId = '';
 
   Widget _buildBodyWithSingleStory(
@@ -109,14 +112,67 @@ class _HomePageState extends State<_HomePage> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _build(BuildContext context) {
     final storyId = Uri.base.queryParameters['id'];
 
     return Scaffold(
       body: storyId != null
           ? _buildBodyWithSingleStory(context, storyId: storyId)
           : _buildBody(context),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final themeData = _useMobileTheme
+        ? _brightness == Brightness.light
+            ? mobileLightTheme
+            : mobileDarkTheme
+        : _brightness == Brightness.light
+            ? lightTheme
+            : darkTheme;
+    return ExtendedTheme(
+      data: themeData,
+      child: Stack(
+        children: [
+          _build(context),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              color: Colors.red,
+              width: 240,
+              height: 100,
+              child: Row(
+                children: [
+                  for (final brightness in [
+                    Brightness.light,
+                    Brightness.dark,
+                  ])
+                    Radio<Brightness>(
+                      value: brightness,
+                      groupValue: _brightness,
+                      onChanged: (value) {
+                        setState(() {
+                          _brightness = value!;
+                        });
+                      },
+                    ),
+                  Switch(
+                    value: _useMobileTheme,
+                    onChanged: (value) {
+                      setState(() {
+                        _useMobileTheme = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -127,34 +183,11 @@ class StorybookPreviewApp extends StorybookPreviewer
   const StorybookPreviewApp({super.key});
 
   @override
-  ThemeData get theme => lightTheme;
-
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'StorybookPreviewer',
       theme: theme,
-      home: _HomePage(
-        config: config,
-      ),
-      builder: (context, child) {
-        child = ExtendedTheme(
-          data: ExtendedThemeData(
-            brightness: Brightness.light,
-            colorScheme: const ExtendedColorScheme.light(
-              primary: ReflectColors.indigo,
-              secondary: ReflectColors.neutral,
-              success: ReflectColors.green,
-              danger: ReflectColors.red,
-              warning: ReflectColors.amber,
-              info: ReflectColors.sky,
-            ),
-            baseStyleResolver: WidgetBaseStyleResolver(),
-          ),
-          child: child!,
-        );
-        return child;
-      },
+      home: _HomePage(config: config),
     );
   }
 }

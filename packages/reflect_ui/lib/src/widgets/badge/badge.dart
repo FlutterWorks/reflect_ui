@@ -5,6 +5,7 @@
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/material.dart' show TextTheme, Theme;
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/foundation/constants.dart';
 import 'package:reflect_ui/src/painting/widget_base_style.dart';
 import 'package:reflect_ui/src/widgets/badge/badge_kind.dart';
 import 'package:reflect_ui/src/widgets/badge/badge_style.dart';
@@ -55,7 +56,6 @@ class Badge extends StatefulWidget {
     this.padding,
     this.color,
     this.disabledColor = CupertinoColors.quaternarySystemFill,
-    this.minSize = 16,
     this.borderRadius = const BorderRadius.all(Radius.circular(16)),
     this.alignment = Alignment.center,
   });
@@ -65,10 +65,19 @@ class Badge extends StatefulWidget {
   /// Typically a [Text] widget.
   final Widget child;
 
+  /// The style of the badge.
+  ///
+  /// Defaults to null.
   final BadgeStyle? style;
 
+  /// The variant of the badge.
+  ///
+  /// Defaults to [BadgeVariant.filled].
   final BadgeVariant variant;
 
+  /// The kind of the badge.
+  ///
+  /// Defaults to [BadgeKind.primary].
   final BadgeKind kind;
 
   /// The amount of space to surround the child inside the bounds of the badge.
@@ -91,12 +100,6 @@ class Badge extends StatefulWidget {
   /// Defaults to [CupertinoColors.quaternarySystemFill] when [color] is
   /// specified.
   final Color disabledColor;
-
-  /// Minimum size of the badge.
-  ///
-  /// Defaults to kMinInteractiveDimensionCupertino which the iOS Human
-  /// Interface Guidelines recommends as the minimum tappable area.
-  final double? minSize;
 
   /// The radius of the badge's corners when it has a background color.
   ///
@@ -156,17 +159,20 @@ class _BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         IconTheme.of(context).copyWith(color: foregroundColor);
 
     return ConstrainedBox(
-      constraints: widget.minSize == null
-          ? const BoxConstraints()
-          : BoxConstraints(
-              minWidth: widget.minSize!,
-              minHeight: widget.minSize!,
-            ),
-      child: DecoratedBox(
+      constraints: BoxConstraints(
+        minWidth: themeData.userInteractiveDimension *
+            kUserInteractiveDimensionTertiaryScale,
+        minHeight: themeData.userInteractiveDimension *
+            kUserInteractiveDimensionTertiaryScale,
+      ),
+      child: Container(
         decoration: BoxDecoration(
-          border: side != null ? Border.fromBorderSide(side) : null,
           borderRadius: widget.borderRadius,
           color: backgroundColor,
+        ),
+        foregroundDecoration: BoxDecoration(
+          border: side != null ? Border.fromBorderSide(side) : null,
+          borderRadius: widget.borderRadius,
         ),
         child: Padding(
           padding: widget.padding ??

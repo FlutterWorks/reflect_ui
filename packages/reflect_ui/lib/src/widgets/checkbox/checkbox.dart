@@ -6,6 +6,7 @@
 
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/foundation/constants.dart';
 import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
 
 // The relative values needed to transform a color to it's equivalent focus
@@ -156,9 +157,6 @@ class Checkbox extends StatefulWidget {
   /// [RoundedRectangleBorder] with a circular corner radius of 4.0.
   final OutlinedBorder? shape;
 
-  /// The width of a checkbox widget.
-  static const double width = 16.0;
-
   @override
   State<Checkbox> createState() => _CheckboxState();
 }
@@ -234,6 +232,8 @@ class _CheckboxState extends State<Checkbox>
         onFocusChange: onFocusChange,
         size: Size.square(themeData.userInteractiveDimension),
         painter: _painter
+          ..dimension = themeData.userInteractiveDimension *
+              kUserInteractiveDimensionTertiaryScale
           ..focusColor = effectiveFocusOverlayColor
           ..isFocused = focused
           ..downPosition = downPosition
@@ -245,7 +245,7 @@ class _CheckboxState extends State<Checkbox>
           ..isActive = widget.onChanged != null
           ..shape = widget.shape ??
               RoundedRectangleBorder(
-                borderRadius: themeData.userInteractiveBorderRadius,
+                borderRadius: themeData.userInteractiveBorderRadius / 2,
               )
           ..side = widget.side,
       ),
@@ -254,6 +254,16 @@ class _CheckboxState extends State<Checkbox>
 }
 
 class _CheckboxPainter extends ToggleablePainter {
+  double _dimension = 16.0;
+
+  set dimension(double value) {
+    if (_dimension == value) {
+      return;
+    }
+    _dimension = value;
+    notifyListeners();
+  }
+
   Color get checkColor => _checkColor!;
   Color? _checkColor;
   set checkColor(Color value) {
@@ -305,8 +315,12 @@ class _CheckboxPainter extends ToggleablePainter {
   }
 
   Rect _outerRectAt(Offset origin) {
-    const double size = Checkbox.width;
-    final Rect rect = Rect.fromLTWH(origin.dx, origin.dy, size, size);
+    final Rect rect = Rect.fromLTWH(
+      origin.dx,
+      origin.dy,
+      _dimension,
+      _dimension,
+    );
     return rect;
   }
 
@@ -340,9 +354,9 @@ class _CheckboxPainter extends ToggleablePainter {
     // The ratios for the offsets below were found from looking at the checkbox
     // examples on in the HIG docs. The distance from the needed point to the
     // edge was measured, then divided by the total width.
-    const Offset start = Offset(Checkbox.width * 0.28, Checkbox.width * 0.5);
-    const Offset mid = Offset(Checkbox.width * 0.43, Checkbox.width * 0.65);
-    const Offset end = Offset(Checkbox.width * 0.72, Checkbox.width * 0.35);
+    final Offset start = Offset(_dimension * 0.28, _dimension * 0.5);
+    final Offset mid = Offset(_dimension * 0.43, _dimension * 0.65);
+    final Offset end = Offset(_dimension * 0.72, _dimension * 0.35);
     path.moveTo(origin.dx + start.dx, origin.dy + start.dy);
     path.lineTo(origin.dx + mid.dx, origin.dy + mid.dy);
     canvas.drawPath(path, paint);
@@ -354,16 +368,15 @@ class _CheckboxPainter extends ToggleablePainter {
   void _drawDash(Canvas canvas, Offset origin, Paint paint) {
     // From measuring the checkbox example in the HIG docs, the dash was found
     // to be half the total width, centered in the middle.
-    const Offset start = Offset(Checkbox.width * 0.28, Checkbox.width * 0.5);
-    const Offset end = Offset(Checkbox.width * 0.72, Checkbox.width * 0.5);
+    final Offset start = Offset(_dimension * 0.28, _dimension * 0.5);
+    final Offset end = Offset(_dimension * 0.72, _dimension * 0.5);
     canvas.drawLine(origin + start, origin + end, paint);
   }
 
   @override
   void paint(Canvas canvas, Size size) {
     final Paint strokePaint = _createStrokePaint();
-    final Offset origin =
-        size / 2.0 - const Size.square(Checkbox.width) / 2.0 as Offset;
+    final Offset origin = size / 2.0 - Size.square(_dimension) / 2.0 as Offset;
 
     final Rect outer = _outerRectAt(origin);
     final Paint paint = Paint()..color = _colorAt(value ?? true);

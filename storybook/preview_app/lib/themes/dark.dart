@@ -10,19 +10,16 @@ const _colorScheme = ExtendedColorScheme.light(
   info: ReflectColors.sky,
 );
 
-/// A light theme for desktop.
-final lightTheme = ExtendedThemeData(
-  brightness: Brightness.light,
+/// A dark theme for desktop.
+final darkTheme = ExtendedThemeData(
+  brightness: Brightness.dark,
   colorScheme: _colorScheme,
   baseStyleResolver: WidgetBaseStyleResolver(),
 );
 
-/// A light theme for mobile.
-final mobileLightTheme = ExtendedThemeData(
-  brightness: Brightness.light,
+/// A dark theme for mobile.
+final mobileDarkTheme = ExtendedThemeData(
+  brightness: Brightness.dark,
   colorScheme: _colorScheme,
-  userInteractiveDimension: 34.0,
-  userInteractivePadding: const EdgeInsets.all(6.0),
-  userInteractiveBorderRadius: const BorderRadius.all(Radius.circular(6.0)),
   baseStyleResolver: WidgetBaseStyleResolver(),
 );
