@@ -4,9 +4,9 @@ import 'package:flutter/widgets.dart';
 
 /// A color scheme that defines the colors of the theme.
 @immutable
-class ExtendedColorScheme with Diagnosticable {
-  /// Create a ExtendedColorScheme instance from the given colors.
-  const ExtendedColorScheme({
+class ColorScheme with Diagnosticable {
+  /// Create a ColorScheme instance from the given colors.
+  const ColorScheme({
     required this.primary,
     required this.secondary,
     required this.tertiary,
@@ -21,7 +21,7 @@ class ExtendedColorScheme with Diagnosticable {
   });
 
   /// Create the light color scheme.
-  const ExtendedColorScheme.light({
+  const ColorScheme.light({
     this.primary = Colors.blue,
     this.secondary = Colors.green,
     this.tertiary = Colors.yellow,
@@ -36,7 +36,7 @@ class ExtendedColorScheme with Diagnosticable {
   });
 
   /// Create the dark color scheme.
-  const ExtendedColorScheme.dark({
+  const ColorScheme.dark({
     this.primary = Colors.blue,
     this.secondary = Colors.green,
     this.tertiary = Colors.yellow,
@@ -93,7 +93,7 @@ class ExtendedColorScheme with Diagnosticable {
 
   /// Creates a copy of this color scheme with the given fields
   /// replaced by the non-null parameter values.
-  ExtendedColorScheme copyWith({
+  ColorScheme copyWith({
     Color? primary,
     Color? secondary,
     Color? tertiary,
@@ -106,7 +106,7 @@ class ExtendedColorScheme with Diagnosticable {
     Color? surfaceContainer,
     Color? outline,
   }) {
-    return ExtendedColorScheme(
+    return ColorScheme(
       primary: primary ?? this.primary,
       secondary: secondary ?? this.secondary,
       tertiary: tertiary ?? this.tertiary,
@@ -121,18 +121,18 @@ class ExtendedColorScheme with Diagnosticable {
     );
   }
 
-  /// Linearly interpolate between two [ExtendedColorScheme] objects.
+  /// Linearly interpolate between two [ColorScheme] objects.
   ///
   /// {@macro dart.ui.shadow.lerp}
-  static ExtendedColorScheme lerp(
-    ExtendedColorScheme a,
-    ExtendedColorScheme b,
+  static ColorScheme lerp(
+    ColorScheme a,
+    ColorScheme b,
     double t,
   ) {
     if (identical(a, b)) {
       return a;
     }
-    return ExtendedColorScheme(
+    return ColorScheme(
       primary: Color.lerp(a.primary, b.primary, t)!,
       secondary: Color.lerp(a.secondary, b.secondary, t)!,
       tertiary: Color.lerp(a.tertiary, b.tertiary, t)!,
@@ -155,7 +155,7 @@ class ExtendedColorScheme with Diagnosticable {
     if (other.runtimeType != runtimeType) {
       return false;
     }
-    return other is ExtendedColorScheme &&
+    return other is ColorScheme &&
         other.primary == primary &&
         other.secondary == secondary &&
         other.tertiary == tertiary &&
@@ -187,7 +187,7 @@ class ExtendedColorScheme with Diagnosticable {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    const ExtendedColorScheme s = ExtendedColorScheme.light();
+    const ColorScheme s = ColorScheme.light();
 
     properties.add(
       ColorProperty('primary', primary, defaultValue: s.primary),

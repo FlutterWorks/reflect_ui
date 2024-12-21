@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart' show TextTheme, Theme;
 import 'package:flutter/widgets.dart';
-import 'package:reflect_ui/src/extensions/brightness.dart';
-import 'package:reflect_ui/src/extensions/color.dart';
 import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
 
 /// Display keyboard button or keys combination

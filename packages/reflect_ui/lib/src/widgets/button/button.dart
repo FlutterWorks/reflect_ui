@@ -2,9 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' show TextTheme, Theme;
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/widgets/button/button_kind.dart';
 import 'package:reflect_ui/src/widgets/button/button_style.dart';
@@ -49,7 +47,6 @@ class Button extends StatefulWidget {
     this.kind = ButtonKind.primary,
     this.padding,
     this.color,
-    this.disabledColor = CupertinoColors.quaternarySystemFill,
     this.borderRadius,
     this.alignment = Alignment.center,
     this.focusNode,
@@ -89,14 +86,6 @@ class Button extends StatefulWidget {
   ///
   /// Defaults to the [ExtendedTheme]'s `primaryColor`.
   final Color? color;
-
-  /// The color of the button's background when the button is disabled.
-  ///
-  /// Ignored if the [Button] doesn't also have a [color].
-  ///
-  /// Defaults to [CupertinoColors.quaternarySystemFill] when [color] is
-  /// specified.
-  final Color disabledColor;
 
   /// The callback that is called when the button is tapped or otherwise activated.
   ///
@@ -197,7 +186,6 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final ExtendedThemeData themeData = ExtendedTheme.of(context);
-    final TextTheme textTheme = Theme.of(context).textTheme;
     final bool enabled = widget.enabled;
 
     ButtonStyle style = widget.style ??
@@ -213,7 +201,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
     final Color? foregroundColor = style.foregroundColor?.resolve(states);
     final BorderSide? side = style.side?.resolve(states);
     final TextStyle? textStyle =
-        (style.textStyle?.resolve(states) ?? textTheme.labelMedium)?.copyWith(
+        (style.textStyle?.resolve(states) ?? themeData.labelStyle)?.copyWith(
       color: foregroundColor,
     );
 

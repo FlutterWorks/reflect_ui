@@ -23,7 +23,6 @@ class IconButton extends Button {
     super.kind,
     super.padding = const EdgeInsets.all(2),
     super.color,
-    super.disabledColor,
     super.borderRadius,
     super.alignment,
     super.focusNode,

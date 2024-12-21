@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show Theme, ThemeExtension;
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/painting/widget_base_style_resolver.dart';
-import 'package:reflect_ui/src/widgets/extended_theme/extended_color_scheme.dart';
+import 'package:reflect_ui/src/widgets/extended_theme/color_scheme.dart';
 import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
 
 export 'extended_icons.dart';
@@ -17,21 +17,34 @@ class ExtendedThemeData extends ThemeExtension<ExtendedThemeData>
   const ExtendedThemeData({
     required this.brightness,
     required this.colorScheme,
+    this.titleStyle,
+    this.labelStyle,
+    this.bodyStyle,
     this.userInteractiveDimension = 28.0,
     this.userInteractivePadding = const EdgeInsets.all(6.0),
     this.userInteractiveBorderRadius =
         const BorderRadius.all(Radius.circular(6.0)),
     this.userInteractiveBorderWidth = 1.0,
+
+    /// small
+    this.smallTitleStyle,
+    this.smallLabelStyle,
+    this.smallBodyStyle,
     this.smallUserInteractiveDimension = 24.0,
     this.smallUserInteractivePadding = const EdgeInsets.all(4.0),
     this.smallUserInteractiveBorderRadius =
         const BorderRadius.all(Radius.circular(4.0)),
     this.smallUserInteractiveBorderWidth = 1.0,
+
+    /// large
     this.largeUserInteractiveDimension = 32.0,
     this.largeUserInteractivePadding = const EdgeInsets.all(8.0),
     this.largeUserInteractiveBorderRadius =
         const BorderRadius.all(Radius.circular(8.0)),
     this.largeUserInteractiveBorderWidth = 1.0,
+    this.largeTitleStyle,
+    this.largeLabelStyle,
+    this.largeBodyStyle,
     required this.baseStyleResolver,
   });
 
@@ -39,7 +52,16 @@ class ExtendedThemeData extends ThemeExtension<ExtendedThemeData>
   final Brightness brightness;
 
   /// The color scheme of the theme.
-  final ExtendedColorScheme colorScheme;
+  final ColorScheme colorScheme;
+
+  /// The title text style for the theme.
+  final TextStyle? titleStyle;
+
+  /// The label text style for the theme.
+  final TextStyle? labelStyle;
+
+  /// The body text style for the theme.
+  final TextStyle? bodyStyle;
 
   /// The minimum dimension for user interactive widgets.
   final double userInteractiveDimension;
@@ -54,6 +76,15 @@ class ExtendedThemeData extends ThemeExtension<ExtendedThemeData>
   final BorderRadius userInteractiveBorderRadius;
 
   // #region Small User Interactive Widgets
+
+  /// The small title text style for the theme.
+  final TextStyle? smallTitleStyle;
+
+  /// The small label text style for the theme.
+  final TextStyle? smallLabelStyle;
+
+  /// The small body text style for the theme.
+  final TextStyle? smallBodyStyle;
 
   /// The dimension for small user interactive widgets.
   final double smallUserInteractiveDimension;
@@ -71,6 +102,15 @@ class ExtendedThemeData extends ThemeExtension<ExtendedThemeData>
 
   // #region Large User Interactive Widgets
 
+  /// The large title text style for the theme.
+  final TextStyle? largeTitleStyle;
+
+  /// The large label text style for the theme.
+  final TextStyle? largeLabelStyle;
+
+  /// The large body text style for the theme.
+  final TextStyle? largeBodyStyle;
+
   /// The dimension for large user interactive widgets.
   final double largeUserInteractiveDimension;
 
@@ -85,6 +125,7 @@ class ExtendedThemeData extends ThemeExtension<ExtendedThemeData>
 
   // #endregion
 
+  /// The base style resolver for the theme.
   final WidgetBaseStyleResolver baseStyleResolver;
 }
 
@@ -107,6 +148,18 @@ class ExtendedTheme extends InheritedTheme {
 
   @override
   Widget wrap(BuildContext context, Widget child) {
-    return ExtendedTheme(data: data, child: child);
+    return ExtendedTheme(
+      data: data,
+      child: DefaultTextStyle(
+        style: (data.bodyStyle ?? const TextStyle()).copyWith(
+          color: data.colorScheme.onSurface,
+        ),
+        child: DefaultSelectionStyle(
+          cursorColor: data.colorScheme.onSurface,
+          selectionColor: data.colorScheme.primary,
+          child: child,
+        ),
+      ),
+    );
   }
 }
