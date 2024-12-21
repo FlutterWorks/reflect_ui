@@ -31,6 +31,11 @@ final lightTheme = ExtendedThemeData(
     fontSize: 14,
     height: 18 / 14,
   ),
+  smallBodyStyle: const TextStyle(
+    fontFamily: _kDefaultFontFamily,
+    fontSize: 12,
+    height: 16 / 12,
+  ),
   baseStyleResolver: WidgetBaseStyleResolver(),
 );
 
@@ -52,5 +57,10 @@ final mobileLightTheme = ExtendedThemeData(
   userInteractiveDimension: 34.0,
   userInteractivePadding: const EdgeInsets.all(8.0),
   userInteractiveBorderRadius: const BorderRadius.all(Radius.circular(6.0)),
+  smallBodyStyle: const TextStyle(
+    fontFamily: _kDefaultFontFamily,
+    fontSize: 14,
+    height: 18 / 14,
+  ),
   baseStyleResolver: WidgetBaseStyleResolver(),
 );

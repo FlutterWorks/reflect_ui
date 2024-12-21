@@ -130,47 +130,56 @@ class _HomePageState extends State<_HomePage> {
         : _brightness == Brightness.light
             ? lightTheme
             : darkTheme;
-    return ExtendedTheme(
-      data: themeData,
-      child: Stack(
-        children: [
-          _build(context),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              color: Colors.red,
-              width: 240,
-              height: 100,
-              child: Row(
-                children: [
-                  for (final brightness in [
-                    Brightness.light,
-                    Brightness.dark,
-                  ])
-                    Radio<Brightness>(
-                      value: brightness,
-                      groupValue: _brightness,
-                      onChanged: (value) {
-                        setState(() {
-                          _brightness = value!;
-                        });
-                      },
-                    ),
-                  Switch(
-                    value: _useMobileTheme,
-                    onChanged: (value) {
-                      setState(() {
-                        _useMobileTheme = value;
-                      });
-                    },
+    return DefaultTextStyle(
+      style: (themeData.bodyStyle ?? const TextStyle()).copyWith(
+        color: themeData.colorScheme.danger,
+      ),
+      child: DefaultSelectionStyle(
+        cursorColor: themeData.colorScheme.primary,
+        selectionColor: themeData.colorScheme.primary.withShade(100),
+        child: ExtendedTheme(
+          data: themeData,
+          child: Stack(
+            children: [
+              _build(context),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  color: Colors.red,
+                  width: 240,
+                  height: 100,
+                  child: Row(
+                    children: [
+                      for (final brightness in [
+                        Brightness.light,
+                        Brightness.dark,
+                      ])
+                        Radio<Brightness>(
+                          value: brightness,
+                          groupValue: _brightness,
+                          onChanged: (value) {
+                            setState(() {
+                              _brightness = value!;
+                            });
+                          },
+                        ),
+                      Switch(
+                        value: _useMobileTheme,
+                        onChanged: (value) {
+                          setState(() {
+                            _useMobileTheme = value;
+                          });
+                        },
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

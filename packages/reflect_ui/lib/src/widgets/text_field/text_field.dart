@@ -25,10 +25,11 @@ import 'package:flutter/cupertino.dart'
         cupertinoTextSelectionHandleControls;
 import 'package:flutter/foundation.dart' show defaultTargetPlatform;
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart' show Theme, ThemeData;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/widgets/extended_theme/colors.dart';
+import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
 
 export 'package:flutter/services.dart'
     show
@@ -246,7 +247,7 @@ class TextField extends StatefulWidget {
     this.focusNode,
     this.undoController,
     this.decoration = _kDefaultRoundedBorderDecoration,
-    this.padding = const EdgeInsets.all(5.0),
+    this.padding,
     this.placeholder,
     this.placeholderStyle = const TextStyle(
       fontWeight: FontWeight.w400,
@@ -489,7 +490,7 @@ class TextField extends StatefulWidget {
   /// or the clear button when [clearButtonMode] is not never.
   ///
   /// Defaults to a padding of 6 pixels on all sides and can be null.
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   /// A lighter colored placeholder hint that appears on the first line of the
   /// text field when the text entry is empty.
@@ -1234,7 +1235,10 @@ class _TextFieldState extends State<TextField>
   }
 
   Widget _addTextDependentAttachments(
-      Widget editableText, TextStyle textStyle, TextStyle placeholderStyle) {
+    Widget editableText,
+    TextStyle textStyle,
+    TextStyle placeholderStyle,
+  ) {
     // If there are no surrounding widgets, just return the core editable text
     // part.
     if (!_hasDecoration) {
@@ -1246,6 +1250,8 @@ class _TextFieldState extends State<TextField>
       valueListenable: _effectiveController,
       child: editableText,
       builder: (BuildContext context, TextEditingValue text, Widget? child) {
+        final ExtendedThemeData themeData = ExtendedTheme.of(context);
+
         final bool hasText = text.text.isNotEmpty;
         final String? placeholderText = widget.placeholder;
         final Widget? placeholder = placeholderText == null
@@ -1259,7 +1265,7 @@ class _TextFieldState extends State<TextField>
                 child: SizedBox(
                   width: double.infinity,
                   child: Padding(
-                    padding: widget.padding,
+                    padding: widget.padding ?? themeData.userInteractivePadding,
                     child: Text(
                       placeholderText,
                       // This is to make sure the text field is always tall enough
@@ -1385,16 +1391,16 @@ class _TextFieldState extends State<TextField>
           maxLengthEnforcement: _effectiveMaxLengthEnforcement,
         ),
     ];
-    final ThemeData themeData = Theme.of(context);
+    final ExtendedThemeData themeData = ExtendedTheme.of(context);
 
-    final TextStyle? resolvedStyle = widget.style?.copyWith(
-      color: CupertinoDynamicColor.maybeResolve(widget.style?.color, context),
-      backgroundColor: CupertinoDynamicColor.maybeResolve(
-          widget.style?.backgroundColor, context),
-    );
-
-    final TextStyle textStyle =
-        themeData.textTheme.bodySmall!.merge(resolvedStyle);
+    final TextStyle textStyle = themeData.smallBodyStyle!
+        .copyWith(color: themeData.colorScheme.onSurface)
+        .merge(widget.style)
+        .copyWith(
+          // 这里是为了修复文本未垂直对齐的问题。
+          // 解决方案来源：https://github.com/flutter/flutter/issues/139762#issuecomment-1944375717
+          leadingDistribution: TextLeadingDistribution.even,
+        );
 
     final TextStyle? resolvedPlaceholderStyle =
         widget.placeholderStyle?.copyWith(
@@ -1409,10 +1415,8 @@ class _TextFieldState extends State<TextField>
 
     final Brightness keyboardAppearance =
         widget.keyboardAppearance ?? CupertinoTheme.brightnessOf(context);
-    final Color cursorColor = CupertinoDynamicColor.maybeResolve(
-          widget.cursorColor ?? DefaultSelectionStyle.of(context).cursorColor,
-          context,
-        ) ??
+    final Color cursorColor = widget.cursorColor ??
+        DefaultSelectionStyle.of(context).cursorColor ??
         themeData.colorScheme.primary;
 
     final Color disabledColor =
@@ -1443,19 +1447,22 @@ class _TextFieldState extends State<TextField>
 
     // Use the default disabled color only if the box decoration was not set.
     final BoxDecoration? effectiveDecoration = widget.decoration?.copyWith(
-      border: resolvedBorder,
+      border: Border.all(color: Colors.transparent),
       color: enabled
           ? decorationColor
           : (widget.decoration == _kDefaultRoundedBorderDecoration
               ? disabledColor
               : widget.decoration?.color),
     );
+    final BoxDecoration effectiveForegroundDecoration =
+        _kDefaultRoundedBorderDecoration.copyWith(
+      border: resolvedBorder,
+      color: Colors.transparent,
+    );
 
-    final Color selectionColor = CupertinoDynamicColor.maybeResolve(
-          DefaultSelectionStyle.of(context).selectionColor,
-          context,
-        ) ??
-        themeData.colorScheme.primary.withOpacity(0.2);
+    final Color selectionColor =
+        DefaultSelectionStyle.of(context).selectionColor ??
+            themeData.colorScheme.primary.withOpacity(0.2);
 
     // Set configuration as disabled if not otherwise specified. If specified,
     // ensure that configuration uses Cupertino text style for misspelled words
@@ -1466,7 +1473,7 @@ class _TextFieldState extends State<TextField>
     );
 
     final Widget paddedEditable = Padding(
-      padding: widget.padding,
+      padding: widget.padding ?? themeData.userInteractivePadding,
       child: RepaintBoundary(
         child: UnmanagedRestorationScope(
           bucket: bucket,
@@ -1587,6 +1594,7 @@ class _TextFieldState extends State<TextField>
           ignoring: !enabled,
           child: Container(
             decoration: effectiveDecoration,
+            foregroundDecoration: effectiveForegroundDecoration,
             color:
                 !enabled && effectiveDecoration == null ? disabledColor : null,
             child: _selectionGestureDetectorBuilder.buildGestureDetector(
@@ -1596,7 +1604,10 @@ class _TextFieldState extends State<TextField>
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: _addTextDependentAttachments(
-                    paddedEditable, textStyle, placeholderStyle),
+                  paddedEditable,
+                  textStyle,
+                  placeholderStyle,
+                ),
               ),
             ),
           ),

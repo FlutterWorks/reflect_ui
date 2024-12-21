@@ -3,6 +3,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show Theme, ThemeExtension;
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/reflect_ui.dart';
 import 'package:reflect_ui/src/painting/widget_base_style_resolver.dart';
 import 'package:reflect_ui/src/widgets/extended_theme/color_scheme.dart';
 import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
@@ -150,16 +151,7 @@ class ExtendedTheme extends InheritedTheme {
   Widget wrap(BuildContext context, Widget child) {
     return ExtendedTheme(
       data: data,
-      child: DefaultTextStyle(
-        style: (data.bodyStyle ?? const TextStyle()).copyWith(
-          color: data.colorScheme.onSurface,
-        ),
-        child: DefaultSelectionStyle(
-          cursorColor: data.colorScheme.onSurface,
-          selectionColor: data.colorScheme.primary,
-          child: child,
-        ),
-      ),
+      child: child,
     );
   }
 }
