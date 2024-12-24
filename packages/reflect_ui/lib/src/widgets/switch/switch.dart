@@ -19,7 +19,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 import 'package:reflect_ui/src/widgets/switch/switch_thumb_painter.dart';
 
 /// An iOS-style switch.
@@ -354,7 +354,7 @@ class _SwitchState extends State<Switch> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = ExtendedTheme.of(context).colorScheme;
+    final colorScheme = DesignTheme.of(context).colors;
     final Color activeColor = widget.activeColor ?? colorScheme.primary;
     final (Color onLabelColor, Color offLabelColor)? onOffLabelColors =
         MediaQuery.onOffSwitchLabelsOf(context)

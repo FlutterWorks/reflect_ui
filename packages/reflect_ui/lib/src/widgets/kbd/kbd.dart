@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart' show TextTheme, Theme;
 import 'package:flutter/widgets.dart';
-import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
 /// Display keyboard button or keys combination
 class Kbd extends StatefulWidget {
@@ -18,17 +17,13 @@ class Kbd extends StatefulWidget {
 class _KbdState extends State<Kbd> {
   @override
   Widget build(BuildContext context) {
-    final ExtendedThemeData themeData = ExtendedTheme.of(context);
+    final DesignThemeData themeData = DesignTheme.of(context);
 
-    final TextTheme textTheme = Theme.of(context).textTheme;
-    final colorScheme = themeData.colorScheme;
+    final backgroundColor = themeData.colors.surfaceContainer;
+    final borderColor = themeData.colors.outline;
+    final labelColor = themeData.colors.onSurface;
 
-    final backgroundColor = colorScheme.surfaceContainer;
-    final borderColor = colorScheme.outline;
-    final labelColor = colorScheme.onSurface;
-
-    final TextStyle textStyle =
-        (textTheme.labelMedium ?? const TextStyle()).copyWith(
+    final TextStyle textStyle = (themeData.typography.labelMedium).copyWith(
       color: labelColor,
       fontWeight: FontWeight.w700,
       fontFamily: 'JetBrains Mono',

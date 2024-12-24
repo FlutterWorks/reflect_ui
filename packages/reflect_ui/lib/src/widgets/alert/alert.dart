@@ -3,7 +3,7 @@ import 'package:reflect_ui/src/painting/widget_base_style.dart';
 import 'package:reflect_ui/src/widgets/alert/alert_kind.dart';
 import 'package:reflect_ui/src/widgets/alert/alert_style.dart';
 import 'package:reflect_ui/src/widgets/alert/alert_variant.dart';
-import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 import 'package:reflect_ui/src/widgets/gapped_column/gapped_column.dart';
 import 'package:reflect_ui/src/widgets/gapped_row/gapped_row.dart';
 
@@ -56,9 +56,9 @@ class Alert extends StatefulWidget {
 class _AlertState extends State<Alert> {
   @override
   Widget build(BuildContext context) {
-    final ExtendedThemeData themeData = ExtendedTheme.of(context);
-    final TextTheme textTheme = Theme.of(context).textTheme;
-    final WidgetBaseStyle baseStyle = themeData.baseStyleResolver.resolve(
+    final themeData = DesignTheme.of(context);
+    // final TextTheme textTheme = Theme.of(context).textTheme;
+    final WidgetBaseStyle baseStyle = themeData.widgetBaseStyleResolver.resolve(
       context,
       widget.kind,
       widget.variant,
@@ -78,8 +78,9 @@ class _AlertState extends State<Alert> {
             (borderColor != null
                 ? BorderSide(width: 1, color: borderColor)
                 : null));
-    final TextStyle? textStyle =
-        (style?.textStyle?.resolve(states) ?? textTheme.bodyMedium)?.copyWith(
+    final TextStyle textStyle =
+        (style?.textStyle?.resolve(states) ?? themeData.typography.bodyMedium)
+            .copyWith(
       color: foregroundColor,
     );
 
@@ -110,14 +111,14 @@ class _AlertState extends State<Alert> {
               children: [
                 if (widget.title != null)
                   DefaultTextStyle(
-                    style: textStyle!.copyWith(
+                    style: textStyle.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
                     child: widget.title!,
                   ),
                 if (widget.message != null)
                   DefaultTextStyle(
-                    style: textStyle!,
+                    style: textStyle,
                     child: widget.message!,
                   ),
                 if ((widget.actions ?? []).isNotEmpty)

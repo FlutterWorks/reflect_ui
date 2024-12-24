@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show Theme;
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/extensions/color.dart';
-import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
 // These constants were eyeballed from iOS 14.4 Settings app for base, Notes for
 // notched without leading, and Reminders app for notched with leading.
@@ -169,9 +169,9 @@ class NavListItem extends StatefulWidget {
 class _NavListItemState extends State<NavListItem> {
   @override
   Widget build(BuildContext context) {
-    final ExtendedThemeData themeData = ExtendedTheme.of(context);
+    final DesignThemeData themeData = DesignTheme.of(context);
     final textTheme = Theme.of(context).textTheme;
-    final colorScheme = themeData.colorScheme;
+    final colorScheme = themeData.colors;
 
     final TextStyle textStyle =
         (textTheme.bodyMedium ?? const TextStyle()).copyWith(

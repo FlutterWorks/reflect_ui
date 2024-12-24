@@ -28,8 +28,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:reflect_ui/src/widgets/extended_theme/colors.dart';
-import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
 export 'package:flutter/services.dart'
     show
@@ -1250,7 +1249,7 @@ class _TextFieldState extends State<TextField>
       valueListenable: _effectiveController,
       child: editableText,
       builder: (BuildContext context, TextEditingValue text, Widget? child) {
-        final ExtendedThemeData themeData = ExtendedTheme.of(context);
+        final DesignThemeData themeData = DesignTheme.of(context);
 
         final bool hasText = text.text.isNotEmpty;
         final String? placeholderText = widget.placeholder;
@@ -1391,10 +1390,10 @@ class _TextFieldState extends State<TextField>
           maxLengthEnforcement: _effectiveMaxLengthEnforcement,
         ),
     ];
-    final ExtendedThemeData themeData = ExtendedTheme.of(context);
+    final DesignThemeData themeData = DesignTheme.of(context);
 
-    final TextStyle textStyle = themeData.smallBodyStyle!
-        .copyWith(color: themeData.colorScheme.onSurface)
+    final TextStyle textStyle = themeData.typography.bodySmall
+        .copyWith(color: themeData.colors.onSurface)
         .merge(widget.style)
         .copyWith(
           // 这里是为了修复文本未垂直对齐的问题。
@@ -1417,7 +1416,7 @@ class _TextFieldState extends State<TextField>
         widget.keyboardAppearance ?? CupertinoTheme.brightnessOf(context);
     final Color cursorColor = widget.cursorColor ??
         DefaultSelectionStyle.of(context).cursorColor ??
-        themeData.colorScheme.primary;
+        themeData.colors.primary;
 
     final Color disabledColor =
         CupertinoDynamicColor.resolve(_kDisabledBackground, context);
@@ -1447,7 +1446,7 @@ class _TextFieldState extends State<TextField>
 
     // Use the default disabled color only if the box decoration was not set.
     final BoxDecoration? effectiveDecoration = widget.decoration?.copyWith(
-      border: Border.all(color: Colors.transparent),
+      border: Border.all(color: CupertinoColors.transparent),
       color: enabled
           ? decorationColor
           : (widget.decoration == _kDefaultRoundedBorderDecoration
@@ -1457,12 +1456,12 @@ class _TextFieldState extends State<TextField>
     final BoxDecoration effectiveForegroundDecoration =
         _kDefaultRoundedBorderDecoration.copyWith(
       border: resolvedBorder,
-      color: Colors.transparent,
+      color: CupertinoColors.transparent,
     );
 
     final Color selectionColor =
         DefaultSelectionStyle.of(context).selectionColor ??
-            themeData.colorScheme.primary.withOpacity(0.2);
+            themeData.colors.primary.withOpacity(0.2);
 
     // Set configuration as disabled if not otherwise specified. If specified,
     // ensure that configuration uses Cupertino text style for misspelled words

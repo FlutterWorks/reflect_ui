@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show Theme;
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/extensions/color.dart';
-import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
 export 'radio_list_tile.dart';
 export 'switch_list_tile.dart';
@@ -182,13 +182,12 @@ class _ListTileState extends State<ListTile> {
 
   @override
   Widget build(BuildContext context) {
-    final ExtendedThemeData themeData = ExtendedTheme.of(context);
-    final colorScheme = themeData.colorScheme;
+    final themeData = DesignTheme.of(context);
 
     final textTheme = Theme.of(context).textTheme;
     final TextStyle textStyle = textTheme.bodyMedium ?? const TextStyle();
     final TextStyle coloredStyle = textStyle.copyWith(
-      color: colorScheme.onSurface,
+      color: themeData.colors.onSurface,
     );
 
     final Widget title = DefaultTextStyle(
@@ -215,7 +214,7 @@ class _ListTileState extends State<ListTile> {
     Color? backgroundColor = widget.backgroundColor;
     if (_tapped) {
       backgroundColor = widget.backgroundColorActivated ??
-          colorScheme.secondary
+          themeData.colors.secondary
               .withShade(themeData.brightness == Brightness.dark ? 800 : 200);
     }
 
@@ -315,11 +314,11 @@ class ListTileChevron extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = ExtendedTheme.of(context).colorScheme;
+    final themeData = DesignTheme.of(context);
     return Icon(
-      ExtendedIcons.defaultInstance.chevronRight,
+      themeData.icons.chevronRight,
       size: 18.0,
-      color: colorScheme.secondary.withShade(400),
+      color: themeData.colors.secondary.withShade(400),
     );
   }
 }

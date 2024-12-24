@@ -6,9 +6,9 @@
 
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:reflect_ui/reflect_ui.dart';
-import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
+import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/foundation/constants.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
 const double _kOuterRadius = 8.0;
 const double _kInnerRadius = 3.6;
@@ -243,10 +243,9 @@ class _RadioState<T> extends State<Radio<T>>
 
   @override
   Widget build(BuildContext context) {
-    final ExtendedThemeData themeData = ExtendedTheme.of(context);
-    final colorScheme = themeData.colorScheme;
+    final DesignThemeData themeData = DesignTheme.of(context);
     final Color effectiveActiveColor =
-        widget.activeColor ?? colorScheme.primary;
+        widget.activeColor ?? themeData.colors.primary;
     final Color effectiveInactiveColor =
         widget.inactiveColor ?? CupertinoColors.white;
 
@@ -383,7 +382,7 @@ class _RadioPainter extends ToggleablePainter {
         // Draw the check mark.
         final Path path = Path();
         final Paint checkPaint = Paint()
-          ..color = Colors.white
+          ..color = CupertinoColors.white
           ..style = PaintingStyle.stroke
           ..strokeWidth = 1.8
           ..strokeCap = StrokeCap.round;

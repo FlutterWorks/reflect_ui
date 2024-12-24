@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 import 'package:reflect_ui/src/widgets/loader/loaders/oval_loader.dart';
 
 enum LoaderVariant {
@@ -18,8 +18,8 @@ class Loader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = ExtendedTheme.of(context).colorScheme;
-    Color resolvedColor = color ?? colorScheme.primary;
+    final themeData = DesignTheme.of(context);
+    Color resolvedColor = color ?? themeData.colors.primary;
     Size resolvedSize = const Size.square(16);
     return SizedBox(
       width: resolvedSize.width,

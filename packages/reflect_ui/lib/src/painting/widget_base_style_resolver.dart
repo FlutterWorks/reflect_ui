@@ -3,7 +3,7 @@ import 'package:reflect_ui/src/extensions/brightness.dart';
 import 'package:reflect_ui/src/painting/widget_base_style.dart';
 import 'package:reflect_ui/src/painting/widget_kind.dart';
 import 'package:reflect_ui/src/painting/widget_variant.dart';
-import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
 /// A color that is configured for a specific state.
 class WidgetStateConfiguredColor extends WidgetStateProperty<Color> {
@@ -77,6 +77,8 @@ class WidgetStateConfiguredColor extends WidgetStateProperty<Color> {
 
 /// A resolver for the base style of a widget.
 class WidgetBaseStyleResolver {
+  const WidgetBaseStyleResolver();
+
   /// Resolve the base style for a widget.
   WidgetBaseStyle resolve(
     BuildContext context,
@@ -84,26 +86,25 @@ class WidgetBaseStyleResolver {
     WidgetVariant variant, {
     Color? color,
   }) {
-    final themeData = ExtendedTheme.of(context);
+    final themeData = DesignTheme.of(context);
     final brightness = themeData.brightness;
-    final colorScheme = themeData.colorScheme;
     late Color seedColor;
     if (color != null) {
       seedColor = color;
     } else {
       switch (kind.name) {
         case WidgetKind.primary:
-          seedColor = colorScheme.primary;
+          seedColor = themeData.colors.primary;
         case WidgetKind.secondary:
-          seedColor = colorScheme.secondary;
+          seedColor = themeData.colors.secondary;
         case WidgetKind.success:
-          seedColor = colorScheme.success;
+          seedColor = themeData.colors.success;
         case WidgetKind.danger:
-          seedColor = colorScheme.danger;
+          seedColor = themeData.colors.danger;
         case WidgetKind.warning:
-          seedColor = colorScheme.warning;
+          seedColor = themeData.colors.warning;
         case WidgetKind.info:
-          seedColor = colorScheme.info;
+          seedColor = themeData.colors.info;
       }
     }
     switch (variant.name) {

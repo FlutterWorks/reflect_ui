@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart' show TextTheme, Theme;
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/extensions/color.dart';
-import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 import 'package:reflect_ui/src/widgets/gapped_column/gapped_column.dart';
 
 // Margin on top of the list section. This was eyeballed from iOS 14.4 Simulator
@@ -169,10 +169,9 @@ class NavListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ExtendedThemeData themeData = ExtendedTheme.of(context);
+    DesignThemeData themeData = DesignTheme.of(context);
     TextTheme textTheme = Theme.of(context).textTheme;
-
-    final colorScheme = themeData.colorScheme;
+    final colorScheme = themeData.colors;
 
     Widget? headerWidget, footerWidget;
 

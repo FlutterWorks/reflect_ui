@@ -3,7 +3,6 @@ import 'package:flutter/material.dart'
     show Colors, MaterialApp, SelectableText, Theme;
 import 'package:preview_app/storybook_config.g.dart';
 import 'package:reflect_ui/reflect_ui.dart';
-import 'package:reflect_ui/themes.dart';
 import 'package:storybook_dart/annotations.dart' as storybook;
 import 'package:storybook_dart/storybook_dart.dart';
 
@@ -22,7 +21,7 @@ class _HomePage extends StatefulWidget {
 
 class _HomePageState extends State<_HomePage> {
   Brightness _brightness = Brightness.light;
-  bool _useMobileTheme = false;
+  bool _useCompactTheme = true;
 
   String _selectedStoryId = '';
 
@@ -123,21 +122,15 @@ class _HomePageState extends State<_HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final themeData = _useMobileTheme
-        ? _brightness == Brightness.light
-            ? mobileLightTheme
-            : mobileDarkTheme
-        : _brightness == Brightness.light
-            ? lightTheme
-            : darkTheme;
+    final themeData = _useCompactTheme
+        ? DesignThemeData.lightCompact()
+        : DesignThemeData.light();
     return DefaultTextStyle(
-      style: (themeData.bodyStyle ?? const TextStyle()).copyWith(
-        color: themeData.colorScheme.danger,
-      ),
+      style: (themeData.typography.bodyMedium),
       child: DefaultSelectionStyle(
-        cursorColor: themeData.colorScheme.primary,
-        selectionColor: themeData.colorScheme.primary.withShade(100),
-        child: ExtendedTheme(
+        cursorColor: themeData.colors.primary,
+        selectionColor: themeData.colors.primary.withShade(100),
+        child: DesignTheme(
           data: themeData,
           child: Stack(
             children: [
@@ -166,10 +159,10 @@ class _HomePageState extends State<_HomePage> {
                           },
                         ),
                       Switch(
-                        value: _useMobileTheme,
+                        value: _useCompactTheme,
                         onChanged: (value) {
                           setState(() {
-                            _useMobileTheme = value;
+                            _useCompactTheme = value;
                           });
                         },
                       ),

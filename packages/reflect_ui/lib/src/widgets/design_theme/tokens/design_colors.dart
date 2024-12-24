@@ -4,9 +4,9 @@ import 'package:flutter/widgets.dart';
 
 /// A color scheme that defines the colors of the theme.
 @immutable
-class ColorScheme with Diagnosticable {
-  /// Create a ColorScheme instance from the given colors.
-  const ColorScheme({
+class DesignColors with Diagnosticable {
+  /// Create a DesignColors instance from the given colors.
+  const DesignColors({
     required this.primary,
     required this.secondary,
     required this.tertiary,
@@ -21,14 +21,14 @@ class ColorScheme with Diagnosticable {
   });
 
   /// Create the light color scheme.
-  const ColorScheme.light({
-    this.primary = Colors.blue,
-    this.secondary = Colors.green,
+  const DesignColors.materialLight({
+    this.primary = Colors.indigo,
+    this.secondary = Colors.grey,
     this.tertiary = Colors.yellow,
-    this.success = Colors.yellow,
-    this.warning = Colors.orange,
-    this.info = Colors.cyan,
+    this.success = Colors.green,
     this.danger = Colors.red,
+    this.warning = Colors.amber,
+    this.info = Colors.blue,
     this.surface = Colors.white,
     this.onSurface = Colors.black,
     this.surfaceContainer = const Color(0xFFF5F5F5),
@@ -36,14 +36,14 @@ class ColorScheme with Diagnosticable {
   });
 
   /// Create the dark color scheme.
-  const ColorScheme.dark({
-    this.primary = Colors.blue,
-    this.secondary = Colors.green,
+  const DesignColors.materialDark({
+    this.primary = Colors.indigo,
+    this.secondary = Colors.grey,
     this.tertiary = Colors.yellow,
-    this.success = Colors.yellow,
-    this.warning = Colors.orange,
-    this.info = Colors.cyan,
+    this.success = Colors.green,
     this.danger = Colors.red,
+    this.warning = Colors.amber,
+    this.info = Colors.blue,
     this.surface = Colors.black,
     this.onSurface = Colors.white,
     this.surfaceContainer = Colors.black54,
@@ -93,7 +93,7 @@ class ColorScheme with Diagnosticable {
 
   /// Creates a copy of this color scheme with the given fields
   /// replaced by the non-null parameter values.
-  ColorScheme copyWith({
+  DesignColors copyWith({
     Color? primary,
     Color? secondary,
     Color? tertiary,
@@ -106,7 +106,7 @@ class ColorScheme with Diagnosticable {
     Color? surfaceContainer,
     Color? outline,
   }) {
-    return ColorScheme(
+    return DesignColors(
       primary: primary ?? this.primary,
       secondary: secondary ?? this.secondary,
       tertiary: tertiary ?? this.tertiary,
@@ -121,18 +121,18 @@ class ColorScheme with Diagnosticable {
     );
   }
 
-  /// Linearly interpolate between two [ColorScheme] objects.
+  /// Linearly interpolate between two [DesignColors] objects.
   ///
   /// {@macro dart.ui.shadow.lerp}
-  static ColorScheme lerp(
-    ColorScheme a,
-    ColorScheme b,
+  static DesignColors lerp(
+    DesignColors a,
+    DesignColors b,
     double t,
   ) {
     if (identical(a, b)) {
       return a;
     }
-    return ColorScheme(
+    return DesignColors(
       primary: Color.lerp(a.primary, b.primary, t)!,
       secondary: Color.lerp(a.secondary, b.secondary, t)!,
       tertiary: Color.lerp(a.tertiary, b.tertiary, t)!,
@@ -155,7 +155,7 @@ class ColorScheme with Diagnosticable {
     if (other.runtimeType != runtimeType) {
       return false;
     }
-    return other is ColorScheme &&
+    return other is DesignColors &&
         other.primary == primary &&
         other.secondary == secondary &&
         other.tertiary == tertiary &&
@@ -187,7 +187,7 @@ class ColorScheme with Diagnosticable {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    const ColorScheme s = ColorScheme.light();
+    const DesignColors s = DesignColors.materialLight();
 
     properties.add(
       ColorProperty('primary', primary, defaultValue: s.primary),

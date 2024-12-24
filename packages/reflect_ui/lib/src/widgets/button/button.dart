@@ -7,7 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/widgets/button/button_kind.dart';
 import 'package:reflect_ui/src/widgets/button/button_style.dart';
 import 'package:reflect_ui/src/widgets/button/button_variant.dart';
-import 'package:reflect_ui/src/widgets/extended_theme/extended_theme.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
 export 'package:reflect_ui/src/widgets/button/button_kind.dart';
 export 'package:reflect_ui/src/widgets/button/button_style.dart';
@@ -77,14 +77,14 @@ class Button extends StatefulWidget {
 
   /// The amount of space to surround the child inside the bounds of the button.
   ///
-  /// Defaults to the [ExtendedTheme]'s `userInteractivePadding`.
+  /// Defaults to the [DesignTheme]'s `userInteractivePadding`.
   final EdgeInsetsGeometry? padding;
 
   /// The color of the button's background.
   ///
   /// Defaults to null which produces a button with no background or border.
   ///
-  /// Defaults to the [ExtendedTheme]'s `primaryColor`.
+  /// Defaults to the [DesignTheme]'s `primaryColor`.
   final Color? color;
 
   /// The callback that is called when the button is tapped or otherwise activated.
@@ -94,7 +94,7 @@ class Button extends StatefulWidget {
 
   /// The radius of the button's corners when it has a background color.
   ///
-  /// Defaults to the [ExtendedTheme]'s `userInteractiveBorderRadius`.
+  /// Defaults to the [DesignTheme]'s `userInteractiveBorderRadius`.
   final BorderRadius? borderRadius;
 
   /// The alignment of the button's [child].
@@ -185,12 +185,12 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final ExtendedThemeData themeData = ExtendedTheme.of(context);
+    final DesignThemeData themeData = DesignTheme.of(context);
     final bool enabled = widget.enabled;
 
     ButtonStyle style = widget.style ??
         ButtonStyle.resolveWith(
-          themeData.baseStyleResolver,
+          themeData.widgetBaseStyleResolver,
           widget.kind,
           widget.variant,
           color: widget.color,
@@ -200,8 +200,9 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
     final Color? backgroundColor = style.backgroundColor?.resolve(states);
     final Color? foregroundColor = style.foregroundColor?.resolve(states);
     final BorderSide? side = style.side?.resolve(states);
-    final TextStyle? textStyle =
-        (style.textStyle?.resolve(states) ?? themeData.labelStyle)?.copyWith(
+    final TextStyle textStyle =
+        (style.textStyle?.resolve(states) ?? themeData.typography.labelMedium)
+            .copyWith(
       color: foregroundColor,
     );
 
@@ -260,18 +261,13 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
                     alignment: widget.alignment,
                     widthFactor: 1.0,
                     heightFactor: 1.0,
-                    child: textStyle != null
-                        ? DefaultTextStyle(
-                            style: textStyle,
-                            child: IconTheme(
-                              data: iconTheme,
-                              child: widget.child,
-                            ),
-                          )
-                        : IconTheme(
-                            data: iconTheme,
-                            child: widget.child,
-                          ),
+                    child: DefaultTextStyle(
+                      style: textStyle,
+                      child: IconTheme(
+                        data: iconTheme,
+                        child: widget.child,
+                      ),
+                    ),
                   ),
                 ),
               ),
