@@ -14,8 +14,6 @@ export 'package:flutter/widgets.dart';
 
 export 'src/extensions/color.dart';
 export 'src/foundation/constants.dart';
-export 'src/painting/widget_base_style.dart';
-export 'src/painting/widget_base_style_resolver.dart';
 export 'src/painting/widget_kind.dart';
 export 'src/painting/widget_size.dart';
 export 'src/painting/widget_variant.dart';

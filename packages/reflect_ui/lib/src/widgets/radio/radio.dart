@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/foundation/constants.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
+import 'package:reflect_ui/src/widgets/design_theme/widget_base_style.dart';
 
 const double _kOuterRadius = 8.0;
 const double _kInnerRadius = 3.6;
@@ -243,9 +244,11 @@ class _RadioState<T> extends State<Radio<T>>
 
   @override
   Widget build(BuildContext context) {
-    final DesignThemeData themeData = DesignTheme.of(context);
+    final DesignThemeData theme = DesignTheme.of(context);
+    final WidgetBaseStyle baseStyle = theme.baseStyle;
+
     final Color effectiveActiveColor =
-        widget.activeColor ?? themeData.colors.primary;
+        widget.activeColor ?? theme.colors.primary;
     final Color effectiveInactiveColor =
         widget.inactiveColor ?? CupertinoColors.white;
 
@@ -295,10 +298,9 @@ class _RadioState<T> extends State<Radio<T>>
         focusNode: widget.focusNode,
         autofocus: widget.autofocus,
         onFocusChange: onFocusChange,
-        size: Size.square(themeData.userInteractiveDimension),
+        size: baseStyle.size,
         painter: _painter
-          ..dimension = themeData.userInteractiveDimension *
-              kUserInteractiveDimensionTertiaryScale
+          ..dimension = baseStyle.size.width * kWidgetDimensionTertiaryScale
           ..focusColor = effectiveFocusOverlayColor
           ..downPosition = downPosition
           ..isFocused = focused
@@ -357,8 +359,7 @@ class _RadioPainter extends ToggleablePainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final double scale =
-        _dimension! / (28.0 * kUserInteractiveDimensionTertiaryScale);
+    final double scale = _dimension! / (28.0 * kWidgetDimensionTertiaryScale);
 
     final double outerRadius = _kOuterRadius * scale;
     final double innerRadius = _kInnerRadius * scale;

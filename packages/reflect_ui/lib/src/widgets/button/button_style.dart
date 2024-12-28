@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:reflect_ui/src/painting/widget_base_style_resolver.dart';
+import 'package:reflect_ui/src/painting/widget_style.dart';
 import 'package:reflect_ui/src/widgets/button/button_kind.dart';
 import 'package:reflect_ui/src/widgets/button/button_variant.dart';
 
@@ -19,7 +19,7 @@ class ButtonStyle with Diagnosticable {
   });
 
   factory ButtonStyle.resolveWith(
-    WidgetBaseStyleResolver resolver,
+    WidgetStyleResolver resolver,
     ButtonKind kind,
     ButtonVariant variant, {
     Color? color,
@@ -37,7 +37,7 @@ class ButtonStyle with Diagnosticable {
       foregroundColor: baseStyle.foregroundColor,
       iconColor: baseStyle.foregroundColor,
       // iconSize: resolver.resolve(kind, variant, color: color).iconSize,
-      side: baseStyle.side,
+      // side: baseStyle.side,
       // shape: resolver.resolve(kind, variant, color: color).shape,
     );
   }

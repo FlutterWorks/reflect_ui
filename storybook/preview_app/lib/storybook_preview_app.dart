@@ -51,62 +51,60 @@ class _HomePageState extends State<_HomePage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        children: [
-          SizedBox(
-            width: 240,
-            child: ListView.separated(
-              itemCount: widget.config.stories.length,
-              itemBuilder: (context, index) {
-                final story = widget.config.stories[index];
-                return GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    setState(() {
-                      _selectedStoryId = story.id;
-                    });
-                  },
-                  child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: _selectedStoryId == story.id
-                            ? Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(0.1)
-                            : null,
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 0,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(story.meta.title),
-                          SelectableText(story.name),
-                        ],
-                      ),
+    return Row(
+      children: [
+        SizedBox(
+          width: 240,
+          child: ListView.separated(
+            itemCount: widget.config.stories.length,
+            itemBuilder: (context, index) {
+              final story = widget.config.stories[index];
+              return GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  setState(() {
+                    _selectedStoryId = story.id;
+                  });
+                },
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: _selectedStoryId == story.id
+                          ? Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(0.1)
+                          : null,
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 0,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(story.meta.title),
+                        SelectableText(story.name),
+                      ],
                     ),
                   ),
-                );
-              },
-              separatorBuilder: (context, index) {
-                return const Divider(height: 1);
-              },
-            ),
+                ),
+              );
+            },
+            separatorBuilder: (context, index) {
+              return const Divider(height: 1);
+            },
           ),
-          const Divider(),
-          Expanded(
-            child: _buildBodyWithSingleStory(
-              context,
-              storyId: _selectedStoryId,
-            ),
+        ),
+        const Divider(),
+        Expanded(
+          child: _buildBodyWithSingleStory(
+            context,
+            storyId: _selectedStoryId,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

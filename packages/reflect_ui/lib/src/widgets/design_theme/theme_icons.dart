@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class DesignIcons {
-  const DesignIcons({
+class ThemeIcons {
+  const ThemeIcons({
     required this.chevronLeft,
     required this.chevronRight,
   });
 
   /// Create the material icons.
-  const DesignIcons.material({
+  const ThemeIcons.material({
     this.chevronLeft = Icons.chevron_left,
     this.chevronRight = Icons.chevron_right,
   });

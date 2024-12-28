@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/foundation/constants.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
+import 'package:reflect_ui/src/widgets/design_theme/widget_base_style.dart';
 
 // The relative values needed to transform a color to it's equivalent focus
 // outline color.
@@ -205,10 +206,11 @@ class _CheckboxState extends State<Checkbox>
 
   @override
   Widget build(BuildContext context) {
-    final DesignThemeData themeData = DesignTheme.of(context);
+    final DesignThemeData theme = DesignTheme.of(context);
+    final WidgetBaseStyle baseStyle = theme.baseStyle;
 
     final Color effectiveActiveColor =
-        widget.activeColor ?? themeData.colors.primary;
+        widget.activeColor ?? theme.colors.primary;
     final Color effectiveInactiveColor =
         widget.inactiveColor ?? CupertinoColors.inactiveGray;
 
@@ -229,10 +231,9 @@ class _CheckboxState extends State<Checkbox>
         focusNode: widget.focusNode,
         autofocus: widget.autofocus,
         onFocusChange: onFocusChange,
-        size: Size.square(themeData.userInteractiveDimension),
+        size: baseStyle.size,
         painter: _painter
-          ..dimension = themeData.userInteractiveDimension *
-              kUserInteractiveDimensionTertiaryScale
+          ..dimension = baseStyle.size.width * kWidgetDimensionTertiaryScale
           ..focusColor = effectiveFocusOverlayColor
           ..isFocused = focused
           ..downPosition = downPosition
@@ -244,7 +245,7 @@ class _CheckboxState extends State<Checkbox>
           ..isActive = widget.onChanged != null
           ..shape = widget.shape ??
               RoundedRectangleBorder(
-                borderRadius: themeData.userInteractiveBorderRadius / 2,
+                borderRadius: baseStyle.borderRadius / 2,
               )
           ..side = widget.side,
       ),

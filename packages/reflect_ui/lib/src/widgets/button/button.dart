@@ -8,6 +8,7 @@ import 'package:reflect_ui/src/widgets/button/button_kind.dart';
 import 'package:reflect_ui/src/widgets/button/button_style.dart';
 import 'package:reflect_ui/src/widgets/button/button_variant.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
+import 'package:reflect_ui/src/widgets/design_theme/widget_base_style.dart';
 
 export 'package:reflect_ui/src/widgets/button/button_kind.dart';
 export 'package:reflect_ui/src/widgets/button/button_style.dart';
@@ -185,12 +186,12 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final DesignThemeData themeData = DesignTheme.of(context);
-    final bool enabled = widget.enabled;
+    final DesignThemeData theme = DesignTheme.of(context);
+    final WidgetBaseStyle baseStyle = theme.baseStyle;
 
     ButtonStyle style = widget.style ??
         ButtonStyle.resolveWith(
-          themeData.widgetBaseStyleResolver,
+          theme.widgetStyleResolver,
           widget.kind,
           widget.variant,
           color: widget.color,
@@ -201,7 +202,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
     final Color? foregroundColor = style.foregroundColor?.resolve(states);
     final BorderSide? side = style.side?.resolve(states);
     final TextStyle textStyle =
-        (style.textStyle?.resolve(states) ?? themeData.typography.labelMedium)
+        (style.textStyle?.resolve(states) ?? theme.typography.labelMedium)
             .copyWith(
       color: foregroundColor,
     );
@@ -210,7 +211,9 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
         IconTheme.of(context).copyWith(color: foregroundColor);
 
     return MouseRegion(
-      cursor: enabled && kIsWeb ? SystemMouseCursors.click : MouseCursor.defer,
+      cursor: widget.enabled && kIsWeb
+          ? SystemMouseCursors.click
+          : MouseCursor.defer,
       onEnter: (event) {
         _isHovered = true;
         setState(() {});
@@ -230,33 +233,31 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
         autofocus: widget.autofocus,
         onFocusChange: widget.onFocusChange,
         onShowFocusHighlight: _onShowFocusHighlight,
-        enabled: enabled,
+        enabled: widget.enabled,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTapDown: enabled ? _handleTapDown : null,
-          onTapUp: enabled ? _handleTapUp : null,
-          onTapCancel: enabled ? _handleTapCancel : null,
+          onTapDown: widget.enabled ? _handleTapDown : null,
+          onTapUp: widget.enabled ? _handleTapUp : null,
+          onTapCancel: widget.enabled ? _handleTapCancel : null,
           onTap: widget.onPressed,
           child: Semantics(
             button: true,
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                minWidth: themeData.userInteractiveDimension,
-                minHeight: themeData.userInteractiveDimension,
+                minWidth: theme.baseStyle.size.width,
+                minHeight: theme.baseStyle.size.height,
               ),
               child: Container(
                 foregroundDecoration: BoxDecoration(
                   border: side != null ? Border.fromBorderSide(side) : null,
-                  borderRadius: widget.borderRadius ??
-                      themeData.userInteractiveBorderRadius,
+                  borderRadius: widget.borderRadius ?? baseStyle.borderRadius,
                 ),
                 decoration: BoxDecoration(
                   color: backgroundColor,
-                  borderRadius: widget.borderRadius ??
-                      themeData.userInteractiveBorderRadius,
+                  borderRadius: widget.borderRadius ?? baseStyle.borderRadius,
                 ),
                 child: Padding(
-                  padding: widget.padding ?? themeData.userInteractivePadding,
+                  padding: widget.padding ?? baseStyle.padding,
                   child: Align(
                     alignment: widget.alignment,
                     widthFactor: 1.0,

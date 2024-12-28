@@ -29,6 +29,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
+import 'package:reflect_ui/src/widgets/design_theme/widget_base_style.dart';
 
 export 'package:flutter/services.dart'
     show
@@ -1249,7 +1250,8 @@ class _TextFieldState extends State<TextField>
       valueListenable: _effectiveController,
       child: editableText,
       builder: (BuildContext context, TextEditingValue text, Widget? child) {
-        final DesignThemeData themeData = DesignTheme.of(context);
+        final DesignThemeData theme = DesignTheme.of(context);
+        final WidgetBaseStyle baseStyle = theme.baseStyle;
 
         final bool hasText = text.text.isNotEmpty;
         final String? placeholderText = widget.placeholder;
@@ -1264,7 +1266,7 @@ class _TextFieldState extends State<TextField>
                 child: SizedBox(
                   width: double.infinity,
                   child: Padding(
-                    padding: widget.padding ?? themeData.userInteractivePadding,
+                    padding: widget.padding ?? baseStyle.padding,
                     child: Text(
                       placeholderText,
                       // This is to make sure the text field is always tall enough
@@ -1390,10 +1392,12 @@ class _TextFieldState extends State<TextField>
           maxLengthEnforcement: _effectiveMaxLengthEnforcement,
         ),
     ];
-    final DesignThemeData themeData = DesignTheme.of(context);
 
-    final TextStyle textStyle = themeData.typography.bodySmall
-        .copyWith(color: themeData.colors.onSurface)
+    final DesignThemeData theme = DesignTheme.of(context);
+    final WidgetBaseStyle baseStyle = theme.baseStyle;
+
+    final TextStyle textStyle = theme.typography.bodySmall
+        .copyWith(color: theme.colors.onSurface)
         .merge(widget.style)
         .copyWith(
           // 这里是为了修复文本未垂直对齐的问题。
@@ -1416,7 +1420,7 @@ class _TextFieldState extends State<TextField>
         widget.keyboardAppearance ?? CupertinoTheme.brightnessOf(context);
     final Color cursorColor = widget.cursorColor ??
         DefaultSelectionStyle.of(context).cursorColor ??
-        themeData.colors.primary;
+        theme.colors.primary;
 
     final Color disabledColor =
         CupertinoDynamicColor.resolve(_kDisabledBackground, context);
@@ -1461,7 +1465,7 @@ class _TextFieldState extends State<TextField>
 
     final Color selectionColor =
         DefaultSelectionStyle.of(context).selectionColor ??
-            themeData.colors.primary.withOpacity(0.2);
+            theme.colors.primary.withOpacity(0.2);
 
     // Set configuration as disabled if not otherwise specified. If specified,
     // ensure that configuration uses Cupertino text style for misspelled words
@@ -1472,7 +1476,7 @@ class _TextFieldState extends State<TextField>
     );
 
     final Widget paddedEditable = Padding(
-      padding: widget.padding ?? themeData.userInteractivePadding,
+      padding: widget.padding ?? baseStyle.padding,
       child: RepaintBoundary(
         child: UnmanagedRestorationScope(
           bucket: bucket,

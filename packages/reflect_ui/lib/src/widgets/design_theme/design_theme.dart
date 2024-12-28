@@ -3,19 +3,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show Theme, ThemeExtension;
 import 'package:flutter/widgets.dart';
-import 'package:reflect_ui/src/painting/widget_base_style_resolver.dart';
-import 'package:reflect_ui/src/widgets/design_theme/tokens/design_colors.dart';
-import 'package:reflect_ui/src/widgets/design_theme/tokens/design_icons.dart';
-import 'package:reflect_ui/src/widgets/design_theme/tokens/design_sizing.dart';
-import 'package:reflect_ui/src/widgets/design_theme/tokens/design_spacing.dart';
-import 'package:reflect_ui/src/widgets/design_theme/tokens/design_typography.dart';
+import 'package:reflect_ui/src/painting/widget_style.dart';
+import 'package:reflect_ui/src/widgets/design_theme/theme_borders.dart';
+import 'package:reflect_ui/src/widgets/design_theme/theme_colors.dart';
+import 'package:reflect_ui/src/widgets/design_theme/theme_icons.dart';
+import 'package:reflect_ui/src/widgets/design_theme/theme_sizing.dart';
+import 'package:reflect_ui/src/widgets/design_theme/theme_spacing.dart';
+import 'package:reflect_ui/src/widgets/design_theme/theme_typography.dart';
+import 'package:reflect_ui/src/widgets/design_theme/widget_base_style.dart';
 import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
 
-export 'package:reflect_ui/src/widgets/design_theme/tokens/design_colors.dart';
-export 'package:reflect_ui/src/widgets/design_theme/tokens/design_icons.dart';
-export 'package:reflect_ui/src/widgets/design_theme/tokens/design_sizing.dart';
-export 'package:reflect_ui/src/widgets/design_theme/tokens/design_spacing.dart';
-export 'package:reflect_ui/src/widgets/design_theme/tokens/design_typography.dart';
+export 'package:reflect_ui/src/widgets/design_theme/theme_borders.dart';
+export 'package:reflect_ui/src/widgets/design_theme/theme_colors.dart';
+export 'package:reflect_ui/src/widgets/design_theme/theme_icons.dart';
+export 'package:reflect_ui/src/widgets/design_theme/theme_sizing.dart';
+export 'package:reflect_ui/src/widgets/design_theme/theme_spacing.dart';
+export 'package:reflect_ui/src/widgets/design_theme/theme_typography.dart';
 
 part 'design_theme.tailor.dart';
 
@@ -27,17 +30,15 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
     required this.id,
     required this.name,
     required this.brightness,
+    required this.borders,
     required this.colors,
     required this.icons,
     required this.sizing,
     required this.spacing,
     required this.typography,
-    this.userInteractiveDimension = 44,
-    this.userInteractivePadding = const EdgeInsets.all(8),
-    this.userInteractiveBorderWidth = 1,
-    this.userInteractiveBorderRadius =
-        const BorderRadius.all(Radius.circular(8)),
-    this.widgetBaseStyleResolver = const WidgetBaseStyleResolver(),
+    this.defaultBaseStyle,
+    this.defaultBaseStyleResolver,
+    this.widgetStyleResolver = const WidgetStyleResolver(),
   });
 
   /// The id of the design theme.
@@ -49,85 +50,115 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
   /// The brightness of the design theme.
   final Brightness brightness;
 
+  /// The borders of the design theme.
+  final ThemeBorders borders;
+
   /// The colors of the design theme.
-  final DesignColors colors;
+  final ThemeColors colors;
 
   /// The icons of the design theme.
-  final DesignIcons icons;
+  final ThemeIcons icons;
 
   /// The sizing of the design theme.
-  final DesignSizing sizing;
+  final ThemeSizing sizing;
 
   /// The spacing of the design theme.
-  final DesignSpacing spacing;
+  final ThemeSpacing spacing;
 
   /// The typography of the design theme.
-  final DesignTypography typography;
+  final ThemeTypography typography;
 
-  /// The minimum dimension for user interactive widgets.
-  final double userInteractiveDimension;
+  /// The base style of the design theme.
+  final WidgetBaseStyle? defaultBaseStyle;
 
-  /// The padding for user interactive widgets.
-  final EdgeInsets userInteractivePadding;
+  /// The base style resolver of the design theme.
+  final WidgetBaseStyleResolver? defaultBaseStyleResolver;
 
-  /// The border width for user interactive widgets.
-  final double userInteractiveBorderWidth;
+  /// The widget style resolver of the design theme.
+  final WidgetStyleResolver widgetStyleResolver;
 
-  /// The border radius for user interactive widgets.
-  final BorderRadius userInteractiveBorderRadius;
+  /// The base style of the design theme.
+  ///
+  /// If the default base style is not provided, the default base style resolver
+  /// will be used to resolve the base style.
+  WidgetBaseStyle get baseStyle {
+    return defaultBaseStyle ??
+        defaultBaseStyleResolver?.resolve(this) ??
+        const WidgetBaseStyle();
+  }
 
-  /// The widget base style resolver of the design theme.
-  final WidgetBaseStyleResolver widgetBaseStyleResolver;
-
+  /// Creates a dark design theme.
   static DesignThemeData dark() {
     return const DesignThemeData(
       id: 'dark',
       name: 'Dark',
       brightness: Brightness.dark,
-      colors: DesignColors.materialDark(),
-      icons: DesignIcons.material(),
-      sizing: DesignSizing(sizingScale: 8),
-      spacing: DesignSpacing(spacingScale: 8),
-      typography: DesignTypography.roboto(),
+      borders: ThemeBorders(),
+      colors: ThemeColors.materialDark(),
+      icons: ThemeIcons.material(),
+      sizing: ThemeSizing(sizingScale: 4),
+      spacing: ThemeSpacing(spacingScale: 4),
+      typography: ThemeTypography.roboto(),
     );
   }
 
+  /// Creates a dark compact design theme.
   static DesignThemeData darkCompact() {
-    return const DesignThemeData(
+    return DesignThemeData(
       id: 'dark-compact',
       name: 'Dark Compact',
       brightness: Brightness.dark,
-      colors: DesignColors.materialDark(),
-      icons: DesignIcons.material(),
-      sizing: DesignSizing(sizingScale: 4),
-      spacing: DesignSpacing(spacingScale: 4),
-      typography: DesignTypography.robotoCompact(),
+      borders: const ThemeBorders(),
+      colors: const ThemeColors.materialDark(),
+      icons: const ThemeIcons.material(),
+      sizing: const ThemeSizing(sizingScale: 4),
+      spacing: const ThemeSpacing(spacingScale: 4),
+      typography: const ThemeTypography.roboto(),
+      defaultBaseStyleResolver: WidgetBaseStyleResolver(
+        size: (theme) => theme.sizing.size8,
+        margin: (theme) => theme.spacing.m8,
+        padding: (theme) => theme.spacing.p8,
+      ),
     );
   }
 
+  /// Creates a light design theme.
   static DesignThemeData light() {
-    return const DesignThemeData(
+    return DesignThemeData(
       id: 'light',
       name: 'Light',
       brightness: Brightness.light,
-      colors: DesignColors.materialLight(),
-      icons: DesignIcons.material(),
-      sizing: DesignSizing(sizingScale: 8),
-      spacing: DesignSpacing(spacingScale: 8),
-      typography: DesignTypography.roboto(),
+      borders: const ThemeBorders(),
+      colors: const ThemeColors.materialLight(),
+      icons: const ThemeIcons.material(),
+      sizing: const ThemeSizing(sizingScale: 4),
+      spacing: const ThemeSpacing(spacingScale: 4),
+      typography: const ThemeTypography.roboto(),
+      defaultBaseStyleResolver: WidgetBaseStyleResolver(
+        size: (theme) => theme.sizing.size8,
+        margin: (theme) => theme.spacing.m8,
+        padding: (theme) => theme.spacing.p8,
+      ),
     );
   }
 
+  /// Creates a light compact design theme.
   static DesignThemeData lightCompact() {
-    return const DesignThemeData(
+    return DesignThemeData(
       id: 'light-compact',
       name: 'Light Compact',
       brightness: Brightness.light,
-      colors: DesignColors.materialLight(),
-      icons: DesignIcons.material(),
-      sizing: DesignSizing(sizingScale: 4),
-      spacing: DesignSpacing(spacingScale: 4),
-      typography: DesignTypography.robotoCompact(),
+      borders: const ThemeBorders(),
+      colors: const ThemeColors.materialLight(),
+      icons: const ThemeIcons.material(),
+      sizing: const ThemeSizing(sizingScale: 4),
+      spacing: const ThemeSpacing(spacingScale: 4),
+      typography: const ThemeTypography.roboto(),
+      defaultBaseStyleResolver: WidgetBaseStyleResolver(
+        size: (theme) => theme.sizing.size8,
+        margin: (theme) => theme.spacing.m8,
+        padding: (theme) => theme.spacing.p8,
+      ),
     );
   }
 }

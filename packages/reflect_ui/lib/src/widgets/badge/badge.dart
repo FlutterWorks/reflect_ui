@@ -5,11 +5,12 @@
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/foundation/constants.dart';
-import 'package:reflect_ui/src/painting/widget_base_style.dart';
+import 'package:reflect_ui/src/painting/widget_style.dart';
 import 'package:reflect_ui/src/widgets/badge/badge_kind.dart';
 import 'package:reflect_ui/src/widgets/badge/badge_style.dart';
 import 'package:reflect_ui/src/widgets/badge/badge_variant.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
+import 'package:reflect_ui/src/widgets/design_theme/widget_base_style.dart';
 
 export 'package:reflect_ui/src/widgets/badge/badge_variant.dart';
 
@@ -122,10 +123,10 @@ class Badge extends StatefulWidget {
 class _BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final themeData = DesignTheme.of(context);
-    // final TextTheme textTheme = Theme.of(context).textTheme;
+    final DesignThemeData theme = DesignTheme.of(context);
+    final WidgetBaseStyle baseStyle = theme.baseStyle;
 
-    final WidgetBaseStyle baseStyle = themeData.widgetBaseStyleResolver.resolve(
+    final WidgetStyle widgetStyle = theme.widgetStyleResolver.resolve(
       context,
       widget.kind,
       widget.variant,
@@ -137,17 +138,18 @@ class _BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     Set<WidgetState> states = <WidgetState>{};
 
     final Color? backgroundColor =
-        (style?.backgroundColor ?? baseStyle.backgroundColor)?.resolve(states);
+        (style?.backgroundColor ?? widgetStyle.backgroundColor)
+            ?.resolve(states);
     final Color? foregroundColor =
-        (style?.foregroundColor ?? baseStyle.foregroundColor)?.resolve(states);
-    final Color? borderColor = (baseStyle.borderColor)?.resolve(states);
-    final BorderSide? side =
-        ((style?.side ?? baseStyle.side)?.resolve(states) ??
-            (borderColor != null
-                ? BorderSide(width: 1, color: borderColor)
-                : null));
+        (style?.foregroundColor ?? widgetStyle.foregroundColor)
+            ?.resolve(states);
+    final Color? borderColor = (widgetStyle.borderColor)?.resolve(states);
+    final BorderSide? side = ((style?.side)?.resolve(states) ??
+        (borderColor != null
+            ? BorderSide(width: 1, color: borderColor)
+            : null));
     final TextStyle textStyle =
-        (style?.textStyle?.resolve(states) ?? themeData.typography.labelMedium)
+        (style?.textStyle?.resolve(states) ?? theme.typography.labelMedium)
             .copyWith(
       color: foregroundColor,
       fontWeight: FontWeight.w500,
@@ -160,11 +162,9 @@ class _BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
 
     return ConstrainedBox(
       constraints: BoxConstraints(
-          minWidth: themeData.userInteractiveDimension *
-              kUserInteractiveDimensionTertiaryScale,
-          minHeight: themeData.userInteractiveDimension *
-              kUserInteractiveDimensionTertiaryScale,
-          ),
+        minWidth: baseStyle.size.width * kWidgetDimensionTertiaryScale,
+        minHeight: baseStyle.size.height * kWidgetDimensionTertiaryScale,
+      ),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: widget.borderRadius,

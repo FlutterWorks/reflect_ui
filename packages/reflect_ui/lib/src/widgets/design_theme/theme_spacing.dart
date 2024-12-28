@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-class DesignSpacing {
-  const DesignSpacing({
+class ThemeSpacing {
+  const ThemeSpacing({
     required this.spacingScale,
   });
 
@@ -20,8 +20,8 @@ class DesignSpacing {
   double get s10 => spacingScale * 10;
 }
 
-/// Extension methods for [DesignSpacing] to provide padding.
-extension DesignSpacingWithPadding on DesignSpacing {
+/// Extension methods for [ThemeSpacing] to provide padding.
+extension ThemeSpacingWithPadding on ThemeSpacing {
   // #region Padding all.
   EdgeInsets get p1 => EdgeInsets.all(s1);
   EdgeInsets get p2 => EdgeInsets.all(s2);
@@ -113,8 +113,8 @@ extension DesignSpacingWithPadding on DesignSpacing {
   // #endregion
 }
 
-/// Extension methods for [DesignSpacing] to provide margin.
-extension DesignSpacingWithMargin on DesignSpacing {
+/// Extension methods for [ThemeSpacing] to provide margin.
+extension ThemeSpacingWithMargin on ThemeSpacing {
   // #region Margin all.
   EdgeInsets get m1 => EdgeInsets.all(s1);
   EdgeInsets get m2 => EdgeInsets.all(s2);
