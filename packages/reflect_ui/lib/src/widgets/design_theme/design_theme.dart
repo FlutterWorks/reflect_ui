@@ -3,6 +3,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show Theme, ThemeExtension;
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/core/color_descriptor.dart';
+import 'package:reflect_ui/src/painting/varianted_widget_state_color.dart';
+import 'package:reflect_ui/src/painting/widget_property.dart';
 import 'package:reflect_ui/src/painting/widget_style.dart';
 import 'package:reflect_ui/src/widgets/design_theme/theme_borders.dart';
 import 'package:reflect_ui/src/widgets/design_theme/theme_colors.dart';
@@ -10,7 +13,6 @@ import 'package:reflect_ui/src/widgets/design_theme/theme_icons.dart';
 import 'package:reflect_ui/src/widgets/design_theme/theme_sizing.dart';
 import 'package:reflect_ui/src/widgets/design_theme/theme_spacing.dart';
 import 'package:reflect_ui/src/widgets/design_theme/theme_typography.dart';
-import 'package:reflect_ui/src/widgets/design_theme/widget_base_style.dart';
 import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
 
 export 'package:reflect_ui/src/widgets/design_theme/theme_borders.dart';
@@ -36,9 +38,7 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
     required this.sizing,
     required this.spacing,
     required this.typography,
-    this.defaultBaseStyle,
-    this.defaultBaseStyleResolver,
-    this.widgetStyleResolver = const WidgetStyleResolver(),
+    required this.baseStyle,
   });
 
   /// The id of the design theme.
@@ -68,24 +68,8 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
   /// The typography of the design theme.
   final ThemeTypography typography;
 
-  /// The base style of the design theme.
-  final WidgetBaseStyle? defaultBaseStyle;
-
-  /// The base style resolver of the design theme.
-  final WidgetBaseStyleResolver? defaultBaseStyleResolver;
-
-  /// The widget style resolver of the design theme.
-  final WidgetStyleResolver widgetStyleResolver;
-
-  /// The base style of the design theme.
-  ///
-  /// If the default base style is not provided, the default base style resolver
-  /// will be used to resolve the base style.
-  WidgetBaseStyle get baseStyle {
-    return defaultBaseStyle ??
-        defaultBaseStyleResolver?.resolve(this) ??
-        const WidgetBaseStyle();
-  }
+  /// The default widget style of the design theme.
+  final WidgetStyle baseStyle;
 
   /// Creates a dark design theme.
   static DesignThemeData dark() {
@@ -99,65 +83,262 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
       sizing: ThemeSizing(sizingScale: 4),
       spacing: ThemeSpacing(spacingScale: 4),
       typography: ThemeTypography.roboto(),
+      baseStyle: WidgetStyle(
+        minSize: SizedWidgetProperty<Size>(
+          tiny: Size.square(24),
+          small: Size.square(32),
+          medium: Size.square(44),
+          large: Size.square(48),
+          big: Size.square(56),
+        ),
+      ),
     );
   }
 
   /// Creates a dark compact design theme.
   static DesignThemeData darkCompact() {
-    return DesignThemeData(
+    return const DesignThemeData(
       id: 'dark-compact',
       name: 'Dark Compact',
       brightness: Brightness.dark,
-      borders: const ThemeBorders(),
-      colors: const ThemeColors.materialDark(),
-      icons: const ThemeIcons.material(),
-      sizing: const ThemeSizing(sizingScale: 4),
-      spacing: const ThemeSpacing(spacingScale: 4),
-      typography: const ThemeTypography.roboto(),
-      defaultBaseStyleResolver: WidgetBaseStyleResolver(
-        size: (theme) => theme.sizing.size8,
-        margin: (theme) => theme.spacing.m8,
-        padding: (theme) => theme.spacing.p8,
+      borders: ThemeBorders(),
+      colors: ThemeColors.materialDark(),
+      icons: ThemeIcons.material(),
+      sizing: ThemeSizing(sizingScale: 4),
+      spacing: ThemeSpacing(spacingScale: 4),
+      typography: ThemeTypography.roboto(),
+      baseStyle: WidgetStyle(
+        minSize: SizedWidgetProperty<Size>(
+          tiny: Size.zero,
+          small: Size.zero,
+          medium: Size.zero,
+          large: Size.zero,
+          big: Size.zero,
+        ),
+        margin: WidgetPropertyAll(EdgeInsets.zero),
+        padding: SizedWidgetProperty<EdgeInsets>(
+          tiny: EdgeInsets.zero,
+          small: EdgeInsets.zero,
+          medium: EdgeInsets.zero,
+          large: EdgeInsets.zero,
+          big: EdgeInsets.zero,
+        ),
+        backgroundColor: VariantedWidgetStateColor(
+          filled: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+            WidgetState.hovered: ColorDescriptor(
+              shade: 700,
+            ),
+          },
+          tinted: {
+            null: ColorDescriptor(
+              shade: 50,
+            ),
+            WidgetState.hovered: ColorDescriptor(
+              shade: 100,
+            ),
+          },
+          outlined: {},
+          subtle: {},
+          transparent: {},
+        ),
+        foregroundColor: VariantedWidgetStateColor(
+          filled: {},
+          tinted: {},
+          outlined: {},
+          subtle: {},
+          transparent: {},
+        ),
       ),
     );
   }
 
   /// Creates a light design theme.
   static DesignThemeData light() {
-    return DesignThemeData(
+    return const DesignThemeData(
       id: 'light',
       name: 'Light',
       brightness: Brightness.light,
-      borders: const ThemeBorders(),
-      colors: const ThemeColors.materialLight(),
-      icons: const ThemeIcons.material(),
-      sizing: const ThemeSizing(sizingScale: 4),
-      spacing: const ThemeSpacing(spacingScale: 4),
-      typography: const ThemeTypography.roboto(),
-      defaultBaseStyleResolver: WidgetBaseStyleResolver(
-        size: (theme) => theme.sizing.size8,
-        margin: (theme) => theme.spacing.m8,
-        padding: (theme) => theme.spacing.p8,
+      borders: ThemeBorders(),
+      colors: ThemeColors.materialLight(),
+      icons: ThemeIcons.material(),
+      sizing: ThemeSizing(sizingScale: 4),
+      spacing: ThemeSpacing(spacingScale: 4),
+      typography: ThemeTypography.roboto(),
+      baseStyle: WidgetStyle(
+        minSize: SizedWidgetProperty<Size>(
+          tiny: Size.square(24),
+          small: Size.square(32),
+          medium: Size.square(44),
+          large: Size.square(48),
+          big: Size.square(56),
+          debugName: 'minSize',
+        ),
+        margin: WidgetPropertyAll(EdgeInsets.zero),
+        padding: SizedWidgetProperty<EdgeInsets>(
+          tiny: EdgeInsets.zero,
+          small: EdgeInsets.zero,
+          medium: EdgeInsets.zero,
+          large: EdgeInsets.zero,
+          big: EdgeInsets.zero,
+          debugName: 'padding',
+        ),
+        backgroundColor: VariantedWidgetStateColor(
+          filled: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+            WidgetState.hovered: ColorDescriptor(
+              shade: 700,
+            ),
+          },
+          tinted: {
+            null: ColorDescriptor(
+              shade: 50,
+            ),
+            WidgetState.hovered: ColorDescriptor(
+              shade: 100,
+            ),
+          },
+          outlined: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+          },
+          subtle: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+          },
+          transparent: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+          },
+        ),
+        foregroundColor: VariantedWidgetStateColor(
+          filled: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+          },
+          tinted: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+          },
+          outlined: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+          },
+          subtle: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+          },
+          transparent: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+          },
+        ),
       ),
     );
   }
 
   /// Creates a light compact design theme.
   static DesignThemeData lightCompact() {
-    return DesignThemeData(
+    return const DesignThemeData(
       id: 'light-compact',
       name: 'Light Compact',
       brightness: Brightness.light,
-      borders: const ThemeBorders(),
-      colors: const ThemeColors.materialLight(),
-      icons: const ThemeIcons.material(),
-      sizing: const ThemeSizing(sizingScale: 4),
-      spacing: const ThemeSpacing(spacingScale: 4),
-      typography: const ThemeTypography.roboto(),
-      defaultBaseStyleResolver: WidgetBaseStyleResolver(
-        size: (theme) => theme.sizing.size8,
-        margin: (theme) => theme.spacing.m8,
-        padding: (theme) => theme.spacing.p8,
+      borders: ThemeBorders(),
+      colors: ThemeColors.materialLight(),
+      icons: ThemeIcons.material(),
+      sizing: ThemeSizing(sizingScale: 4),
+      spacing: ThemeSpacing(spacingScale: 4),
+      typography: ThemeTypography.roboto(),
+      baseStyle: WidgetStyle(
+        minSize: SizedWidgetProperty<Size>(
+          tiny: Size.square(24),
+          small: Size.square(32),
+          medium: Size.square(44),
+          large: Size.square(48),
+          big: Size.square(56),
+          debugName: 'minSize',
+        ),
+        margin: WidgetPropertyAll(EdgeInsets.zero),
+        padding: SizedWidgetProperty<EdgeInsets>(
+          tiny: EdgeInsets.zero,
+          small: EdgeInsets.zero,
+          medium: EdgeInsets.zero,
+          large: EdgeInsets.zero,
+          big: EdgeInsets.zero,
+          debugName: 'padding',
+        ),
+        backgroundColor: VariantedWidgetStateColor(
+          filled: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+            WidgetState.hovered: ColorDescriptor(
+              shade: 700,
+            ),
+          },
+          tinted: {
+            null: ColorDescriptor(
+              shade: 50,
+            ),
+            WidgetState.hovered: ColorDescriptor(
+              shade: 100,
+            ),
+          },
+          outlined: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+          },
+          subtle: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+          },
+          transparent: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+          },
+        ),
+        foregroundColor: VariantedWidgetStateColor(
+          filled: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+          },
+          tinted: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+          },
+          outlined: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+          },
+          subtle: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+          },
+          transparent: {
+            null: ColorDescriptor(
+              shade: 600,
+            ),
+          },
+        ),
       ),
     );
   }

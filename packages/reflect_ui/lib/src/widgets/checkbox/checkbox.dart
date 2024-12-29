@@ -6,9 +6,10 @@
 
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/widgets.dart';
-import 'package:reflect_ui/src/foundation/constants.dart';
+import 'package:reflect_ui/src/utils/constants.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
-import 'package:reflect_ui/src/widgets/design_theme/widget_base_style.dart';
+
+export './checkbox_style.dart';
 
 // The relative values needed to transform a color to it's equivalent focus
 // outline color.
@@ -207,7 +208,6 @@ class _CheckboxState extends State<Checkbox>
   @override
   Widget build(BuildContext context) {
     final DesignThemeData theme = DesignTheme.of(context);
-    final WidgetBaseStyle baseStyle = theme.baseStyle;
 
     final Color effectiveActiveColor =
         widget.activeColor ?? theme.colors.primary;
@@ -224,6 +224,9 @@ class _CheckboxState extends State<Checkbox>
     final Color effectiveCheckColor =
         widget.checkColor ?? CupertinoColors.white;
 
+    final Size size = theme.sizing.size10;
+    final BorderRadius borderRadius = theme.borders.medium;
+
     return Semantics(
       checked: widget.value ?? false,
       mixed: widget.tristate ? widget.value == null : null,
@@ -231,9 +234,9 @@ class _CheckboxState extends State<Checkbox>
         focusNode: widget.focusNode,
         autofocus: widget.autofocus,
         onFocusChange: onFocusChange,
-        size: baseStyle.size,
+        size: size,
         painter: _painter
-          ..dimension = baseStyle.size.width * kWidgetDimensionTertiaryScale
+          ..dimension = size.width * kWidgetDimensionTertiaryScale
           ..focusColor = effectiveFocusOverlayColor
           ..isFocused = focused
           ..downPosition = downPosition
@@ -245,7 +248,7 @@ class _CheckboxState extends State<Checkbox>
           ..isActive = widget.onChanged != null
           ..shape = widget.shape ??
               RoundedRectangleBorder(
-                borderRadius: baseStyle.borderRadius / 2,
+                borderRadius: borderRadius / 2,
               )
           ..side = widget.side,
       ),

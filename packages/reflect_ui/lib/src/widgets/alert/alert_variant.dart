@@ -1,4 +1,4 @@
-import 'package:reflect_ui/src/painting/widget_variant.dart';
+import 'package:reflect_ui/src/core/widget_variant.dart';
 
 /// The variant of an alert.
 enum AlertVariant with WidgetVariant {

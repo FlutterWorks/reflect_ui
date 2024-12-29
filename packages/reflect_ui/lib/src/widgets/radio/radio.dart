@@ -7,9 +7,8 @@
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:reflect_ui/src/foundation/constants.dart';
+import 'package:reflect_ui/src/utils/constants.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
-import 'package:reflect_ui/src/widgets/design_theme/widget_base_style.dart';
 
 const double _kOuterRadius = 8.0;
 const double _kInnerRadius = 3.6;
@@ -245,7 +244,6 @@ class _RadioState<T> extends State<Radio<T>>
   @override
   Widget build(BuildContext context) {
     final DesignThemeData theme = DesignTheme.of(context);
-    final WidgetBaseStyle baseStyle = theme.baseStyle;
 
     final Color effectiveActiveColor =
         widget.activeColor ?? theme.colors.primary;
@@ -289,6 +287,8 @@ class _RadioState<T> extends State<Radio<T>>
         accessibilitySelected = widget._selected;
     }
 
+    final Size size = theme.sizing.size10;
+
     return Semantics(
       inMutuallyExclusiveGroup: true,
       checked: widget._selected,
@@ -298,9 +298,9 @@ class _RadioState<T> extends State<Radio<T>>
         focusNode: widget.focusNode,
         autofocus: widget.autofocus,
         onFocusChange: onFocusChange,
-        size: baseStyle.size,
+        size: size,
         painter: _painter
-          ..dimension = baseStyle.size.width * kWidgetDimensionTertiaryScale
+          ..dimension = size.width * kWidgetDimensionTertiaryScale
           ..focusColor = effectiveFocusOverlayColor
           ..downPosition = downPosition
           ..isFocused = focused

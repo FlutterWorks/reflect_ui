@@ -4,11 +4,11 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/widgets/button/button_kind.dart';
 import 'package:reflect_ui/src/widgets/button/button_style.dart';
 import 'package:reflect_ui/src/widgets/button/button_variant.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
-import 'package:reflect_ui/src/widgets/design_theme/widget_base_style.dart';
 
 export 'package:reflect_ui/src/widgets/button/button_kind.dart';
 export 'package:reflect_ui/src/widgets/button/button_style.dart';
@@ -44,15 +44,13 @@ class Button extends StatefulWidget {
     super.key,
     required this.child,
     this.style,
-    this.variant = ButtonVariant.filled,
     this.kind = ButtonKind.primary,
-    this.padding,
+    this.variant = ButtonVariant.filled,
+    this.size = WidgetSize.medium,
     this.color,
-    this.borderRadius,
-    this.alignment = Alignment.center,
     this.focusNode,
-    this.onFocusChange,
     this.autofocus = false,
+    this.onFocusChange,
     required this.onPressed,
   });
 
@@ -66,59 +64,42 @@ class Button extends StatefulWidget {
   /// Defaults to null.
   final ButtonStyle? style;
 
-  /// The variant of the button.
-  ///
-  /// Defaults to [ButtonVariant.filled].
-  final ButtonVariant variant;
-
   /// The kind of the button.
   ///
   /// Defaults to [ButtonKind.primary].
   final ButtonKind kind;
 
-  /// The amount of space to surround the child inside the bounds of the button.
+  /// The variant of the button.
   ///
-  /// Defaults to the [DesignTheme]'s `userInteractivePadding`.
-  final EdgeInsetsGeometry? padding;
+  /// Defaults to [ButtonVariant.filled].
+  final ButtonVariant variant;
 
-  /// The color of the button's background.
+  /// The size of the button.
   ///
-  /// Defaults to null which produces a button with no background or border.
+  /// Defaults to [WidgetSize.medium].
+  final Size size;
+
+  /// The color of the button's seed color.
   ///
-  /// Defaults to the [DesignTheme]'s `primaryColor`.
+  /// Defaults to null.
   final Color? color;
+
+  /// {@macro flutter.widgets.Focus.focusNode}
+  final FocusNode? focusNode;
+
+  /// {@macro flutter.widgets.Focus.autofocus}
+  final bool autofocus;
 
   /// The callback that is called when the button is tapped or otherwise activated.
   ///
   /// If this is set to null, the button will be disabled.
   final VoidCallback? onPressed;
 
-  /// The radius of the button's corners when it has a background color.
-  ///
-  /// Defaults to the [DesignTheme]'s `userInteractiveBorderRadius`.
-  final BorderRadius? borderRadius;
-
-  /// The alignment of the button's [child].
-  ///
-  /// Typically buttons are sized to be just big enough to contain the child and its
-  /// [padding]. If the button's size is constrained to a fixed size, for example by
-  /// enclosing it with a [SizedBox], this property defines how the child is aligned
-  /// within the available space.
-  ///
-  /// Always defaults to [Alignment.center].
-  final AlignmentGeometry alignment;
-
-  /// {@macro flutter.widgets.Focus.focusNode}
-  final FocusNode? focusNode;
-
   /// Handler called when the focus changes.
   ///
   /// Called with true if this widget's node gains focus, and false if it loses
   /// focus.
   final ValueChanged<bool>? onFocusChange;
-
-  /// {@macro flutter.widgets.Focus.autofocus}
-  final bool autofocus;
 
   /// Whether the button is enabled or disabled. Buttons are disabled by default. To
   /// enable a button, set its [onPressed] property to a non-null value.
@@ -187,28 +168,15 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final DesignThemeData theme = DesignTheme.of(context);
-    final WidgetBaseStyle baseStyle = theme.baseStyle;
+    final ButtonStyle style = widget.style ?? ButtonStyle.fromTheme(theme);
 
-    ButtonStyle style = widget.style ??
-        ButtonStyle.resolveWith(
-          theme.widgetStyleResolver,
-          widget.kind,
-          widget.variant,
-          color: widget.color,
-          context: context,
-        );
-
-    final Color? backgroundColor = style.backgroundColor?.resolve(states);
-    final Color? foregroundColor = style.foregroundColor?.resolve(states);
-    final BorderSide? side = style.side?.resolve(states);
-    final TextStyle textStyle =
-        (style.textStyle?.resolve(states) ?? theme.typography.labelMedium)
-            .copyWith(
-      color: foregroundColor,
+    final effectiveStyle = style.resolve(
+      states,
+      widget.kind,
+      widget.variant,
+      widget.size is WidgetSize ? widget.size as WidgetSize : null,
+      theme,
     );
-
-    final IconThemeData iconTheme =
-        IconTheme.of(context).copyWith(color: foregroundColor);
 
     return MouseRegion(
       cursor: widget.enabled && kIsWeb
@@ -244,28 +212,35 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
             button: true,
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                minWidth: theme.baseStyle.size.width,
-                minHeight: theme.baseStyle.size.height,
+                minWidth: effectiveStyle.minSize.width,
+                minHeight: effectiveStyle.minSize.height,
               ),
               child: Container(
                 foregroundDecoration: BoxDecoration(
-                  border: side != null ? Border.fromBorderSide(side) : null,
-                  borderRadius: widget.borderRadius ?? baseStyle.borderRadius,
+                  border: effectiveStyle.borderColor != null
+                      ? Border.all(
+                          color: effectiveStyle.borderColor!,
+                          width: effectiveStyle.borderWidth ?? 0,
+                        )
+                      : null,
+                  borderRadius: effectiveStyle.borderRadius,
                 ),
                 decoration: BoxDecoration(
-                  color: backgroundColor,
-                  borderRadius: widget.borderRadius ?? baseStyle.borderRadius,
+                  color: effectiveStyle.backgroundColor,
+                  borderRadius: effectiveStyle.borderRadius,
                 ),
                 child: Padding(
-                  padding: widget.padding ?? baseStyle.padding,
+                  padding: effectiveStyle.padding,
                   child: Align(
-                    alignment: widget.alignment,
+                    alignment: Alignment.center,
                     widthFactor: 1.0,
                     heightFactor: 1.0,
                     child: DefaultTextStyle(
-                      style: textStyle,
+                      style: effectiveStyle.textStyle,
                       child: IconTheme(
-                        data: iconTheme,
+                        data: IconTheme.of(context).copyWith(
+                          color: effectiveStyle.foregroundColor,
+                        ),
                         child: widget.child,
                       ),
                     ),

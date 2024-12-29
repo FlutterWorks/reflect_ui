@@ -19,9 +19,7 @@ mixin _$DesignThemeDataTailorMixin
   ThemeSizing get sizing;
   ThemeSpacing get spacing;
   ThemeTypography get typography;
-  WidgetBaseStyle? get defaultBaseStyle;
-  WidgetBaseStyleResolver? get defaultBaseStyleResolver;
-  WidgetBaseStyle get baseStyle;
+  WidgetStyle get baseStyle;
 
   @override
   DesignThemeData copyWith({
@@ -34,9 +32,7 @@ mixin _$DesignThemeDataTailorMixin
     ThemeSizing? sizing,
     ThemeSpacing? spacing,
     ThemeTypography? typography,
-    WidgetBaseStyle? defaultBaseStyle,
-    WidgetBaseStyleResolver? defaultBaseStyleResolver,
-    WidgetBaseStyle? baseStyle,
+    WidgetStyle? baseStyle,
   }) {
     return DesignThemeData(
       id: id ?? this.id,
@@ -48,9 +44,7 @@ mixin _$DesignThemeDataTailorMixin
       sizing: sizing ?? this.sizing,
       spacing: spacing ?? this.spacing,
       typography: typography ?? this.typography,
-      defaultBaseStyle: defaultBaseStyle ?? this.defaultBaseStyle,
-      defaultBaseStyleResolver:
-          defaultBaseStyleResolver ?? this.defaultBaseStyleResolver,
+      baseStyle: baseStyle ?? this.baseStyle,
     );
   }
 
@@ -68,9 +62,7 @@ mixin _$DesignThemeDataTailorMixin
       sizing: t < 0.5 ? sizing : other.sizing,
       spacing: t < 0.5 ? spacing : other.spacing,
       typography: t < 0.5 ? typography : other.typography,
-      defaultBaseStyle: t < 0.5 ? defaultBaseStyle : other.defaultBaseStyle,
-      defaultBaseStyleResolver:
-          t < 0.5 ? defaultBaseStyleResolver : other.defaultBaseStyleResolver,
+      baseStyle: t < 0.5 ? baseStyle : other.baseStyle,
     );
   }
 
@@ -90,10 +82,6 @@ mixin _$DesignThemeDataTailorMixin
             const DeepCollectionEquality().equals(spacing, other.spacing) &&
             const DeepCollectionEquality()
                 .equals(typography, other.typography) &&
-            const DeepCollectionEquality()
-                .equals(defaultBaseStyle, other.defaultBaseStyle) &&
-            const DeepCollectionEquality().equals(
-                defaultBaseStyleResolver, other.defaultBaseStyleResolver) &&
             const DeepCollectionEquality().equals(baseStyle, other.baseStyle));
   }
 
@@ -110,8 +98,6 @@ mixin _$DesignThemeDataTailorMixin
       const DeepCollectionEquality().hash(sizing),
       const DeepCollectionEquality().hash(spacing),
       const DeepCollectionEquality().hash(typography),
-      const DeepCollectionEquality().hash(defaultBaseStyle),
-      const DeepCollectionEquality().hash(defaultBaseStyleResolver),
       const DeepCollectionEquality().hash(baseStyle),
     );
   }
@@ -130,9 +116,6 @@ mixin _$DesignThemeDataTailorMixin
       ..add(DiagnosticsProperty('sizing', sizing))
       ..add(DiagnosticsProperty('spacing', spacing))
       ..add(DiagnosticsProperty('typography', typography))
-      ..add(DiagnosticsProperty('defaultBaseStyle', defaultBaseStyle))
-      ..add(DiagnosticsProperty(
-          'defaultBaseStyleResolver', defaultBaseStyleResolver))
       ..add(DiagnosticsProperty('baseStyle', baseStyle));
   }
 }
@@ -168,11 +151,6 @@ extension DesignThemeDataBuildContextProps on BuildContext {
   /// The typography of the design theme.
   ThemeTypography get typography => designThemeData.typography;
 
-  /// The base style of the design theme.
-  WidgetBaseStyle? get defaultBaseStyle => designThemeData.defaultBaseStyle;
-
-  /// The base style resolver of the design theme.
-  WidgetBaseStyleResolver? get defaultBaseStyleResolver =>
-      designThemeData.defaultBaseStyleResolver;
-  WidgetBaseStyle get baseStyle => designThemeData.baseStyle;
+  /// The default widget style of the design theme.
+  WidgetStyle get baseStyle => designThemeData.baseStyle;
 }

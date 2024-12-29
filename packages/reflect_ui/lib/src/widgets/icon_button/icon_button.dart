@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:reflect_ui/src/painting/widget_variant.dart';
+import 'package:reflect_ui/src/core/widget_variant.dart';
 import 'package:reflect_ui/src/widgets/button/button.dart';
 
 enum IconButtonVariant with WidgetVariant {
@@ -21,10 +21,7 @@ class IconButton extends Button {
     super.style,
     IconButtonVariant variant = IconButtonVariant.filled,
     super.kind,
-    super.padding = const EdgeInsets.all(2),
     super.color,
-    super.borderRadius,
-    super.alignment,
     super.focusNode,
     super.onFocusChange,
     super.autofocus = false,

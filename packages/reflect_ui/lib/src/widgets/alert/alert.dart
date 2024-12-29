@@ -4,7 +4,6 @@ import 'package:reflect_ui/src/widgets/alert/alert_kind.dart';
 import 'package:reflect_ui/src/widgets/alert/alert_style.dart';
 import 'package:reflect_ui/src/widgets/alert/alert_variant.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
-import 'package:reflect_ui/src/widgets/design_theme/widget_base_style.dart';
 import 'package:reflect_ui/src/widgets/gapped_column/gapped_column.dart';
 import 'package:reflect_ui/src/widgets/gapped_row/gapped_row.dart';
 
@@ -58,26 +57,16 @@ class _AlertState extends State<Alert> {
   @override
   Widget build(BuildContext context) {
     final DesignThemeData theme = DesignTheme.of(context);
-    final WidgetBaseStyle baseStyle = theme.baseStyle;
 
-    // final TextTheme textTheme = Theme.of(context).textTheme;
-    final WidgetStyle widgetStyle = theme.widgetStyleResolver.resolve(
-      context,
-      widget.kind,
-      widget.variant,
-    );
+    final WidgetStyle widgetStyle = theme.baseStyle;
 
     AlertStyle? style = widget.style;
 
     final Set<WidgetState> states = {};
 
-    final Color? backgroundColor =
-        (style?.backgroundColor ?? widgetStyle.backgroundColor)
-            ?.resolve(states);
-    final Color? foregroundColor =
-        (style?.foregroundColor ?? widgetStyle.foregroundColor)
-            ?.resolve(states);
-    final Color? borderColor = (widgetStyle.borderColor)?.resolve(states);
+    final Color? backgroundColor = style?.backgroundColor?.resolve(states);
+    final Color? foregroundColor = (style?.foregroundColor)?.resolve(states);
+    final Color? borderColor = widgetStyle.borderColor.resolve(states);
     final BorderSide? side = ((style?.side)?.resolve(states) ??
         (borderColor != null
             ? BorderSide(width: 1, color: borderColor)

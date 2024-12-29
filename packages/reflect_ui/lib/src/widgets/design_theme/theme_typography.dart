@@ -38,22 +38,86 @@ class ThemeTypography {
 
   /// Create a typography with the Roboto font family.
   const ThemeTypography.roboto()
-      : bodyTiny = const TextStyle(fontFamily: 'Roboto'),
-        bodySmall = const TextStyle(fontFamily: 'Roboto'),
-        bodyMedium = const TextStyle(fontFamily: 'Roboto'),
-        bodyLarge = const TextStyle(fontFamily: 'Roboto'),
-        labelTiny = const TextStyle(fontFamily: 'Roboto'),
-        labelSmall = const TextStyle(fontFamily: 'Roboto'),
-        labelMedium = const TextStyle(fontFamily: 'Roboto'),
-        labelLarge = const TextStyle(fontFamily: 'Roboto'),
-        titleTiny = const TextStyle(fontFamily: 'Roboto'),
-        titleSmall = const TextStyle(fontFamily: 'Roboto'),
-        titleMedium = const TextStyle(fontFamily: 'Roboto'),
-        titleLarge = const TextStyle(fontFamily: 'Roboto'),
-        displayTiny = const TextStyle(fontFamily: 'Roboto'),
-        displaySmall = const TextStyle(fontFamily: 'Roboto'),
-        displayMedium = const TextStyle(fontFamily: 'Roboto'),
-        displayLarge = const TextStyle(fontFamily: 'Roboto');
+      : bodyTiny = const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 12,
+          height: 16 / 12,
+        ),
+        bodySmall = const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 14,
+          height: 20 / 14,
+        ),
+        bodyMedium = const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 16,
+          height: 24 / 16,
+        ),
+        bodyLarge = const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 18,
+          height: 28 / 18,
+        ),
+        labelTiny = const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 12,
+          height: 16 / 12,
+        ),
+        labelSmall = const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 14,
+          height: 20 / 14,
+        ),
+        labelMedium = const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 16,
+          height: 24 / 16,
+        ),
+        labelLarge = const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 18,
+          height: 28 / 18,
+        ),
+        titleTiny = const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 12,
+          height: 16 / 12,
+        ),
+        titleSmall = const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 14,
+          height: 20 / 14,
+        ),
+        titleMedium = const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 16,
+          height: 24 / 16,
+        ),
+        titleLarge = const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 18,
+          height: 28 / 18,
+        ),
+        displayTiny = const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 12,
+          height: 16 / 12,
+        ),
+        displaySmall = const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 14,
+          height: 20 / 14,
+        ),
+        displayMedium = const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 16,
+          height: 24 / 16,
+        ),
+        displayLarge = const TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 18,
+          height: 28 / 18,
+        );
 
   /// Create a typography with the Inter font family.
   const ThemeTypography.inter()

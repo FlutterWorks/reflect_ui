@@ -1,4 +1,4 @@
-import 'package:reflect_ui/src/painting/widget_kind.dart';
+import 'package:reflect_ui/src/core/widget_kind.dart';
 
 /// An enum to define the kind of a badge.
 enum BadgeKind with WidgetKind {

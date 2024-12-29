@@ -4,15 +4,16 @@
 
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/widgets.dart';
-import 'package:reflect_ui/src/foundation/constants.dart';
 import 'package:reflect_ui/src/painting/widget_style.dart';
+import 'package:reflect_ui/src/utils/constants.dart';
 import 'package:reflect_ui/src/widgets/badge/badge_kind.dart';
 import 'package:reflect_ui/src/widgets/badge/badge_style.dart';
 import 'package:reflect_ui/src/widgets/badge/badge_variant.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
-import 'package:reflect_ui/src/widgets/design_theme/widget_base_style.dart';
 
-export 'package:reflect_ui/src/widgets/badge/badge_variant.dart';
+export './badge_kind.dart';
+export './badge_style.dart';
+export './badge_variant.dart';
 
 // Measured against iOS 12 in Xcode.
 const EdgeInsets _kBadgePadding = EdgeInsets.all(16.0);
@@ -124,25 +125,15 @@ class _BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final DesignThemeData theme = DesignTheme.of(context);
-    final WidgetBaseStyle baseStyle = theme.baseStyle;
 
-    final WidgetStyle widgetStyle = theme.widgetStyleResolver.resolve(
-      context,
-      widget.kind,
-      widget.variant,
-      color: widget.color,
-    );
+    final WidgetStyle widgetStyle = theme.baseStyle;
 
     BadgeStyle? style = widget.style;
 
     Set<WidgetState> states = <WidgetState>{};
 
-    final Color? backgroundColor =
-        (style?.backgroundColor ?? widgetStyle.backgroundColor)
-            ?.resolve(states);
-    final Color? foregroundColor =
-        (style?.foregroundColor ?? widgetStyle.foregroundColor)
-            ?.resolve(states);
+    final Color? backgroundColor = (style?.backgroundColor)?.resolve(states);
+    final Color? foregroundColor = (style?.foregroundColor)?.resolve(states);
     final Color? borderColor = (widgetStyle.borderColor)?.resolve(states);
     final BorderSide? side = ((style?.side)?.resolve(states) ??
         (borderColor != null
@@ -160,10 +151,12 @@ class _BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     final IconThemeData iconTheme =
         IconTheme.of(context).copyWith(color: foregroundColor);
 
+    final Size size = theme.sizing.size10;
+
     return ConstrainedBox(
       constraints: BoxConstraints(
-        minWidth: baseStyle.size.width * kWidgetDimensionTertiaryScale,
-        minHeight: baseStyle.size.height * kWidgetDimensionTertiaryScale,
+        minWidth: size.width * kWidgetDimensionTertiaryScale,
+        minHeight: size.height * kWidgetDimensionTertiaryScale,
       ),
       child: Container(
         decoration: BoxDecoration(

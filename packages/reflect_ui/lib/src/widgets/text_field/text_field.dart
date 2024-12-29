@@ -29,7 +29,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
-import 'package:reflect_ui/src/widgets/design_theme/widget_base_style.dart';
 
 export 'package:flutter/services.dart'
     show
@@ -1251,7 +1250,6 @@ class _TextFieldState extends State<TextField>
       child: editableText,
       builder: (BuildContext context, TextEditingValue text, Widget? child) {
         final DesignThemeData theme = DesignTheme.of(context);
-        final WidgetBaseStyle baseStyle = theme.baseStyle;
 
         final bool hasText = text.text.isNotEmpty;
         final String? placeholderText = widget.placeholder;
@@ -1266,7 +1264,7 @@ class _TextFieldState extends State<TextField>
                 child: SizedBox(
                   width: double.infinity,
                   child: Padding(
-                    padding: widget.padding ?? baseStyle.padding,
+                    padding: widget.padding ?? theme.spacing.p2,
                     child: Text(
                       placeholderText,
                       // This is to make sure the text field is always tall enough
@@ -1394,7 +1392,6 @@ class _TextFieldState extends State<TextField>
     ];
 
     final DesignThemeData theme = DesignTheme.of(context);
-    final WidgetBaseStyle baseStyle = theme.baseStyle;
 
     final TextStyle textStyle = theme.typography.bodySmall
         .copyWith(color: theme.colors.onSurface)
@@ -1476,7 +1473,7 @@ class _TextFieldState extends State<TextField>
     );
 
     final Widget paddedEditable = Padding(
-      padding: widget.padding ?? baseStyle.padding,
+      padding: widget.padding ?? theme.spacing.p2,
       child: RepaintBoundary(
         child: UnmanagedRestorationScope(
           bucket: bucket,

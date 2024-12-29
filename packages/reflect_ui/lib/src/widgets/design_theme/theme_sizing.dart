@@ -1,10 +1,12 @@
 import 'package:flutter/widgets.dart';
 
+///
 class ThemeSizing {
   const ThemeSizing({
     required this.sizingScale,
   });
 
+  /// The sizing scale of the design theme.
   final double sizingScale;
 
   double get s0 => 0;

@@ -1,112 +1,76 @@
 import 'package:flutter/material.dart' show Colors;
 import 'package:flutter/widgets.dart';
-import 'package:reflect_ui/src/extensions/brightness.dart';
-import 'package:reflect_ui/src/painting/widget_kind.dart';
-import 'package:reflect_ui/src/painting/widget_variant.dart';
+import 'package:reflect_ui/src/core/widget_kind.dart';
+import 'package:reflect_ui/src/core/widget_size.dart';
+import 'package:reflect_ui/src/core/widget_variant.dart';
+import 'package:reflect_ui/src/painting/widget_property.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 import 'package:reflect_ui/src/widgets/icon/icon_style.dart';
 
 /// A widget style.
 class WidgetStyle {
   const WidgetStyle({
-    this.size,
-    this.margin,
-    this.padding,
-    this.backgroundColor,
-    this.foregroundColor,
-    this.borderColor,
-    this.borderRadius,
-    this.borderWidth,
-    this.outlineColor,
-    this.outlineRadius,
-    this.outlineWidth,
-    this.boxShadow,
-    this.iconStyle,
-    this.textStyle,
+    this.minSize = const WidgetPropertyAll(Size.zero),
+    this.margin = const WidgetPropertyAll(EdgeInsets.zero),
+    this.padding = const WidgetPropertyAll(EdgeInsets.zero),
+    this.backgroundColor = const WidgetPropertyAll(Colors.transparent),
+    this.foregroundColor = const WidgetPropertyAll(Colors.transparent),
+    this.borderColor = const WidgetPropertyAll(Colors.transparent),
+    this.borderRadius = const WidgetPropertyAll(BorderRadius.zero),
+    this.borderWidth = const WidgetPropertyAll(0),
+    this.outlineColor = const WidgetPropertyAll(Colors.transparent),
+    this.outlineRadius = const WidgetPropertyAll(BorderRadius.zero),
+    this.outlineWidth = const WidgetPropertyAll(0),
+    this.boxShadow = const WidgetPropertyAll(BoxShadow()),
+    this.iconStyle = const WidgetPropertyAll(IconStyle()),
+    this.textStyle = const WidgetPropertyAll(TextStyle()),
   });
 
   /// The size of the widget.
-  final WidgetStateProperty<Size?>? size;
+  final WidgetProperty<Size> minSize;
 
   /// A widget style that has a margin.
-  final WidgetStateProperty<EdgeInsets?>? margin;
+  final WidgetProperty<EdgeInsets> margin;
 
   /// A widget style that has a padding.
-  final WidgetStateProperty<EdgeInsets?>? padding;
+  final WidgetProperty<EdgeInsets> padding;
 
   /// A widget style that has a background color.
-  final WidgetStateProperty<Color?>? backgroundColor;
+  final WidgetProperty<Color> backgroundColor;
 
   /// A widget style that has a foreground color.
-  final WidgetStateProperty<Color?>? foregroundColor;
+  final WidgetProperty<Color> foregroundColor;
 
   /// A widget style that has a border color.
-  final WidgetStateProperty<Color?>? borderColor;
+  final WidgetProperty<Color> borderColor;
 
   /// A widget style that has a border radius.
-  final WidgetStateProperty<BorderRadius?>? borderRadius;
+  final WidgetProperty<BorderRadius> borderRadius;
 
   /// A widget style that has a border width.
-  final WidgetStateProperty<double?>? borderWidth;
+  final WidgetProperty<double> borderWidth;
 
   /// A widget style that has an outline color.
-  final WidgetStateProperty<Color?>? outlineColor;
+  final WidgetProperty<Color> outlineColor;
 
   /// A widget style that has an outline radius.
-  final WidgetStateProperty<BorderRadius?>? outlineRadius;
+  final WidgetProperty<BorderRadius> outlineRadius;
 
   /// A widget style that has an outline width.
-  final WidgetStateProperty<double?>? outlineWidth;
+  final WidgetProperty<double> outlineWidth;
 
   /// A widget style that has a box shadow.
-  final WidgetStateProperty<BoxShadow?>? boxShadow;
+  final WidgetProperty<BoxShadow> boxShadow;
 
   /// A widget style that has an icon style.
-  final WidgetStateProperty<IconStyle?>? iconStyle;
+  final WidgetProperty<IconStyle> iconStyle;
 
   /// A widget style that has a text style.
-  final WidgetStateProperty<TextStyle?>? textStyle;
-
-  /// Copies the widget style with the given properties.
-  ///
-  /// If a property is not provided, the original property will be used.
-  WidgetStyle copyWith({
-    WidgetStateProperty<Size?>? size,
-    WidgetStateProperty<EdgeInsets?>? margin,
-    WidgetStateProperty<EdgeInsets?>? padding,
-    WidgetStateProperty<Color?>? backgroundColor,
-    WidgetStateProperty<Color?>? foregroundColor,
-    WidgetStateProperty<Color?>? borderColor,
-    WidgetStateProperty<BorderRadius?>? borderRadius,
-    WidgetStateProperty<double?>? borderWidth,
-    WidgetStateProperty<Color?>? outlineColor,
-    WidgetStateProperty<BorderRadius?>? outlineRadius,
-    WidgetStateProperty<double?>? outlineWidth,
-    WidgetStateProperty<BoxShadow?>? boxShadow,
-    WidgetStateProperty<IconStyle?>? iconStyle,
-    WidgetStateProperty<TextStyle?>? textStyle,
-  }) {
-    return WidgetStyle(
-      size: size ?? this.size,
-      margin: margin ?? this.margin,
-      padding: padding ?? this.padding,
-      backgroundColor: backgroundColor ?? this.backgroundColor,
-      foregroundColor: foregroundColor ?? this.foregroundColor,
-      borderColor: borderColor ?? this.borderColor,
-      borderRadius: borderRadius ?? this.borderRadius,
-      borderWidth: borderWidth ?? this.borderWidth,
-      outlineColor: outlineColor ?? this.outlineColor,
-      outlineRadius: outlineRadius ?? this.outlineRadius,
-      outlineWidth: outlineWidth ?? this.outlineWidth,
-      boxShadow: boxShadow ?? this.boxShadow,
-      iconStyle: iconStyle ?? this.iconStyle,
-      textStyle: textStyle ?? this.textStyle,
-    );
-  }
+  final WidgetProperty<TextStyle> textStyle;
 }
 
 /// A color that is configured for a specific state.
-class WidgetStateConfiguredColor extends WidgetStateProperty<Color> {
+class WidgetStateConfiguredColor extends WidgetProperty<Color> {
   WidgetStateConfiguredColor({
     required this.color,
     this.colorShade,
@@ -139,7 +103,9 @@ class WidgetStateConfiguredColor extends WidgetStateProperty<Color> {
   final double? disabledColorOpacity;
 
   @override
-  Color resolve(Set<WidgetState> states) {
+  Color resolve(
+    Set<WidgetState> states,
+  ) {
     Color? seedColor;
     int? seedColorShade;
     double? seedColorOpacity;
@@ -173,114 +139,125 @@ class WidgetStateConfiguredColor extends WidgetStateProperty<Color> {
     }
     return resolvedColor;
   }
-}
 
-/// A resolver for the base style of a widget.
-class WidgetStyleResolver {
-  const WidgetStyleResolver();
-
-  /// Resolve the base style for a widget.
-  WidgetStyle resolve(
-    BuildContext context,
-    WidgetKind kind,
-    WidgetVariant variant, {
-    Color? color,
+  @override
+  Color resolveWith(
+    Set<WidgetState> states, {
+    WidgetKind? kind,
+    WidgetVariant? variant,
+    WidgetSize? size,
+    Map<String, dynamic>? extra,
+    DesignThemeData? theme,
   }) {
-    final themeData = DesignTheme.of(context);
-    final brightness = themeData.brightness;
-    late Color seedColor;
-    if (color != null) {
-      seedColor = color;
-    } else {
-      switch (kind.name) {
-        case WidgetKind.primary:
-          seedColor = themeData.colors.primary;
-        case WidgetKind.secondary:
-          seedColor = themeData.colors.secondary;
-        case WidgetKind.success:
-          seedColor = themeData.colors.success;
-        case WidgetKind.danger:
-          seedColor = themeData.colors.danger;
-        case WidgetKind.warning:
-          seedColor = themeData.colors.warning;
-        case WidgetKind.info:
-          seedColor = themeData.colors.info;
-      }
-    }
-    switch (variant.name) {
-      case WidgetVariant.filled:
-        return WidgetStyle(
-          backgroundColor: WidgetStateConfiguredColor(
-            color: seedColor,
-            colorShade: 600,
-            hoveredColorShade: 700,
-            pressedColorShade: 600,
-          ),
-          foregroundColor: WidgetStateConfiguredColor(
-            color: Colors.white,
-          ),
-        );
-      case WidgetVariant.tinted:
-        return WidgetStyle(
-          backgroundColor: WidgetStateConfiguredColor(
-            color: seedColor,
-            colorShade: brightness.isLight() ? 50 : null,
-            colorOpacity: brightness.isDark() ? 0.15 : null,
-            hoveredColorShade: brightness.isLight() ? 100 : null,
-            hoveredColorOpacity: brightness.isDark() ? 0.2 : null,
-            pressedColorShade: brightness.isLight() ? 50 : null,
-            pressedColorOpacity: brightness.isDark() ? 0.15 : null,
-          ),
-          foregroundColor: WidgetStateConfiguredColor(
-            color: seedColor,
-            colorShade: 600,
-          ),
-        );
-      case WidgetVariant.outlined:
-        return WidgetStyle(
-          backgroundColor: WidgetStateConfiguredColor(
-            color: seedColor,
-            colorShade: -1,
-            hoveredColorShade: brightness.isLight() ? 50 : null,
-            hoveredColorOpacity: brightness.isDark() ? 0.2 : null,
-            pressedColorShade: brightness.isLight() ? 50 : null,
-            pressedColorOpacity: brightness.isDark() ? 0.2 : null,
-          ),
-          foregroundColor: WidgetStateConfiguredColor(
-            color: seedColor,
-            colorShade: 600,
-          ),
-          borderColor: WidgetStateConfiguredColor(
-            color: seedColor,
-            colorShade: 600,
-          ),
-        );
-      case WidgetVariant.subtle:
-        return WidgetStyle(
-          backgroundColor: WidgetStateConfiguredColor(
-            color: seedColor,
-            colorShade: -1,
-            hoveredColorShade: brightness.isLight() ? 50 : null,
-            hoveredColorOpacity: brightness.isDark() ? 0.2 : null,
-            pressedColorShade: brightness.isLight() ? 50 : null,
-            pressedColorOpacity: brightness.isDark() ? 0.2 : null,
-          ),
-          foregroundColor: WidgetStateConfiguredColor(
-            color: seedColor,
-            colorShade: 600,
-          ),
-        );
-      case WidgetVariant.transparent:
-        return WidgetStyle(
-          backgroundColor: WidgetStateConfiguredColor(
-            color: Colors.transparent,
-          ),
-          foregroundColor: WidgetStateConfiguredColor(
-            color: seedColor,
-            colorShade: 600,
-          ),
-        );
-    }
-    throw UnimplementedError('Unknown variant: ${variant.name}');
+    throw UnimplementedError();
   }
 }
+
+// /// A resolver for the base style of a widget.
+// class WidgetStyleResolver {
+//   const WidgetStyleResolver();
+
+//   /// Resolve the base style for a widget.
+//   WidgetStyle resolve(
+//     BuildContext context,
+//     WidgetKind kind,
+//     WidgetVariant variant, {
+//     Color? color,
+//   }) {
+//     final themeData = DesignTheme.of(context);
+//     final brightness = themeData.brightness;
+//     late Color seedColor;
+//     if (color != null) {
+//       seedColor = color;
+//     } else {
+//       switch (kind.namedKind) {
+//         case NamedWidgetKind.primary:
+//           seedColor = themeData.colors.primary;
+//         case NamedWidgetKind.secondary:
+//           seedColor = themeData.colors.secondary;
+//         case NamedWidgetKind.success:
+//           seedColor = themeData.colors.success;
+//         case NamedWidgetKind.danger:
+//           seedColor = themeData.colors.danger;
+//         case NamedWidgetKind.warning:
+//           seedColor = themeData.colors.warning;
+//         case NamedWidgetKind.info:
+//           seedColor = themeData.colors.info;
+//       }
+//     }
+//     switch (variant.namedVariant) {
+//       case NamedWidgetVariant.filled:
+//         return WidgetStyle(
+//           backgroundColor: WidgetStateConfiguredColor(
+//             color: seedColor,
+//             colorShade: 600,
+//             hoveredColorShade: 700,
+//             pressedColorShade: 600,
+//           ),
+//           foregroundColor: WidgetStateConfiguredColor(
+//             color: Colors.white,
+//           ),
+//         );
+//       case NamedWidgetVariant.tinted:
+//         return WidgetStyle(
+//           backgroundColor: WidgetStateConfiguredColor(
+//             color: seedColor,
+//             colorShade: brightness.isLight() ? 50 : null,
+//             colorOpacity: brightness.isDark() ? 0.15 : null,
+//             hoveredColorShade: brightness.isLight() ? 100 : null,
+//             hoveredColorOpacity: brightness.isDark() ? 0.2 : null,
+//             pressedColorShade: brightness.isLight() ? 50 : null,
+//             pressedColorOpacity: brightness.isDark() ? 0.15 : null,
+//           ),
+//           foregroundColor: WidgetStateConfiguredColor(
+//             color: seedColor,
+//             colorShade: 600,
+//           ),
+//         );
+//       case NamedWidgetVariant.outlined:
+//         return WidgetStyle(
+//           backgroundColor: WidgetStateConfiguredColor(
+//             color: seedColor,
+//             colorShade: -1,
+//             hoveredColorShade: brightness.isLight() ? 50 : null,
+//             hoveredColorOpacity: brightness.isDark() ? 0.2 : null,
+//             pressedColorShade: brightness.isLight() ? 50 : null,
+//             pressedColorOpacity: brightness.isDark() ? 0.2 : null,
+//           ),
+//           foregroundColor: WidgetStateConfiguredColor(
+//             color: seedColor,
+//             colorShade: 600,
+//           ),
+//           borderColor: WidgetStateConfiguredColor(
+//             color: seedColor,
+//             colorShade: 600,
+//           ),
+//         );
+//       case NamedWidgetVariant.subtle:
+//         return WidgetStyle(
+//           backgroundColor: WidgetStateConfiguredColor(
+//             color: seedColor,
+//             colorShade: -1,
+//             hoveredColorShade: brightness.isLight() ? 50 : null,
+//             hoveredColorOpacity: brightness.isDark() ? 0.2 : null,
+//             pressedColorShade: brightness.isLight() ? 50 : null,
+//             pressedColorOpacity: brightness.isDark() ? 0.2 : null,
+//           ),
+//           foregroundColor: WidgetStateConfiguredColor(
+//             color: seedColor,
+//             colorShade: 600,
+//           ),
+//         );
+//       case NamedWidgetVariant.transparent:
+//         return WidgetStyle(
+//           backgroundColor: WidgetStateConfiguredColor(
+//             color: Colors.transparent,
+//           ),
+//           foregroundColor: WidgetStateConfiguredColor(
+//             color: seedColor,
+//             colorShade: 600,
+//           ),
+//         );
+//     }
+//   }
+// }

@@ -8,6 +8,7 @@ class ThemeSpacing {
   /// The spacing scale of the design theme.
   final double spacingScale;
 
+  double get s0 => 0;
   double get s1 => spacingScale * 1;
   double get s2 => spacingScale * 2;
   double get s3 => spacingScale * 3;
@@ -23,6 +24,7 @@ class ThemeSpacing {
 /// Extension methods for [ThemeSpacing] to provide padding.
 extension ThemeSpacingWithPadding on ThemeSpacing {
   // #region Padding all.
+  EdgeInsets get p0 => EdgeInsets.all(s0);
   EdgeInsets get p1 => EdgeInsets.all(s1);
   EdgeInsets get p2 => EdgeInsets.all(s2);
   EdgeInsets get p3 => EdgeInsets.all(s3);
@@ -35,6 +37,7 @@ extension ThemeSpacingWithPadding on ThemeSpacing {
   EdgeInsets get p10 => EdgeInsets.all(s10);
   // #endregion
   // #region Padding top.
+  EdgeInsets get pt0 => EdgeInsets.only(top: s0);
   EdgeInsets get pt1 => EdgeInsets.only(top: s1);
   EdgeInsets get pt2 => EdgeInsets.only(top: s2);
   EdgeInsets get pt3 => EdgeInsets.only(top: s3);
@@ -48,6 +51,7 @@ extension ThemeSpacingWithPadding on ThemeSpacing {
   // #endregion
 
   // #region Padding bottom.
+  EdgeInsets get pb0 => EdgeInsets.only(bottom: s0);
   EdgeInsets get pb1 => EdgeInsets.only(bottom: s1);
   EdgeInsets get pb2 => EdgeInsets.only(bottom: s2);
   EdgeInsets get pb3 => EdgeInsets.only(bottom: s3);
@@ -61,6 +65,7 @@ extension ThemeSpacingWithPadding on ThemeSpacing {
   // #endregion
 
   // #region Padding left.
+  EdgeInsets get pl0 => EdgeInsets.only(left: s0);
   EdgeInsets get pl1 => EdgeInsets.only(left: s1);
   EdgeInsets get pl2 => EdgeInsets.only(left: s2);
   EdgeInsets get pl3 => EdgeInsets.only(left: s3);
@@ -74,6 +79,7 @@ extension ThemeSpacingWithPadding on ThemeSpacing {
   // #endregion
 
   // #region Padding right.
+  EdgeInsets get pr0 => EdgeInsets.only(right: s0);
   EdgeInsets get pr1 => EdgeInsets.only(right: s1);
   EdgeInsets get pr2 => EdgeInsets.only(right: s2);
   EdgeInsets get pr3 => EdgeInsets.only(right: s3);
@@ -87,6 +93,7 @@ extension ThemeSpacingWithPadding on ThemeSpacing {
   // #endregion
 
   // #region Padding horizontal.
+  EdgeInsets get px0 => EdgeInsets.symmetric(horizontal: s0);
   EdgeInsets get px1 => EdgeInsets.symmetric(horizontal: s1);
   EdgeInsets get px2 => EdgeInsets.symmetric(horizontal: s2);
   EdgeInsets get px3 => EdgeInsets.symmetric(horizontal: s3);
@@ -100,6 +107,7 @@ extension ThemeSpacingWithPadding on ThemeSpacing {
   // #endregion
 
   // #region Padding vertical.
+  EdgeInsets get py0 => EdgeInsets.symmetric(vertical: s0);
   EdgeInsets get py1 => EdgeInsets.symmetric(vertical: s1);
   EdgeInsets get py2 => EdgeInsets.symmetric(vertical: s2);
   EdgeInsets get py3 => EdgeInsets.symmetric(vertical: s3);
@@ -116,6 +124,7 @@ extension ThemeSpacingWithPadding on ThemeSpacing {
 /// Extension methods for [ThemeSpacing] to provide margin.
 extension ThemeSpacingWithMargin on ThemeSpacing {
   // #region Margin all.
+  EdgeInsets get m0 => EdgeInsets.all(s0);
   EdgeInsets get m1 => EdgeInsets.all(s1);
   EdgeInsets get m2 => EdgeInsets.all(s2);
   EdgeInsets get m3 => EdgeInsets.all(s3);
@@ -129,6 +138,7 @@ extension ThemeSpacingWithMargin on ThemeSpacing {
   // #endregion
 
   // #region Margin top.
+  EdgeInsets get mt0 => EdgeInsets.only(top: s0);
   EdgeInsets get mt1 => EdgeInsets.only(top: s1);
   EdgeInsets get mt2 => EdgeInsets.only(top: s2);
   EdgeInsets get mt3 => EdgeInsets.only(top: s3);
@@ -142,6 +152,7 @@ extension ThemeSpacingWithMargin on ThemeSpacing {
   // #endregion
 
   // #region Margin bottom.
+  EdgeInsets get mb0 => EdgeInsets.only(bottom: s0);
   EdgeInsets get mb1 => EdgeInsets.only(bottom: s1);
   EdgeInsets get mb2 => EdgeInsets.only(bottom: s2);
   EdgeInsets get mb3 => EdgeInsets.only(bottom: s3);
@@ -155,6 +166,7 @@ extension ThemeSpacingWithMargin on ThemeSpacing {
   // #endregion
 
   // #region Margin left.
+  EdgeInsets get ml0 => EdgeInsets.only(left: s0);
   EdgeInsets get ml1 => EdgeInsets.only(left: s1);
   EdgeInsets get ml2 => EdgeInsets.only(left: s2);
   EdgeInsets get ml3 => EdgeInsets.only(left: s3);
@@ -168,6 +180,7 @@ extension ThemeSpacingWithMargin on ThemeSpacing {
   // #endregion
 
   // #region Margin right.
+  EdgeInsets get mr0 => EdgeInsets.only(right: s0);
   EdgeInsets get mr1 => EdgeInsets.only(right: s1);
   EdgeInsets get mr2 => EdgeInsets.only(right: s2);
   EdgeInsets get mr3 => EdgeInsets.only(right: s3);
@@ -181,6 +194,7 @@ extension ThemeSpacingWithMargin on ThemeSpacing {
   // #endregion
 
   // #region Margin horizontal.
+  EdgeInsets get mx0 => EdgeInsets.symmetric(horizontal: s0);
   EdgeInsets get mx1 => EdgeInsets.symmetric(horizontal: s1);
   EdgeInsets get mx2 => EdgeInsets.symmetric(horizontal: s2);
   EdgeInsets get mx3 => EdgeInsets.symmetric(horizontal: s3);
@@ -194,6 +208,7 @@ extension ThemeSpacingWithMargin on ThemeSpacing {
   // #endregion
 
   // #region Margin vertical.
+  EdgeInsets get my0 => EdgeInsets.symmetric(vertical: s0);
   EdgeInsets get my1 => EdgeInsets.symmetric(vertical: s1);
   EdgeInsets get my2 => EdgeInsets.symmetric(vertical: s2);
   EdgeInsets get my3 => EdgeInsets.symmetric(vertical: s3);

@@ -12,11 +12,12 @@ export 'package:flutter/material.dart'
         Tooltip;
 export 'package:flutter/widgets.dart';
 
+export 'src/core/widget_kind.dart';
+export 'src/core/widget_size.dart';
+export 'src/core/widget_variant.dart';
 export 'src/extensions/color.dart';
-export 'src/foundation/constants.dart';
-export 'src/painting/widget_kind.dart';
-export 'src/painting/widget_size.dart';
-export 'src/painting/widget_variant.dart';
+export 'src/painting/widget_style.dart';
+export 'src/utils/constants.dart';
 export 'src/widgets/alert/alert.dart';
 export 'src/widgets/badge/badge.dart';
 export 'src/widgets/button/button.dart';
