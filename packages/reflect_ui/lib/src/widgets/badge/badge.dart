@@ -134,7 +134,12 @@ class _BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
 
     final Color? backgroundColor = (style?.backgroundColor)?.resolve(states);
     final Color? foregroundColor = (style?.foregroundColor)?.resolve(states);
-    final Color? borderColor = (widgetStyle.borderColor)?.resolve(states);
+    final Color? borderColor = (widgetStyle.borderColor)?.resolveWith(
+      states,
+      variant: widget.variant,
+      kind: widget.kind,
+      theme: theme,
+    );
     final BorderSide? side = ((style?.side)?.resolve(states) ??
         (borderColor != null
             ? BorderSide(width: 1, color: borderColor)

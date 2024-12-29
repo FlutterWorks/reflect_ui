@@ -1,7 +1,7 @@
 // ignore_for_file: annotate_overrides
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' show Theme, ThemeExtension;
+import 'package:flutter/material.dart' show Colors, Theme, ThemeExtension;
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/core/color_descriptor.dart';
 import 'package:reflect_ui/src/painting/varianted_widget_state_color.dart';
@@ -23,6 +23,64 @@ export 'package:reflect_ui/src/widgets/design_theme/theme_spacing.dart';
 export 'package:reflect_ui/src/widgets/design_theme/theme_typography.dart';
 
 part 'design_theme.tailor.dart';
+
+const kDefaultBackgroundColor = VariantedWidgetStateColor(
+  filled: {
+    null: ColorDescriptor.shade(600),
+    WidgetState.hovered: ColorDescriptor.shade(700),
+  },
+  tinted: {
+    null: ColorDescriptor.shade(50),
+    WidgetState.hovered: ColorDescriptor.shade(100),
+  },
+  outlined: {
+    null: ColorDescriptor.shade(600),
+  },
+  subtle: {
+    null: ColorDescriptor.shade(600),
+  },
+  transparent: {
+    null: ColorDescriptor.shade(600),
+  },
+);
+
+const kDefaultForegroundColor = VariantedWidgetStateColor(
+  filled: {
+    null: ColorDescriptor(color: Colors.white),
+  },
+  tinted: {
+    null: ColorDescriptor.shade(600),
+  },
+  outlined: {
+    null: ColorDescriptor.shade(600),
+  },
+  subtle: {
+    null: ColorDescriptor.shade(600),
+  },
+  transparent: {
+    null: ColorDescriptor.shade(600),
+  },
+);
+
+const kDefaultBorderColor = VariantedWidgetStateColor(
+  filled: {
+    null: ColorDescriptor.shade(600),
+    WidgetState.hovered: ColorDescriptor.shade(700),
+  },
+  tinted: {
+    null: ColorDescriptor.shade(50),
+    WidgetState.hovered: ColorDescriptor.shade(100),
+  },
+  outlined: {
+    null: ColorDescriptor.shade(600),
+  },
+  subtle: {
+    null: ColorDescriptor.shade(600),
+  },
+  transparent: {
+    null: ColorDescriptor.shade(600),
+  },
+);
 
 /// A design theme data.
 @TailorMixin()
@@ -91,6 +149,9 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
           large: Size.square(48),
           big: Size.square(56),
         ),
+        backgroundColor: kDefaultBackgroundColor,
+        foregroundColor: kDefaultForegroundColor,
+        borderColor: kDefaultBorderColor,
       ),
     );
   }
@@ -123,34 +184,9 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
           large: EdgeInsets.zero,
           big: EdgeInsets.zero,
         ),
-        backgroundColor: VariantedWidgetStateColor(
-          filled: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-            WidgetState.hovered: ColorDescriptor(
-              shade: 700,
-            ),
-          },
-          tinted: {
-            null: ColorDescriptor(
-              shade: 50,
-            ),
-            WidgetState.hovered: ColorDescriptor(
-              shade: 100,
-            ),
-          },
-          outlined: {},
-          subtle: {},
-          transparent: {},
-        ),
-        foregroundColor: VariantedWidgetStateColor(
-          filled: {},
-          tinted: {},
-          outlined: {},
-          subtle: {},
-          transparent: {},
-        ),
+        backgroundColor: kDefaultBackgroundColor,
+        foregroundColor: kDefaultForegroundColor,
+        borderColor: kDefaultBorderColor,
       ),
     );
   }
@@ -185,66 +221,9 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
           big: EdgeInsets.zero,
           debugName: 'padding',
         ),
-        backgroundColor: VariantedWidgetStateColor(
-          filled: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-            WidgetState.hovered: ColorDescriptor(
-              shade: 700,
-            ),
-          },
-          tinted: {
-            null: ColorDescriptor(
-              shade: 50,
-            ),
-            WidgetState.hovered: ColorDescriptor(
-              shade: 100,
-            ),
-          },
-          outlined: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-          },
-          subtle: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-          },
-          transparent: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-          },
-        ),
-        foregroundColor: VariantedWidgetStateColor(
-          filled: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-          },
-          tinted: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-          },
-          outlined: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-          },
-          subtle: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-          },
-          transparent: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-          },
-        ),
+        backgroundColor: kDefaultBackgroundColor,
+        foregroundColor: kDefaultForegroundColor,
+        borderColor: kDefaultBorderColor,
       ),
     );
   }
@@ -279,66 +258,9 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
           big: EdgeInsets.zero,
           debugName: 'padding',
         ),
-        backgroundColor: VariantedWidgetStateColor(
-          filled: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-            WidgetState.hovered: ColorDescriptor(
-              shade: 700,
-            ),
-          },
-          tinted: {
-            null: ColorDescriptor(
-              shade: 50,
-            ),
-            WidgetState.hovered: ColorDescriptor(
-              shade: 100,
-            ),
-          },
-          outlined: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-          },
-          subtle: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-          },
-          transparent: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-          },
-        ),
-        foregroundColor: VariantedWidgetStateColor(
-          filled: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-          },
-          tinted: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-          },
-          outlined: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-          },
-          subtle: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-          },
-          transparent: {
-            null: ColorDescriptor(
-              shade: 600,
-            ),
-          },
-        ),
+        backgroundColor: kDefaultBackgroundColor,
+        foregroundColor: kDefaultForegroundColor,
+        borderColor: kDefaultBorderColor,
       ),
     );
   }

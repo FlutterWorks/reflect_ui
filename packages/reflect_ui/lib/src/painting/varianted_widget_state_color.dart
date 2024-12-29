@@ -51,17 +51,6 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
         'variant is required for ${debugName ?? 'Color'} property.',
       );
     }
-    late ColorDescriptor? colorDescriptor;
-    if (states.contains(WidgetState.disabled)) {
-      colorDescriptor = _values[variant.namedVariant]![WidgetState.disabled];
-    } else if (states.contains(WidgetState.pressed)) {
-      colorDescriptor = _values[variant.namedVariant]![WidgetState.pressed];
-    } else if (states.contains(WidgetState.hovered)) {
-      colorDescriptor = _values[variant.namedVariant]![WidgetState.hovered];
-    } else {
-      colorDescriptor = _values[variant.namedVariant]![null];
-    }
-
     Color? seedColor;
     if (kind != null && theme != null) {
       switch (kind.namedKind) {
@@ -79,7 +68,19 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
           seedColor = theme.colors.info;
       }
     }
-    seedColor ??= colorDescriptor?.color;
+
+    ColorDescriptor? colorDescriptor;
+    if (states.contains(WidgetState.disabled)) {
+      colorDescriptor = _values[variant.namedVariant]![WidgetState.disabled];
+    } else if (states.contains(WidgetState.pressed)) {
+      colorDescriptor = _values[variant.namedVariant]![WidgetState.pressed];
+    } else if (states.contains(WidgetState.hovered)) {
+      colorDescriptor = _values[variant.namedVariant]![WidgetState.hovered];
+    }
+    colorDescriptor ??= _values[variant.namedVariant]![null];
+    if (colorDescriptor?.color != null) {
+      seedColor = colorDescriptor?.color;
+    }
 
     Color resolvedColor = seedColor ?? Colors.black;
     if (seedColor is ColorSwatch<int> && colorDescriptor?.shade != null) {

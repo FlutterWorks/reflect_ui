@@ -236,7 +236,9 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
                     widthFactor: 1.0,
                     heightFactor: 1.0,
                     child: DefaultTextStyle(
-                      style: effectiveStyle.textStyle,
+                      style: effectiveStyle.textStyle.copyWith(
+                        color: effectiveStyle.foregroundColor,
+                      ),
                       child: IconTheme(
                         data: IconTheme.of(context).copyWith(
                           color: effectiveStyle.foregroundColor,
