@@ -2,157 +2,174 @@ import 'package:flutter/widgets.dart';
 
 class ThemeTypography {
   const ThemeTypography({
-    required this.bodyTiny,
     required this.bodySmall,
     required this.bodyMedium,
     required this.bodyLarge,
-    required this.labelTiny,
     required this.labelSmall,
     required this.labelMedium,
     required this.labelLarge,
-    required this.titleTiny,
     required this.titleSmall,
     required this.titleMedium,
     required this.titleLarge,
-    required this.displayTiny,
     required this.displaySmall,
     required this.displayMedium,
     required this.displayLarge,
-    // this.monoBodyTiny,
     // this.monoBodySmall,
     // this.monoBodyMedium,
     // this.monoBodyLarge,
-    // this.monoLabelTiny,
     // this.monoLabelSmall,
     // this.monoLabelMedium,
     // this.monoLabelLarge,
-    // this.monoTitleTiny,
     // this.monoTitleSmall,
     // this.monoTitleMedium,
     // this.monoTitleLarge,
-    // this.monoDisplayTiny,
     // this.monoDisplaySmall,
     // this.monoDisplayMedium,
     // this.monoDisplayLarge,
   });
 
-  /// Create a typography with the Roboto font family.
-  const ThemeTypography.roboto()
-      : bodyTiny = const TextStyle(
-          fontFamily: 'Roboto',
-          fontSize: 12,
-          height: 16 / 12,
-        ),
-        bodySmall = const TextStyle(
-          fontFamily: 'Roboto',
+  /// Create a typography with the Inter font family.
+  const ThemeTypography.inter()
+      : bodySmall = const TextStyle(
+          fontFamily: 'Inter',
           fontSize: 14,
           height: 20 / 14,
         ),
         bodyMedium = const TextStyle(
-          fontFamily: 'Roboto',
+          fontFamily: 'Inter',
           fontSize: 16,
           height: 24 / 16,
         ),
         bodyLarge = const TextStyle(
-          fontFamily: 'Roboto',
+          fontFamily: 'Inter',
           fontSize: 18,
           height: 28 / 18,
         ),
-        labelTiny = const TextStyle(
-          fontFamily: 'Roboto',
+        labelSmall = const TextStyle(
+          fontFamily: 'Inter',
           fontSize: 12,
+          fontWeight: FontWeight.w600,
           height: 16 / 12,
         ),
-        labelSmall = const TextStyle(
-          fontFamily: 'Roboto',
+        labelMedium = const TextStyle(
+          fontFamily: 'Inter',
           fontSize: 14,
+          fontWeight: FontWeight.w600,
           height: 20 / 14,
         ),
-        labelMedium = const TextStyle(
-          fontFamily: 'Roboto',
+        labelLarge = const TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          height: 24 / 16,
+        ),
+        titleSmall = const TextStyle(
+          fontFamily: 'Inter',
           fontSize: 16,
           height: 24 / 16,
         ),
-        labelLarge = const TextStyle(
-          fontFamily: 'Roboto',
+        titleMedium = const TextStyle(
+          fontFamily: 'Inter',
           fontSize: 18,
           height: 28 / 18,
         ),
-        titleTiny = const TextStyle(
-          fontFamily: 'Roboto',
+        titleLarge = const TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 20,
+          height: 32 / 20,
+        ),
+        displaySmall = const TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 36,
+          height: 48 / 36,
+        ),
+        displayMedium = const TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 46,
+          height: 56 / 46,
+        ),
+        displayLarge = const TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 56,
+          height: 64 / 56,
+        );
+
+  const ThemeTypography.interCompact()
+      : bodySmall = const TextStyle(
+          fontFamily: 'Inter',
           fontSize: 12,
           height: 16 / 12,
         ),
+        bodyMedium = const TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 14,
+          height: 20 / 14,
+        ),
+        bodyLarge = const TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 16,
+          height: 24 / 16,
+        ),
+        labelSmall = const TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 10,
+          fontWeight: FontWeight.w600,
+          height: 14 / 10,
+        ),
+        labelMedium = const TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          height: 16 / 12,
+        ),
+        labelLarge = const TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          height: 20 / 14,
+        ),
         titleSmall = const TextStyle(
-          fontFamily: 'Roboto',
+          fontFamily: 'Inter',
           fontSize: 14,
           height: 20 / 14,
         ),
         titleMedium = const TextStyle(
-          fontFamily: 'Roboto',
+          fontFamily: 'Inter',
           fontSize: 16,
           height: 24 / 16,
         ),
         titleLarge = const TextStyle(
-          fontFamily: 'Roboto',
+          fontFamily: 'Inter',
           fontSize: 18,
           height: 28 / 18,
-        ),
-        displayTiny = const TextStyle(
-          fontFamily: 'Roboto',
-          fontSize: 12,
-          height: 16 / 12,
         ),
         displaySmall = const TextStyle(
-          fontFamily: 'Roboto',
-          fontSize: 14,
-          height: 20 / 14,
+          fontFamily: 'Inter',
+          fontSize: 32,
+          height: 40 / 32,
         ),
         displayMedium = const TextStyle(
-          fontFamily: 'Roboto',
-          fontSize: 16,
-          height: 24 / 16,
+          fontFamily: 'Inter',
+          fontSize: 40,
+          height: 52 / 40,
         ),
         displayLarge = const TextStyle(
-          fontFamily: 'Roboto',
-          fontSize: 18,
-          height: 28 / 18,
+          fontFamily: 'Inter',
+          fontSize: 48,
+          height: 60 / 48,
         );
-
-  /// Create a typography with the Inter font family.
-  const ThemeTypography.inter()
-      : bodyTiny = const TextStyle(fontFamily: 'Inter'),
-        bodySmall = const TextStyle(fontFamily: 'Inter'),
-        bodyMedium = const TextStyle(fontFamily: 'Inter'),
-        bodyLarge = const TextStyle(fontFamily: 'Inter'),
-        labelTiny = const TextStyle(fontFamily: 'Inter'),
-        labelSmall = const TextStyle(fontFamily: 'Inter'),
-        labelMedium = const TextStyle(fontFamily: 'Inter'),
-        labelLarge = const TextStyle(fontFamily: 'Inter'),
-        titleTiny = const TextStyle(fontFamily: 'Inter'),
-        titleSmall = const TextStyle(fontFamily: 'Inter'),
-        titleMedium = const TextStyle(fontFamily: 'Inter'),
-        titleLarge = const TextStyle(fontFamily: 'Inter'),
-        displayTiny = const TextStyle(fontFamily: 'Inter'),
-        displaySmall = const TextStyle(fontFamily: 'Inter'),
-        displayMedium = const TextStyle(fontFamily: 'Inter'),
-        displayLarge = const TextStyle(fontFamily: 'Inter');
 
   // #region Sans Typography
 
-  final TextStyle bodyTiny;
   final TextStyle bodySmall;
   final TextStyle bodyMedium;
   final TextStyle bodyLarge;
-  final TextStyle labelTiny;
   final TextStyle labelSmall;
   final TextStyle labelMedium;
   final TextStyle labelLarge;
-  final TextStyle titleTiny;
   final TextStyle titleSmall;
   final TextStyle titleMedium;
   final TextStyle titleLarge;
-  final TextStyle displayTiny;
   final TextStyle displaySmall;
   final TextStyle displayMedium;
   final TextStyle displayLarge;
@@ -161,19 +178,15 @@ class ThemeTypography {
 
   // // #region Mono Typography
 
-  // final TextStyle? monoBodyTiny;
   // final TextStyle? monoBodySmall;
   // final TextStyle? monoBodyMedium;
   // final TextStyle? monoBodyLarge;
-  // final TextStyle? monoLabelTiny;
   // final TextStyle? monoLabelSmall;
   // final TextStyle? monoLabelMedium;
   // final TextStyle? monoLabelLarge;
-  // final TextStyle? monoTitleTiny;
   // final TextStyle? monoTitleSmall;
   // final TextStyle? monoTitleMedium;
   // final TextStyle? monoTitleLarge;
-  // final TextStyle? monoDisplayTiny;
   // final TextStyle? monoDisplaySmall;
   // final TextStyle? monoDisplayMedium;
   // final TextStyle? monoDisplayLarge;

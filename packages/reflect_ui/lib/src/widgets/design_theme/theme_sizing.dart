@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 ///
 class ThemeSizing {
   const ThemeSizing({
-    required this.sizingScale,
+    this.sizingScale = 4,
   });
 
   /// The sizing scale of the design theme.

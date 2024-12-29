@@ -213,4 +213,28 @@ class ButtonWithVariantStory extends StoryObj<ButtonMeta>
 
 @storybook.Story('With Size')
 class ButtonWithSizeStory extends StoryObj<ButtonMeta>
-    with _$ButtonWithSizeStory {}
+    with _$ButtonWithSizeStory {
+  @override
+  Widget build(BuildContext context, List<Arg> args) {
+    return GappedColumn(
+      gap: 16,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (final namedSize in NamedWidgetSize.values)
+          GappedRow(
+            gap: 16,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (final variant in ButtonVariant.values)
+                Button(
+                  size: WidgetSize(namedSize),
+                  variant: variant,
+                  onPressed: () {},
+                  child: const Text('Text Button'),
+                ),
+            ],
+          ),
+      ],
+    );
+  }
+}

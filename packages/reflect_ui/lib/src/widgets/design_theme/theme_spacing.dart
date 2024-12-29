@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 
 class ThemeSpacing {
   const ThemeSpacing({
-    required this.spacingScale,
+    this.spacingScale = 4,
   });
 
   /// The spacing scale of the design theme.

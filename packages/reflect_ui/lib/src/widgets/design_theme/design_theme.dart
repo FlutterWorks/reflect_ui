@@ -1,12 +1,11 @@
 // ignore_for_file: annotate_overrides
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' show Colors, Theme, ThemeExtension;
+import 'package:flutter/material.dart' show Theme, ThemeExtension;
 import 'package:flutter/widgets.dart';
-import 'package:reflect_ui/src/core/color_descriptor.dart';
-import 'package:reflect_ui/src/painting/varianted_widget_state_color.dart';
 import 'package:reflect_ui/src/painting/widget_property.dart';
 import 'package:reflect_ui/src/painting/widget_style.dart';
+import 'package:reflect_ui/src/widgets/design_theme/constants.dart';
 import 'package:reflect_ui/src/widgets/design_theme/theme_borders.dart';
 import 'package:reflect_ui/src/widgets/design_theme/theme_colors.dart';
 import 'package:reflect_ui/src/widgets/design_theme/theme_icons.dart';
@@ -23,64 +22,6 @@ export 'package:reflect_ui/src/widgets/design_theme/theme_spacing.dart';
 export 'package:reflect_ui/src/widgets/design_theme/theme_typography.dart';
 
 part 'design_theme.tailor.dart';
-
-const kDefaultBackgroundColor = VariantedWidgetStateColor(
-  filled: {
-    null: ColorDescriptor.shade(600),
-    WidgetState.hovered: ColorDescriptor.shade(700),
-  },
-  tinted: {
-    null: ColorDescriptor.shade(50),
-    WidgetState.hovered: ColorDescriptor.shade(100),
-  },
-  outlined: {
-    null: ColorDescriptor.shade(600),
-  },
-  subtle: {
-    null: ColorDescriptor.shade(600),
-  },
-  transparent: {
-    null: ColorDescriptor.shade(600),
-  },
-);
-
-const kDefaultForegroundColor = VariantedWidgetStateColor(
-  filled: {
-    null: ColorDescriptor(color: Colors.white),
-  },
-  tinted: {
-    null: ColorDescriptor.shade(600),
-  },
-  outlined: {
-    null: ColorDescriptor.shade(600),
-  },
-  subtle: {
-    null: ColorDescriptor.shade(600),
-  },
-  transparent: {
-    null: ColorDescriptor.shade(600),
-  },
-);
-
-const kDefaultBorderColor = VariantedWidgetStateColor(
-  filled: {
-    null: ColorDescriptor.shade(600),
-    WidgetState.hovered: ColorDescriptor.shade(700),
-  },
-  tinted: {
-    null: ColorDescriptor.shade(50),
-    WidgetState.hovered: ColorDescriptor.shade(100),
-  },
-  outlined: {
-    null: ColorDescriptor.shade(600),
-  },
-  subtle: {
-    null: ColorDescriptor.shade(600),
-  },
-  transparent: {
-    null: ColorDescriptor.shade(600),
-  },
-);
 
 /// A design theme data.
 @TailorMixin()
@@ -131,136 +72,125 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
 
   /// Creates a dark design theme.
   static DesignThemeData dark() {
-    return const DesignThemeData(
+    const typography = ThemeTypography.inter();
+    return DesignThemeData(
       id: 'dark',
       name: 'Dark',
       brightness: Brightness.dark,
-      borders: ThemeBorders(),
-      colors: ThemeColors.materialDark(),
-      icons: ThemeIcons.material(),
-      sizing: ThemeSizing(sizingScale: 4),
-      spacing: ThemeSpacing(spacingScale: 4),
-      typography: ThemeTypography.roboto(),
+      borders: const ThemeBorders(),
+      colors: const ThemeColors.materialDark(),
+      icons: const ThemeIcons.material(),
+      sizing: const ThemeSizing(),
+      spacing: const ThemeSpacing(),
+      typography: typography,
       baseStyle: WidgetStyle(
-        minSize: SizedWidgetProperty<Size>(
-          tiny: Size.square(24),
-          small: Size.square(32),
-          medium: Size.square(44),
-          large: Size.square(48),
-          big: Size.square(56),
+        minSize: kNormalMinSize,
+        padding: kNormalPadding,
+        backgroundColor: kDarkBackgroundColor,
+        foregroundColor: kDarkForegroundColor,
+        borderColor: kDarkBorderColor,
+        borderRadius: kNormalBorderRadius,
+        textStyle: SizedWidgetProperty<TextStyle>(
+          tiny: typography.labelSmall,
+          small: typography.labelSmall,
+          medium: typography.labelMedium,
+          large: typography.labelLarge,
+          big: typography.labelLarge,
         ),
-        backgroundColor: kDefaultBackgroundColor,
-        foregroundColor: kDefaultForegroundColor,
-        borderColor: kDefaultBorderColor,
       ),
     );
   }
 
   /// Creates a dark compact design theme.
   static DesignThemeData darkCompact() {
-    return const DesignThemeData(
+    const typography = ThemeTypography.interCompact();
+    return DesignThemeData(
       id: 'dark-compact',
       name: 'Dark Compact',
       brightness: Brightness.dark,
-      borders: ThemeBorders(),
-      colors: ThemeColors.materialDark(),
-      icons: ThemeIcons.material(),
-      sizing: ThemeSizing(sizingScale: 4),
-      spacing: ThemeSpacing(spacingScale: 4),
-      typography: ThemeTypography.roboto(),
+      borders: const ThemeBorders(),
+      colors: const ThemeColors.materialDark(),
+      icons: const ThemeIcons.material(),
+      sizing: const ThemeSizing(),
+      spacing: const ThemeSpacing(),
+      typography: typography,
       baseStyle: WidgetStyle(
-        minSize: SizedWidgetProperty<Size>(
-          tiny: Size.zero,
-          small: Size.zero,
-          medium: Size.zero,
-          large: Size.zero,
-          big: Size.zero,
+        minSize: kCompactMinSize,
+        padding: kCompactPadding,
+        backgroundColor: kDarkBackgroundColor,
+        foregroundColor: kDarkForegroundColor,
+        borderColor: kDarkBorderColor,
+        borderRadius: kCompactBorderRadius,
+        textStyle: SizedWidgetProperty<TextStyle>(
+          tiny: typography.labelSmall,
+          small: typography.labelSmall,
+          medium: typography.labelMedium,
+          large: typography.labelLarge,
+          big: typography.labelLarge,
         ),
-        margin: WidgetPropertyAll(EdgeInsets.zero),
-        padding: SizedWidgetProperty<EdgeInsets>(
-          tiny: EdgeInsets.zero,
-          small: EdgeInsets.zero,
-          medium: EdgeInsets.zero,
-          large: EdgeInsets.zero,
-          big: EdgeInsets.zero,
-        ),
-        backgroundColor: kDefaultBackgroundColor,
-        foregroundColor: kDefaultForegroundColor,
-        borderColor: kDefaultBorderColor,
       ),
     );
   }
 
   /// Creates a light design theme.
   static DesignThemeData light() {
-    return const DesignThemeData(
+    const typography = ThemeTypography.inter();
+    return DesignThemeData(
       id: 'light',
       name: 'Light',
       brightness: Brightness.light,
-      borders: ThemeBorders(),
-      colors: ThemeColors.materialLight(),
-      icons: ThemeIcons.material(),
-      sizing: ThemeSizing(sizingScale: 4),
-      spacing: ThemeSpacing(spacingScale: 4),
-      typography: ThemeTypography.roboto(),
+      borders: const ThemeBorders(),
+      colors: const ThemeColors.materialLight(),
+      icons: const ThemeIcons.material(),
+      sizing: const ThemeSizing(),
+      spacing: const ThemeSpacing(),
+      typography: typography,
       baseStyle: WidgetStyle(
-        minSize: SizedWidgetProperty<Size>(
-          tiny: Size.square(24),
-          small: Size.square(32),
-          medium: Size.square(44),
-          large: Size.square(48),
-          big: Size.square(56),
-          debugName: 'minSize',
+        minSize: kNormalMinSize,
+        padding: kNormalPadding,
+        backgroundColor: kLightBackgroundColor,
+        foregroundColor: kLightForegroundColor,
+        borderColor: kLightBorderColor,
+        borderRadius: kNormalBorderRadius,
+        textStyle: SizedWidgetProperty<TextStyle>(
+          tiny: typography.labelSmall,
+          small: typography.labelSmall,
+          medium: typography.labelMedium,
+          large: typography.labelLarge,
+          big: typography.labelLarge,
         ),
-        margin: WidgetPropertyAll(EdgeInsets.zero),
-        padding: SizedWidgetProperty<EdgeInsets>(
-          tiny: EdgeInsets.zero,
-          small: EdgeInsets.zero,
-          medium: EdgeInsets.zero,
-          large: EdgeInsets.zero,
-          big: EdgeInsets.zero,
-          debugName: 'padding',
-        ),
-        backgroundColor: kDefaultBackgroundColor,
-        foregroundColor: kDefaultForegroundColor,
-        borderColor: kDefaultBorderColor,
       ),
     );
   }
 
   /// Creates a light compact design theme.
   static DesignThemeData lightCompact() {
-    return const DesignThemeData(
+    const typography = ThemeTypography.interCompact();
+
+    return DesignThemeData(
       id: 'light-compact',
       name: 'Light Compact',
       brightness: Brightness.light,
-      borders: ThemeBorders(),
-      colors: ThemeColors.materialLight(),
-      icons: ThemeIcons.material(),
-      sizing: ThemeSizing(sizingScale: 4),
-      spacing: ThemeSpacing(spacingScale: 4),
-      typography: ThemeTypography.roboto(),
+      borders: const ThemeBorders(),
+      colors: const ThemeColors.materialLight(),
+      icons: const ThemeIcons.material(),
+      sizing: const ThemeSizing(),
+      spacing: const ThemeSpacing(),
+      typography: typography,
       baseStyle: WidgetStyle(
-        minSize: SizedWidgetProperty<Size>(
-          tiny: Size.square(24),
-          small: Size.square(32),
-          medium: Size.square(44),
-          large: Size.square(48),
-          big: Size.square(56),
-          debugName: 'minSize',
+        minSize: kCompactMinSize,
+        padding: kCompactPadding,
+        backgroundColor: kLightBackgroundColor,
+        foregroundColor: kLightForegroundColor,
+        borderColor: kLightBorderColor,
+        borderRadius: kCompactBorderRadius,
+        textStyle: SizedWidgetProperty<TextStyle>(
+          tiny: typography.labelSmall,
+          small: typography.labelSmall,
+          medium: typography.labelMedium,
+          large: typography.labelLarge,
+          big: typography.labelLarge,
         ),
-        margin: WidgetPropertyAll(EdgeInsets.zero),
-        padding: SizedWidgetProperty<EdgeInsets>(
-          tiny: EdgeInsets.zero,
-          small: EdgeInsets.zero,
-          medium: EdgeInsets.zero,
-          large: EdgeInsets.zero,
-          big: EdgeInsets.zero,
-          debugName: 'padding',
-        ),
-        backgroundColor: kDefaultBackgroundColor,
-        foregroundColor: kDefaultForegroundColor,
-        borderColor: kDefaultBorderColor,
       ),
     );
   }
