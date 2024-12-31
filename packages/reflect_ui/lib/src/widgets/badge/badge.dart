@@ -4,7 +4,7 @@
 
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/widgets.dart';
-import 'package:reflect_ui/src/painting/widget_style.dart';
+import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/utils/constants.dart';
 import 'package:reflect_ui/src/widgets/badge/badge_kind.dart';
 import 'package:reflect_ui/src/widgets/badge/badge_style.dart';
@@ -125,66 +125,51 @@ class _BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final DesignThemeData theme = DesignTheme.of(context);
+    final BadgeStyle style = widget.style ?? BadgeStyle.fromTheme(theme);
 
-    final WidgetStyle widgetStyle = theme.baseStyle;
-
-    BadgeStyle? style = widget.style;
-
-    Set<WidgetState> states = <WidgetState>{};
-
-    final Color? backgroundColor = (style?.backgroundColor)?.resolve(states);
-    final Color? foregroundColor = (style?.foregroundColor)?.resolve(states);
-    final Color? borderColor = (widgetStyle.borderColor)?.resolveWith(
-      states,
-      variant: widget.variant,
-      kind: widget.kind,
-      theme: theme,
-    );
-    final BorderSide? side = ((style?.side)?.resolve(states) ??
-        (borderColor != null
-            ? BorderSide(width: 1, color: borderColor)
-            : null));
-    final TextStyle textStyle =
-        (style?.textStyle?.resolve(states) ?? theme.typography.labelMedium)
-            .copyWith(
-      color: foregroundColor,
-      fontWeight: FontWeight.w500,
-      fontSize: 10,
-      // height: 12 / 10,
+    final effectiveStyle = style.resolve(
+      {},
+      widget.kind,
+      widget.variant,
+      WidgetSize.medium,
+      theme,
     );
 
-    final IconThemeData iconTheme =
-        IconTheme.of(context).copyWith(color: foregroundColor);
-
-    final Size size = theme.sizing.size10;
+    Size minSize = effectiveStyle.minSize;
 
     return ConstrainedBox(
       constraints: BoxConstraints(
-        minWidth: size.width * kWidgetDimensionTertiaryScale,
-        minHeight: size.height * kWidgetDimensionTertiaryScale,
+        minWidth: minSize.width * kWidgetDimensionTertiaryScale,
+        minHeight: minSize.height * kWidgetDimensionTertiaryScale,
       ),
       child: Container(
-        decoration: BoxDecoration(
-          borderRadius: widget.borderRadius,
-          color: backgroundColor,
-        ),
         foregroundDecoration: BoxDecoration(
-          border: side != null ? Border.fromBorderSide(side) : null,
-          borderRadius: widget.borderRadius,
+          border: effectiveStyle.borderColor != null
+              ? Border.all(
+                  color: effectiveStyle.borderColor!,
+                  width: effectiveStyle.borderWidth ?? 0,
+                )
+              : null,
+          borderRadius: theme.borders.full,
+        ),
+        decoration: BoxDecoration(
+          color: effectiveStyle.backgroundColor,
+          borderRadius: theme.borders.full,
         ),
         child: Padding(
-          padding: widget.padding ??
-              (backgroundColor != null
-                  ? _kBackgroundBadgePadding
-                  : _kBadgePadding),
+          padding: widget.padding ?? effectiveStyle.padding,
           child: Align(
             alignment: widget.alignment,
             widthFactor: 1.0,
             heightFactor: 1.0,
             child: DefaultTextStyle(
-              style: textStyle,
+              style: effectiveStyle.textStyle.copyWith(
+                color: effectiveStyle.foregroundColor,
+              ),
               child: IconTheme(
-                data: iconTheme,
+                data: IconThemeData(
+                  color: effectiveStyle.foregroundColor,
+                ),
                 child: widget.child,
               ),
             ),

@@ -1,51 +1,136 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/core/widget_kind.dart';
+import 'package:reflect_ui/src/core/widget_size.dart';
+import 'package:reflect_ui/src/core/widget_variant.dart';
+import 'package:reflect_ui/src/painting/widget_style.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
-class BadgeStyle with Diagnosticable {
-  BadgeStyle({
-    this.textStyle,
-    this.backgroundColor,
-    this.foregroundColor,
-    this.iconColor,
-    this.iconSize,
-    this.side,
-    this.shape,
+/// The style of a badge.
+///
+/// A badge style is a set of properties that define the appearance of a badge.
+class BadgeStyle extends WidgetStyle with Diagnosticable {
+  const BadgeStyle({
+    super.minSize,
+    super.margin,
+    super.padding,
+    super.backgroundColor,
+    super.foregroundColor,
+    super.borderColor,
+    super.borderRadius,
+    super.borderWidth,
+    super.outlineColor,
+    super.outlineRadius,
+    super.outlineWidth,
+    super.boxShadow,
+    super.iconStyle,
+    super.textStyle,
   });
 
-  /// The style for a badge's [Text] widget descendants.
-  ///
-  /// The color of the [textStyle] is typically not used directly, the
-  /// [foregroundColor] is used instead.
-  final WidgetStateProperty<TextStyle?>? textStyle;
+  /// Creates a badge style from a theme.
+  factory BadgeStyle.fromTheme(DesignThemeData theme) {
+    final baseStyle = theme.baseStyle;
+    return BadgeStyle(
+      minSize: baseStyle.minSize,
+      margin: baseStyle.margin,
+      padding: baseStyle.padding,
+      backgroundColor: baseStyle.backgroundColor,
+      foregroundColor: baseStyle.foregroundColor,
+      borderColor: baseStyle.borderColor,
+      borderRadius: baseStyle.borderRadius,
+      borderWidth: baseStyle.borderWidth,
+      outlineColor: baseStyle.outlineColor,
+      outlineRadius: baseStyle.outlineRadius,
+      outlineWidth: baseStyle.outlineWidth,
+      boxShadow: baseStyle.boxShadow,
+      iconStyle: baseStyle.iconStyle,
+      textStyle: baseStyle.textStyle,
+    );
+  }
 
-  /// The badge's background fill color.
-  final WidgetStateProperty<Color?>? backgroundColor;
+  EffectiveBadgeStyle resolve(
+    Set<WidgetState> states, [
+    WidgetKind? kind,
+    WidgetVariant? variant,
+    WidgetSize? size,
+    DesignThemeData? theme,
+  ]) {
+    return EffectiveBadgeStyle(
+      minSize: minSize.resolveWith(
+        states,
+        kind: kind,
+        variant: variant,
+        size: size,
+      ),
+      padding: padding.resolveWith(
+        states,
+        kind: kind,
+        variant: variant,
+        size: size,
+      ),
+      backgroundColor: backgroundColor.resolveWith(
+        states,
+        kind: kind,
+        variant: variant,
+        size: size,
+        theme: theme,
+      ),
+      foregroundColor: foregroundColor.resolveWith(
+        states,
+        kind: kind,
+        variant: variant,
+        size: size,
+        theme: theme,
+      ),
+      borderColor: borderColor.resolveWith(
+        states,
+        kind: kind,
+        variant: variant,
+        size: size,
+        theme: theme,
+      ),
+      borderRadius: borderRadius.resolveWith(
+        states,
+        kind: kind,
+        variant: variant,
+        size: size,
+        theme: theme,
+      ),
+      borderWidth: borderWidth.resolveWith(
+        states,
+        kind: kind,
+        variant: variant,
+        size: size,
+      ),
+      textStyle: textStyle.resolveWith(
+        states,
+        kind: kind,
+        variant: variant,
+        size: size,
+        theme: theme,
+      ),
+    );
+  }
+}
 
-  /// The color for the badge's [Text] and [Icon] widget descendants.
-  ///
-  /// This color is typically used instead of the color of the [textStyle]. All
-  /// of the components that compute defaults from [BadgeStyle] values
-  /// compute a default [foregroundColor] and use that instead of the
-  /// [textStyle]'s color.
-  final WidgetStateProperty<Color?>? foregroundColor;
+class EffectiveBadgeStyle {
+  EffectiveBadgeStyle({
+    required this.minSize,
+    required this.padding,
+    required this.backgroundColor,
+    required this.foregroundColor,
+    required this.borderColor,
+    required this.borderRadius,
+    required this.borderWidth,
+    required this.textStyle,
+  });
 
-  /// The icon's color inside of the badge.
-  ///
-  /// If this is null, the icon color will be [foregroundColor].
-  final WidgetStateProperty<Color?>? iconColor;
-
-  /// The icon's size inside of the badge.
-  final WidgetStateProperty<double?>? iconSize;
-
-  /// The color and weight of the badge's outline.
-  ///
-  /// This value is combined with [shape] to create a shape decorated
-  /// with an outline.
-  final WidgetStateProperty<BorderSide?>? side;
-
-  /// The shape of the badge's outline.
-  ///
-  /// This shape is combined with [side] to create a shape decorated
-  /// with an outline.
-  final WidgetStateProperty<OutlinedBorder?>? shape;
+  final Size minSize;
+  final EdgeInsets padding;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final Color? borderColor;
+  final BorderRadius? borderRadius;
+  final double? borderWidth;
+  final TextStyle textStyle;
 }

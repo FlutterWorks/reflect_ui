@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reflect_ui/src/painting/widget_style.dart';
+import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/widgets/alert/alert_kind.dart';
 import 'package:reflect_ui/src/widgets/alert/alert_style.dart';
 import 'package:reflect_ui/src/widgets/alert/alert_variant.dart';
@@ -57,32 +57,31 @@ class _AlertState extends State<Alert> {
   @override
   Widget build(BuildContext context) {
     final DesignThemeData theme = DesignTheme.of(context);
+    final AlertStyle style = widget.style ?? AlertStyle.fromTheme(theme);
 
-    final WidgetStyle widgetStyle = theme.baseStyle;
-
-    AlertStyle? style = widget.style;
-
-    final Set<WidgetState> states = {};
-
-    final Color? backgroundColor = style?.backgroundColor?.resolve(states);
-    final Color? foregroundColor = (style?.foregroundColor)?.resolve(states);
-    final Color? borderColor = widgetStyle.borderColor.resolve(states);
-    final BorderSide? side = ((style?.side)?.resolve(states) ??
-        (borderColor != null
-            ? BorderSide(width: 1, color: borderColor)
-            : null));
-    final TextStyle textStyle =
-        (style?.textStyle?.resolve(states) ?? theme.typography.bodyMedium)
-            .copyWith(
-      color: foregroundColor,
+    final effectiveStyle = style.resolve(
+      {},
+      widget.kind,
+      widget.variant,
+      WidgetSize.medium,
+      theme,
     );
 
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(12),
+      foregroundDecoration: BoxDecoration(
+        border: effectiveStyle.borderColor != null
+            ? Border.all(
+                color: effectiveStyle.borderColor!,
+                width: effectiveStyle.borderWidth ?? 0,
+              )
+            : null,
+        borderRadius: effectiveStyle.borderRadius,
+      ),
       decoration: BoxDecoration(
-        color: backgroundColor,
-        border: side != null ? Border.fromBorderSide(side) : null,
+        color: effectiveStyle.backgroundColor,
+        borderRadius: effectiveStyle.borderRadius,
       ),
       child: GappedRow(
         gap: 8,
@@ -91,7 +90,7 @@ class _AlertState extends State<Alert> {
           if (widget.icon != null)
             IconTheme(
               data: IconThemeData(
-                color: foregroundColor,
+                color: effectiveStyle.foregroundColor,
                 size: 18,
               ),
               child: widget.icon!,
@@ -104,14 +103,17 @@ class _AlertState extends State<Alert> {
               children: [
                 if (widget.title != null)
                   DefaultTextStyle(
-                    style: textStyle.copyWith(
+                    style: effectiveStyle.textStyle.copyWith(
+                      color: effectiveStyle.foregroundColor,
                       fontWeight: FontWeight.w600,
                     ),
                     child: widget.title!,
                   ),
                 if (widget.message != null)
                   DefaultTextStyle(
-                    style: textStyle,
+                    style: effectiveStyle.textStyle.copyWith(
+                      color: effectiveStyle.foregroundColor,
+                    ),
                     child: widget.message!,
                   ),
                 if ((widget.actions ?? []).isNotEmpty)

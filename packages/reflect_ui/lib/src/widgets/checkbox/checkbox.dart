@@ -6,6 +6,7 @@
 
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/utils/constants.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
@@ -224,7 +225,8 @@ class _CheckboxState extends State<Checkbox>
     final Color effectiveCheckColor =
         widget.checkColor ?? CupertinoColors.white;
 
-    final Size size = theme.sizing.size10;
+    final Size minSize =
+        theme.baseStyle.minSize.resolveWith({}, size: WidgetSize.medium);
     final BorderRadius borderRadius = theme.borders.medium;
 
     return Semantics(
@@ -234,9 +236,9 @@ class _CheckboxState extends State<Checkbox>
         focusNode: widget.focusNode,
         autofocus: widget.autofocus,
         onFocusChange: onFocusChange,
-        size: size,
+        size: minSize,
         painter: _painter
-          ..dimension = size.width * kWidgetDimensionTertiaryScale
+          ..dimension = minSize.width * kWidgetDimensionTertiaryScale
           ..focusColor = effectiveFocusOverlayColor
           ..isFocused = focused
           ..downPosition = downPosition

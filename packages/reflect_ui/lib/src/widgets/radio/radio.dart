@@ -7,6 +7,7 @@
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/utils/constants.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
@@ -287,7 +288,8 @@ class _RadioState<T> extends State<Radio<T>>
         accessibilitySelected = widget._selected;
     }
 
-    final Size size = theme.sizing.size10;
+    final Size minSize =
+        theme.baseStyle.minSize.resolveWith({}, size: WidgetSize.medium);
 
     return Semantics(
       inMutuallyExclusiveGroup: true,
@@ -298,9 +300,9 @@ class _RadioState<T> extends State<Radio<T>>
         focusNode: widget.focusNode,
         autofocus: widget.autofocus,
         onFocusChange: onFocusChange,
-        size: size,
+        size: minSize,
         painter: _painter
-          ..dimension = size.width * kWidgetDimensionTertiaryScale
+          ..dimension = minSize.width * kWidgetDimensionTertiaryScale
           ..focusColor = effectiveFocusOverlayColor
           ..downPosition = downPosition
           ..isFocused = focused
