@@ -2,7 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/core/colors.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
 const _kCardBorderRadius = BorderRadius.all(Radius.circular(8));
 
@@ -163,7 +165,7 @@ class Card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData themeData = Theme.of(context);
+    final DesignThemeData themeData = DesignTheme.of(context);
 
     return Semantics(
       container: semanticContainer,
@@ -171,7 +173,7 @@ class Card extends StatelessWidget {
         padding: margin ?? const EdgeInsets.all(4.0),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: themeData.colorScheme.surfaceContainerLow,
+            color: themeData.colors.surfaceContainer,
             borderRadius: _kCardBorderRadius,
             boxShadow: <BoxShadow>[
               BoxShadow(

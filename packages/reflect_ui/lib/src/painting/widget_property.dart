@@ -109,7 +109,7 @@ class VariantedWidgetProperty<T> implements WidgetProperty<T> {
     required this.tinted,
     required this.outlined,
     required this.subtle,
-    required this.transparent,
+    required this.plain,
     this.debugName,
   });
 
@@ -117,7 +117,7 @@ class VariantedWidgetProperty<T> implements WidgetProperty<T> {
   final T tinted;
   final T outlined;
   final T subtle;
-  final T transparent;
+  final T plain;
 
   final String? debugName;
 
@@ -127,7 +127,7 @@ class VariantedWidgetProperty<T> implements WidgetProperty<T> {
       NamedWidgetVariant.tinted: tinted,
       NamedWidgetVariant.outlined: outlined,
       NamedWidgetVariant.subtle: subtle,
-      NamedWidgetVariant.transparent: transparent,
+      NamedWidgetVariant.plain: plain,
     };
   }
 

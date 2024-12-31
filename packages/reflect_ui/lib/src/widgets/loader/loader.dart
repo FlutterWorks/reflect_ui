@@ -18,7 +18,7 @@ class Loader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeData = DesignTheme.of(context);
+    final DesignThemeData themeData = DesignTheme.of(context);
     Color resolvedColor = color ?? themeData.colors.primary;
     Size resolvedSize = const Size.square(16);
     return SizedBox(

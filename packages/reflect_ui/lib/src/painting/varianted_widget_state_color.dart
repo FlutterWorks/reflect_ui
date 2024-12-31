@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart' show Colors;
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/core/color_descriptor.dart';
+import 'package:reflect_ui/src/core/colors.dart';
 import 'package:reflect_ui/src/core/widget_kind.dart';
 import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/core/widget_variant.dart';
@@ -13,14 +13,14 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
     required this.tinted,
     required this.outlined,
     required this.subtle,
-    required this.transparent,
+    required this.plain,
     this.debugName,
   });
   final Map<WidgetState?, ColorDescriptor> filled;
   final Map<WidgetState?, ColorDescriptor> tinted;
   final Map<WidgetState?, ColorDescriptor> outlined;
   final Map<WidgetState?, ColorDescriptor> subtle;
-  final Map<WidgetState?, ColorDescriptor> transparent;
+  final Map<WidgetState?, ColorDescriptor> plain;
 
   final String? debugName;
 
@@ -30,7 +30,7 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
       NamedWidgetVariant.tinted: tinted,
       NamedWidgetVariant.outlined: outlined,
       NamedWidgetVariant.subtle: subtle,
-      NamedWidgetVariant.transparent: transparent,
+      NamedWidgetVariant.plain: plain,
     };
   }
 

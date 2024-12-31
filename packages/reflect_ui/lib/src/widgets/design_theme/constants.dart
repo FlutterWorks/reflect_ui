@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart' show Colors;
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/core/color_descriptor.dart';
+import 'package:reflect_ui/src/core/colors.dart';
 import 'package:reflect_ui/src/painting/varianted_widget_state_color.dart';
 import 'package:reflect_ui/src/painting/widget_property.dart';
 
@@ -30,11 +30,11 @@ const kNormalBorderRadius = WidgetPropertyAll<BorderRadius>(
 // #region Compact constants.
 
 const kCompactMinSize = SizedWidgetProperty<Size>(
-  tiny: Size.square(20),
-  small: Size.square(24),
+  tiny: Size.square(24),
+  small: Size.square(28),
   medium: Size.square(32),
-  large: Size.square(40),
-  big: Size.square(48),
+  large: Size.square(36),
+  big: Size.square(40),
 );
 
 const kCompactPadding = SizedWidgetProperty<EdgeInsets>(
@@ -46,7 +46,7 @@ const kCompactPadding = SizedWidgetProperty<EdgeInsets>(
 );
 
 const kCompactBorderRadius = WidgetPropertyAll<BorderRadius>(
-  BorderRadius.all(Radius.circular(4)),
+  BorderRadius.all(Radius.circular(6)),
 );
 
 // #endregion
@@ -68,7 +68,7 @@ const kDarkBackgroundColor = VariantedWidgetStateColor(
   subtle: {
     null: ColorDescriptor.shade(600),
   },
-  transparent: {
+  plain: {
     null: ColorDescriptor.shade(600),
   },
 );
@@ -86,7 +86,7 @@ const kDarkForegroundColor = VariantedWidgetStateColor(
   subtle: {
     null: ColorDescriptor.shade(600),
   },
-  transparent: {
+  plain: {
     null: ColorDescriptor.shade(600),
   },
 );
@@ -106,7 +106,7 @@ const kDarkBorderColor = VariantedWidgetStateColor(
   subtle: {
     null: ColorDescriptor.shade(600),
   },
-  transparent: {
+  plain: {
     null: ColorDescriptor.shade(600),
   },
 );
@@ -119,20 +119,24 @@ const kLightBackgroundColor = VariantedWidgetStateColor(
   filled: {
     null: ColorDescriptor.shade(600),
     WidgetState.hovered: ColorDescriptor.shade(700),
+    WidgetState.pressed: ColorDescriptor.shade(800),
   },
   tinted: {
     null: ColorDescriptor.shade(50),
     WidgetState.hovered: ColorDescriptor.shade(100),
+    WidgetState.pressed: ColorDescriptor.shade(200),
   },
   outlined: {
     null: ColorDescriptor.shade(-1),
     WidgetState.hovered: ColorDescriptor.shade(50),
+    WidgetState.pressed: ColorDescriptor.shade(100),
   },
   subtle: {
     null: ColorDescriptor.shade(-1),
     WidgetState.hovered: ColorDescriptor.shade(50),
+    WidgetState.pressed: ColorDescriptor.shade(100),
   },
-  transparent: {
+  plain: {
     null: ColorDescriptor.shade(-1),
   },
 );
@@ -150,7 +154,7 @@ const kLightForegroundColor = VariantedWidgetStateColor(
   subtle: {
     null: ColorDescriptor.shade(600),
   },
-  transparent: {
+  plain: {
     null: ColorDescriptor.shade(600),
   },
 );
@@ -168,7 +172,7 @@ const kLightBorderColor = VariantedWidgetStateColor(
   subtle: {
     null: ColorDescriptor.shade(-1),
   },
-  transparent: {
+  plain: {
     null: ColorDescriptor.shade(-1),
   },
 );

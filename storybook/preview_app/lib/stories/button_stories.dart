@@ -18,7 +18,7 @@ class ButtonMeta extends Meta with _$ButtonMeta {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              color: Colors.grey,
+              color: Colors.gray,
               height: 28,
               width: 28,
             ),
@@ -30,7 +30,7 @@ class ButtonMeta extends Meta with _$ButtonMeta {
             ),
             const SizedBox(width: 8),
             Container(
-              color: Colors.grey,
+              color: Colors.gray,
               height: 28,
               width: 28,
             ),
@@ -42,7 +42,7 @@ class ButtonMeta extends Meta with _$ButtonMeta {
             ),
             const SizedBox(width: 8),
             Container(
-              color: Colors.grey,
+              color: Colors.gray,
               height: 28,
               width: 28,
             ),
@@ -54,7 +54,7 @@ class ButtonMeta extends Meta with _$ButtonMeta {
             ),
             const SizedBox(width: 8),
             Container(
-              color: Colors.grey,
+              color: Colors.gray,
               height: 28,
               width: 28,
             ),
@@ -66,12 +66,12 @@ class ButtonMeta extends Meta with _$ButtonMeta {
             ),
             const SizedBox(width: 8),
             Container(
-              color: Colors.grey,
+              color: Colors.gray,
               height: 28,
               width: 28,
             ),
             Button(
-              variant: ButtonVariant.transparent,
+              variant: ButtonVariant.plain,
               // borderRadius: BorderRadius.zero,
               child: const Text('Text Button'),
               onPressed: () {},
@@ -85,7 +85,7 @@ class ButtonMeta extends Meta with _$ButtonMeta {
             ),
             const SizedBox(width: 8),
             Container(
-              color: Colors.grey,
+              color: Colors.gray,
               height: 28,
               width: 28,
             ),

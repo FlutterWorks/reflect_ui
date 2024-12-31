@@ -1395,12 +1395,7 @@ class _TextFieldState extends State<TextField>
 
     final TextStyle textStyle = theme.typography.bodySmall
         .copyWith(color: theme.colors.onSurface)
-        .merge(widget.style)
-        .copyWith(
-          // 这里是为了修复文本未垂直对齐的问题。
-          // 解决方案来源：https://github.com/flutter/flutter/issues/139762#issuecomment-1944375717
-          leadingDistribution: TextLeadingDistribution.even,
-        );
+        .merge(widget.style);
 
     final TextStyle? resolvedPlaceholderStyle =
         widget.placeholderStyle?.copyWith(

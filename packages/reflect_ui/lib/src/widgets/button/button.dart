@@ -4,6 +4,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/core/colors.dart';
 import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/widgets/button/button_kind.dart';
 import 'package:reflect_ui/src/widgets/button/button_style.dart';
@@ -165,6 +166,12 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
     });
   }
 
+  void _onShowHoverHighlight(bool showHighlight) {
+    setState(() {
+      _isHovered = showHighlight;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final DesignThemeData theme = DesignTheme.of(context);
@@ -178,74 +185,57 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
       theme,
     );
 
-    return MouseRegion(
-      cursor: widget.enabled && kIsWeb
+    return FocusableActionDetector(
+      enabled: widget.enabled,
+      focusNode: widget.focusNode,
+      autofocus: widget.autofocus,
+      onFocusChange: widget.onFocusChange,
+      onShowFocusHighlight: _onShowFocusHighlight,
+      onShowHoverHighlight: _onShowHoverHighlight,
+      mouseCursor: widget.enabled && kIsWeb
           ? SystemMouseCursors.click
           : MouseCursor.defer,
-      onEnter: (event) {
-        _isHovered = true;
-        setState(() {});
-      },
-      onExit: (event) {
-        _isHovered = false;
-        setState(() {});
-      },
-      onHover: (event) {
-        if (!_isHovered) {
-          _isHovered = true;
-          setState(() {});
-        }
-      },
-      child: FocusableActionDetector(
-        focusNode: widget.focusNode,
-        autofocus: widget.autofocus,
-        onFocusChange: widget.onFocusChange,
-        onShowFocusHighlight: _onShowFocusHighlight,
-        enabled: widget.enabled,
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTapDown: widget.enabled ? _handleTapDown : null,
-          onTapUp: widget.enabled ? _handleTapUp : null,
-          onTapCancel: widget.enabled ? _handleTapCancel : null,
-          onTap: widget.onPressed,
-          child: Semantics(
-            button: true,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minWidth: effectiveStyle.minSize.width,
-                minHeight: effectiveStyle.minSize.height,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTapDown: widget.enabled ? _handleTapDown : null,
+        onTapUp: widget.enabled ? _handleTapUp : null,
+        onTapCancel: widget.enabled ? _handleTapCancel : null,
+        onTap: widget.onPressed,
+        child: Semantics(
+          button: true,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: effectiveStyle.minSize.width,
+              minHeight: effectiveStyle.minSize.height,
+            ),
+            child: Container(
+              foregroundDecoration: BoxDecoration(
+                border: effectiveStyle.borderColor != null
+                    ? Border.all(
+                        color: effectiveStyle.borderColor!,
+                        width: effectiveStyle.borderWidth ?? 0,
+                      )
+                    : null,
+                borderRadius: effectiveStyle.borderRadius,
               ),
-              child: Container(
-                foregroundDecoration: BoxDecoration(
-                  border: effectiveStyle.borderColor != null
-                      ? Border.all(
-                          color: effectiveStyle.borderColor!,
-                          width: effectiveStyle.borderWidth ?? 0,
-                        )
-                      : null,
-                  borderRadius: effectiveStyle.borderRadius,
-                ),
-                decoration: BoxDecoration(
-                  color: effectiveStyle.backgroundColor,
-                  borderRadius: effectiveStyle.borderRadius,
-                ),
-                child: Padding(
-                  padding: effectiveStyle.padding,
-                  child: Align(
-                    alignment: Alignment.center,
-                    widthFactor: 1.0,
-                    heightFactor: 1.0,
-                    child: DefaultTextStyle(
-                      style: effectiveStyle.textStyle.copyWith(
-                        color: effectiveStyle.foregroundColor,
-                      ),
-                      child: IconTheme(
-                        data: IconTheme.of(context).copyWith(
-                          color: effectiveStyle.foregroundColor,
-                        ),
-                        child: widget.child,
-                      ),
+              decoration: BoxDecoration(
+                color: effectiveStyle.backgroundColor,
+                borderRadius: effectiveStyle.borderRadius,
+              ),
+              padding: effectiveStyle.padding,
+              child: Align(
+                alignment: Alignment.center,
+                widthFactor: 1.0,
+                heightFactor: 1.0,
+                child: DefaultTextStyle(
+                  style: effectiveStyle.textStyle.copyWith(
+                    color: effectiveStyle.foregroundColor,
+                  ),
+                  child: IconTheme(
+                    data: IconTheme.of(context).copyWith(
+                      color: effectiveStyle.foregroundColor,
                     ),
+                    child: widget.child,
                   ),
                 ),
               ),

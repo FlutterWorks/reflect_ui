@@ -133,15 +133,18 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
   }
 
   /// Creates a light design theme.
-  static DesignThemeData light() {
+  static DesignThemeData light({
+    ThemeColors? colors,
+    ThemeIcons? icons,
+  }) {
     const typography = ThemeTypography.inter();
     return DesignThemeData(
       id: 'light',
       name: 'Light',
       brightness: Brightness.light,
       borders: const ThemeBorders(),
-      colors: const ThemeColors.materialLight(),
-      icons: const ThemeIcons.material(),
+      colors: colors ?? const ThemeColors.materialLight(),
+      icons: icons ?? const ThemeIcons.material(),
       sizing: const ThemeSizing(),
       spacing: const ThemeSpacing(),
       typography: typography,
@@ -164,7 +167,10 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
   }
 
   /// Creates a light compact design theme.
-  static DesignThemeData lightCompact() {
+  static DesignThemeData lightCompact({
+    ThemeColors? colors,
+    ThemeIcons? icons,
+  }) {
     const typography = ThemeTypography.interCompact();
 
     return DesignThemeData(
@@ -172,8 +178,8 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
       name: 'Light Compact',
       brightness: Brightness.light,
       borders: const ThemeBorders(),
-      colors: const ThemeColors.materialLight(),
-      icons: const ThemeIcons.material(),
+      colors: colors ?? const ThemeColors.materialLight(),
+      icons: icons ?? const ThemeIcons.material(),
       sizing: const ThemeSizing(),
       spacing: const ThemeSpacing(),
       typography: typography,

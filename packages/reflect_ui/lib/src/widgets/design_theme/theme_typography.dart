@@ -34,64 +34,76 @@ class ThemeTypography {
           fontFamily: 'Inter',
           fontSize: 14,
           height: 20 / 14,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         bodyMedium = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 16,
           height: 24 / 16,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         bodyLarge = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 18,
           height: 28 / 18,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         labelSmall = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 12,
           fontWeight: FontWeight.w600,
           height: 16 / 12,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         labelMedium = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 14,
           fontWeight: FontWeight.w600,
           height: 20 / 14,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         labelLarge = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 16,
           fontWeight: FontWeight.w600,
           height: 24 / 16,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         titleSmall = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 16,
           height: 24 / 16,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         titleMedium = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 18,
           height: 28 / 18,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         titleLarge = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 20,
           height: 32 / 20,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         displaySmall = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 36,
           height: 48 / 36,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         displayMedium = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 46,
           height: 56 / 46,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         displayLarge = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 56,
           height: 64 / 56,
+          leadingDistribution: TextLeadingDistribution.even,
         );
 
   const ThemeTypography.interCompact()
@@ -99,64 +111,76 @@ class ThemeTypography {
           fontFamily: 'Inter',
           fontSize: 12,
           height: 16 / 12,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         bodyMedium = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 14,
           height: 20 / 14,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         bodyLarge = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 16,
           height: 24 / 16,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         labelSmall = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 10,
           fontWeight: FontWeight.w600,
           height: 14 / 10,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         labelMedium = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 12,
           fontWeight: FontWeight.w600,
           height: 16 / 12,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         labelLarge = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 14,
           fontWeight: FontWeight.w600,
           height: 20 / 14,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         titleSmall = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 14,
           height: 20 / 14,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         titleMedium = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 16,
           height: 24 / 16,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         titleLarge = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 18,
           height: 28 / 18,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         displaySmall = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 32,
           height: 40 / 32,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         displayMedium = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 40,
           height: 52 / 40,
+          leadingDistribution: TextLeadingDistribution.even,
         ),
         displayLarge = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 48,
           height: 60 / 48,
+          leadingDistribution: TextLeadingDistribution.even,
         );
 
   // #region Sans Typography

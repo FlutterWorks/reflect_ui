@@ -1093,7 +1093,7 @@ class _MenuItemButtonState extends State<MenuItemButton> {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
           child: Button(
-            variant: hovered ? ButtonVariant.filled : ButtonVariant.transparent,
+            variant: hovered ? ButtonVariant.filled : ButtonVariant.plain,
             onPressed: widget.enabled ? _handleSelect : null,
             // onHover: widget.enabled ? _handleHover : null,
             onFocusChange: widget.enabled ? widget.onFocusChange : null,
@@ -1351,9 +1351,9 @@ class CheckboxMenuButton extends StatelessWidget {
         child: IgnorePointer(
           child: ConstrainedBox(
             constraints: const BoxConstraints(
-              // maxHeight: Checkbox.width,
-              // maxWidth: Checkbox.width,
-            ),
+                // maxHeight: Checkbox.width,
+                // maxWidth: Checkbox.width,
+                ),
             child: Checkbox(
               tristate: tristate,
               value: value,
@@ -1549,9 +1549,9 @@ class RadioMenuButton<T> extends StatelessWidget {
         child: IgnorePointer(
           child: ConstrainedBox(
             constraints: const BoxConstraints(
-              // maxHeight: Checkbox.width,
-              // maxWidth: Checkbox.width,
-            ),
+                // maxHeight: Checkbox.width,
+                // maxWidth: Checkbox.width,
+                ),
             child: Radio<T>(
               value: value,
               groupValue: groupValue,

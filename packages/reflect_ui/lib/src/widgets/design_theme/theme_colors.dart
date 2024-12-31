@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' show Colors;
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/core/colors.dart';
 
 /// A color scheme that defines the colors of the theme.
 @immutable
@@ -23,7 +23,7 @@ class ThemeColors with Diagnosticable {
   /// Create the light color scheme.
   const ThemeColors.materialLight({
     this.primary = Colors.indigo,
-    this.secondary = Colors.grey,
+    this.secondary = Colors.gray,
     this.tertiary = Colors.yellow,
     this.success = Colors.green,
     this.danger = Colors.red,
@@ -32,13 +32,13 @@ class ThemeColors with Diagnosticable {
     this.surface = Colors.white,
     this.onSurface = Colors.black,
     this.surfaceContainer = const Color(0xFFF5F5F5),
-    this.outline = Colors.grey,
+    this.outline = Colors.gray,
   });
 
   /// Create the dark color scheme.
   const ThemeColors.materialDark({
     this.primary = Colors.indigo,
-    this.secondary = Colors.grey,
+    this.secondary = Colors.gray,
     this.tertiary = Colors.yellow,
     this.success = Colors.green,
     this.danger = Colors.red,
@@ -46,8 +46,8 @@ class ThemeColors with Diagnosticable {
     this.info = Colors.blue,
     this.surface = Colors.black,
     this.onSurface = Colors.white,
-    this.surfaceContainer = Colors.black54,
-    this.outline = Colors.black54,
+    this.surfaceContainer = Colors.neutral,
+    this.outline = Colors.neutral,
   });
 
   // #region Seed Colors

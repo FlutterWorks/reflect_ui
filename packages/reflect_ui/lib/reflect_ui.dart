@@ -3,7 +3,6 @@ library reflect_ui;
 export 'package:flutter/material.dart'
     show
         Brightness,
-        Colors,
         Scaffold,
         SelectableText,
         Theme,
@@ -12,6 +11,7 @@ export 'package:flutter/material.dart'
         Tooltip;
 export 'package:flutter/widgets.dart';
 
+export 'src/core/colors.dart';
 export 'src/core/widget_kind.dart';
 export 'src/core/widget_size.dart';
 export 'src/core/widget_variant.dart';

@@ -19,10 +19,10 @@ enum NamedWidgetVariant {
   /// A subtle widget has a background color that is a lighter shade of the primary color.
   subtle,
 
-  /// The transparent variant of a widget.
+  /// The plain variant of a widget.
   ///
-  /// A transparent widget has a background color that is transparent.
-  transparent
+  /// A plain widget without background and border.
+  plain,
 }
 
 /// The variant of a widget.

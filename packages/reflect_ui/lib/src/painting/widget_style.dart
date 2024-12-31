@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart' show Colors;
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/core/colors.dart';
 import 'package:reflect_ui/src/core/widget_kind.dart';
 import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/core/widget_variant.dart';
