@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/core/widget_radius.dart';
 import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/widgets/badge/badge_kind.dart';
 import 'package:reflect_ui/src/widgets/badge/badge_style.dart';
@@ -119,7 +120,7 @@ class Badge extends StatefulWidget {
       borderRadius: defaults.primaryBorderRadius,
       borderWidth: defaults.primaryBorderWidth,
       iconStyle: defaults.secondaryIconStyle ?? defaults.primaryIconStyle,
-      textStyle: defaults.secondaryTextStyle ?? defaults.primaryTextStyle,
+      textStyle: defaults.secondaryLabelStyle ?? defaults.primaryLabelStyle,
     );
   }
 }
@@ -135,13 +136,13 @@ class _BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       widget.kind,
       widget.variant,
       widget.size is WidgetSize ? widget.size as WidgetSize : null,
+      widget.borderRadius is WidgetRadius
+          ? widget.borderRadius as WidgetRadius
+          : WidgetRadius.medium,
       theme,
     );
 
     Size minSize = effectiveStyle.minSize;
-
-    print(effectiveStyle.minSize);
-    print(effectiveStyle.padding);
 
     return ConstrainedBox(
       constraints: BoxConstraints(

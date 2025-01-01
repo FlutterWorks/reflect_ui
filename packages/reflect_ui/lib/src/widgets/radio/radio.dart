@@ -293,6 +293,11 @@ class _RadioState<T> extends State<Radio<T>>
       size: WidgetSize.medium,
     );
 
+     final Size tertiaryMinSize = theme.widgetDefaults.tertiaryMinSize!.resolveWith(
+      {},
+      size: WidgetSize.medium,
+    );
+
     return Semantics(
       inMutuallyExclusiveGroup: true,
       checked: widget._selected,
@@ -304,7 +309,7 @@ class _RadioState<T> extends State<Radio<T>>
         onFocusChange: onFocusChange,
         size: minSize,
         painter: _painter
-          ..dimension = minSize.width * kWidgetDimensionTertiaryScale
+          ..dimension = tertiaryMinSize.width
           ..focusColor = effectiveFocusOverlayColor
           ..downPosition = downPosition
           ..isFocused = focused

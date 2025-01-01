@@ -1,10 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 /// The named size of a widget.
-enum NamedWidgetSize {
-  /// The size of the widget is tiny.
-  tiny,
-
+enum NamedSize {
   /// The size of the widget is small.
   small,
 
@@ -13,9 +10,6 @@ enum NamedWidgetSize {
 
   /// The size of the widget is large.
   large,
-
-  /// The size of the widget is big.
-  big,
 }
 
 /// The size of a widget.
@@ -23,7 +17,7 @@ class WidgetSize extends Size {
   const WidgetSize(this.namedSize) : super(0.0, 0.0);
 
   /// The name of the size.
-  final NamedWidgetSize namedSize;
+  final NamedSize namedSize;
 
   @override
   int get hashCode => Object.hash(width, height, namedSize);
@@ -35,18 +29,12 @@ class WidgetSize extends Size {
     return other is WidgetSize && other.namedSize == namedSize;
   }
 
-  /// The size of the widget is tiny.
-  static const WidgetSize tiny = WidgetSize(NamedWidgetSize.tiny);
-
   /// The size of the widget is small.
-  static const WidgetSize small = WidgetSize(NamedWidgetSize.small);
+  static const WidgetSize small = WidgetSize(NamedSize.small);
 
   /// The size of the widget is medium.
-  static const WidgetSize medium = WidgetSize(NamedWidgetSize.medium);
+  static const WidgetSize medium = WidgetSize(NamedSize.medium);
 
   /// The size of the widget is large.
-  static const WidgetSize large = WidgetSize(NamedWidgetSize.large);
-
-  /// The size of the widget is big.
-  static const WidgetSize big = WidgetSize(NamedWidgetSize.big);
+  static const WidgetSize large = WidgetSize(NamedSize.large);
 }

@@ -4,6 +4,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/core/widget_radius.dart';
 import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/widgets/button/button_kind.dart';
 import 'package:reflect_ui/src/widgets/button/button_style.dart';
@@ -129,7 +130,7 @@ class Button extends StatefulWidget {
       borderRadius: defaults.primaryBorderRadius,
       borderWidth: defaults.primaryBorderWidth,
       iconStyle: defaults.primaryIconStyle,
-      textStyle: defaults.primaryTextStyle,
+      textStyle: defaults.primaryLabelStyle,
     );
   }
 }
@@ -199,6 +200,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
       widget.kind,
       widget.variant,
       widget.size is WidgetSize ? widget.size as WidgetSize : null,
+      WidgetRadius.medium,
       theme,
     );
 

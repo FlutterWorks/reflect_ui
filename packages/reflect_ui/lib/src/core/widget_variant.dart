@@ -1,4 +1,4 @@
-enum NamedWidgetVariant {
+enum NamedVariant {
   /// The filled variant of a widget.
   ///
   /// A filled widget has a solid background color.
@@ -27,6 +27,6 @@ enum NamedWidgetVariant {
 
 /// The variant of a widget.
 mixin WidgetVariant on Enum {
-  NamedWidgetVariant get namedVariant =>
-      NamedWidgetVariant.values.where((e) => e.name == name).first;
+  NamedVariant get namedVariant =>
+      NamedVariant.values.where((e) => e.name == name).first;
 }

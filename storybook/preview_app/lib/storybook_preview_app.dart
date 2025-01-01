@@ -142,19 +142,19 @@ class _HomePageState extends State<_HomePage> {
                   height: 100,
                   child: Row(
                     children: [
-                      for (final brightness in [
-                        Brightness.light,
-                        Brightness.dark,
-                      ])
-                        Radio<Brightness>(
-                          value: brightness,
-                          groupValue: _brightness,
-                          onChanged: (value) {
-                            setState(() {
-                              _brightness = value!;
-                            });
-                          },
-                        ),
+                      // for (final brightness in [
+                      //   Brightness.light,
+                      //   Brightness.dark,
+                      // ])
+                      //   Radio<Brightness>(
+                      //     value: brightness,
+                      //     groupValue: _brightness,
+                      //     onChanged: (value) {
+                      //       setState(() {
+                      //         _brightness = value!;
+                      //       });
+                      //     },
+                      //   ),
                       Switch(
                         value: _useCompactTheme,
                         onChanged: (value) {

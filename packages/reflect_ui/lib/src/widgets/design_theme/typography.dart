@@ -5,6 +5,7 @@ class Typography {
     required this.bodySmall,
     required this.bodyMedium,
     required this.bodyLarge,
+    required this.labelTiny,
     required this.labelSmall,
     required this.labelMedium,
     required this.labelLarge,
@@ -46,6 +47,13 @@ class Typography {
           fontFamily: 'Inter',
           fontSize: 18,
           height: 28 / 18,
+          leadingDistribution: TextLeadingDistribution.even,
+        ),
+        labelTiny = const TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 10,
+          fontWeight: FontWeight.w600,
+          height: 14 / 10,
           leadingDistribution: TextLeadingDistribution.even,
         ),
         labelSmall = const TextStyle(
@@ -125,6 +133,13 @@ class Typography {
           height: 24 / 16,
           leadingDistribution: TextLeadingDistribution.even,
         ),
+        labelTiny = const TextStyle(
+          fontFamily: 'Inter',
+          fontSize: 8,
+          fontWeight: FontWeight.w600,
+          height: 12 / 8,
+          leadingDistribution: TextLeadingDistribution.even,
+        ),
         labelSmall = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 10,
@@ -188,6 +203,7 @@ class Typography {
   final TextStyle bodySmall;
   final TextStyle bodyMedium;
   final TextStyle bodyLarge;
+  final TextStyle labelTiny;
   final TextStyle labelSmall;
   final TextStyle labelMedium;
   final TextStyle labelLarge;

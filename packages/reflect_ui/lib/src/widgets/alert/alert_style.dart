@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/core/widget_kind.dart';
+import 'package:reflect_ui/src/core/widget_radius.dart';
 import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/core/widget_variant.dart';
 import 'package:reflect_ui/src/painting/widget_style.dart';
@@ -29,6 +30,7 @@ class AlertStyle extends WidgetStyle with Diagnosticable {
     WidgetKind? kind,
     WidgetVariant? variant,
     WidgetSize? size,
+    WidgetRadius? radius,
     DesignThemeData? theme,
   ]) {
     return EffectiveAlertStyle(
@@ -70,6 +72,7 @@ class AlertStyle extends WidgetStyle with Diagnosticable {
         kind: kind,
         variant: variant,
         size: size,
+        radius: radius,
         theme: theme,
       ),
       borderWidth: borderWidth.resolveWith(

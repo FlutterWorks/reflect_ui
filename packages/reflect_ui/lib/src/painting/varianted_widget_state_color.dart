@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/core/color_descriptor.dart';
 import 'package:reflect_ui/src/core/colors.dart';
 import 'package:reflect_ui/src/core/widget_kind.dart';
+import 'package:reflect_ui/src/core/widget_radius.dart';
 import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/core/widget_variant.dart';
 import 'package:reflect_ui/src/painting/widget_property.dart';
@@ -24,13 +25,13 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
 
   final String? debugName;
 
-  Map<NamedWidgetVariant, Map<WidgetState?, ColorDescriptor>> get _values {
+  Map<NamedVariant, Map<WidgetState?, ColorDescriptor>> get _values {
     return {
-      NamedWidgetVariant.filled: filled,
-      NamedWidgetVariant.tinted: tinted,
-      NamedWidgetVariant.outlined: outlined,
-      NamedWidgetVariant.subtle: subtle,
-      NamedWidgetVariant.plain: plain,
+      NamedVariant.filled: filled,
+      NamedVariant.tinted: tinted,
+      NamedVariant.outlined: outlined,
+      NamedVariant.subtle: subtle,
+      NamedVariant.plain: plain,
     };
   }
 
@@ -43,6 +44,7 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
     WidgetKind? kind,
     WidgetVariant? variant,
     WidgetSize? size,
+    WidgetRadius? radius,
     DesignThemeData? theme,
     Map<String, dynamic>? extra,
   }) {
@@ -54,17 +56,17 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
     Color? seedColor;
     if (kind != null && theme != null) {
       switch (kind.namedKind) {
-        case NamedWidgetKind.primary:
+        case NamedKind.primary:
           seedColor = theme.colorScheme.primary;
-        case NamedWidgetKind.secondary:
+        case NamedKind.secondary:
           seedColor = theme.colorScheme.secondary;
-        case NamedWidgetKind.success:
+        case NamedKind.success:
           seedColor = theme.colorScheme.success;
-        case NamedWidgetKind.danger:
+        case NamedKind.danger:
           seedColor = theme.colorScheme.danger;
-        case NamedWidgetKind.warning:
+        case NamedKind.warning:
           seedColor = theme.colorScheme.warning;
-        case NamedWidgetKind.info:
+        case NamedKind.info:
           seedColor = theme.colorScheme.info;
       }
     }

@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/painting/varianted_widget_state_color.dart';
 import 'package:reflect_ui/src/painting/widget_property.dart';
+import 'package:reflect_ui/src/widgets/design_theme/constants.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 import 'package:reflect_ui/src/widgets/icon/icon_style.dart';
 
 class WidgetDefaults {
@@ -16,16 +18,70 @@ class WidgetDefaults {
     this.primaryOutlineRadius,
     this.primaryOutlineWidth,
     required this.primaryIconStyle,
-    required this.primaryTextStyle,
+    required this.primaryLabelStyle,
     this.secondaryMinSize,
     this.secondaryPadding,
     this.secondaryIconStyle,
-    this.secondaryTextStyle,
+    this.secondaryLabelStyle,
     this.tertiaryMinSize,
     this.tertiaryPadding,
     this.tertiaryIconStyle,
-    this.tertiaryTextStyle,
+    this.tertiaryLabelStyle,
   });
+
+  static WidgetDefaults regular(Typography typography) {
+    return WidgetDefaults(
+      primaryMinSize: WidgetProperty.sizedSize(44, 4),
+      primaryPadding: WidgetProperty.sizedInsets(12, 4),
+      primaryBackgroundColor: kLightPrimaryBackgroundColor,
+      primaryForegroundColor: kLightPrimaryForegroundColor,
+      primaryBorderColor: kLightPrimaryBorderColor,
+      primaryBorderRadius: WidgetProperty.roundedRadius(6, 0),
+      primaryBorderWidth: WidgetProperty.all<double>(1),
+      primaryIconStyle: WidgetProperty.sizedIconStyle(12, 2),
+      primaryLabelStyle: SizedWidgetProperty<TextStyle>(
+        small: typography.labelSmall,
+        medium: typography.labelMedium,
+        large: typography.labelLarge,
+      ),
+      secondaryMinSize: WidgetProperty.sizedSize(32, 4),
+      secondaryPadding: WidgetProperty.sizedInsets(8, 4),
+      secondaryLabelStyle: SizedWidgetProperty<TextStyle>(
+        small: typography.labelTiny,
+        medium: typography.labelSmall,
+        large: typography.labelMedium,
+      ),
+      tertiaryMinSize: WidgetProperty.sizedSize(20, 4),
+      tertiaryPadding: WidgetProperty.sizedInsets(4, 4),
+    );
+  }
+
+  static WidgetDefaults compact(Typography typography) {
+    return WidgetDefaults(
+      primaryMinSize: WidgetProperty.sizedSize(32, 4),
+      primaryPadding: WidgetProperty.sizedInsets(8, 4),
+      primaryBackgroundColor: kLightPrimaryBackgroundColor,
+      primaryForegroundColor: kLightPrimaryForegroundColor,
+      primaryBorderColor: kLightPrimaryBorderColor,
+      primaryBorderRadius: WidgetProperty.roundedRadius(6, 0),
+      primaryBorderWidth: WidgetProperty.all<double>(1),
+      primaryIconStyle: WidgetProperty.sizedIconStyle(12, 2),
+      primaryLabelStyle: SizedWidgetProperty<TextStyle>(
+        small: typography.labelSmall,
+        medium: typography.labelMedium,
+        large: typography.labelLarge,
+      ),
+      secondaryMinSize: WidgetProperty.sizedSize(24, 4),
+      secondaryPadding: WidgetProperty.sizedInsets(8, 4),
+      secondaryLabelStyle: SizedWidgetProperty<TextStyle>(
+        small: typography.labelTiny,
+        medium: typography.labelSmall,
+        large: typography.labelMedium,
+      ),
+      tertiaryMinSize: WidgetProperty.sizedSize(16, 4),
+      tertiaryPadding: WidgetProperty.sizedInsets(4, 4),
+    );
+  }
 
   /// The preset primary size.
   final SizedWidgetProperty<Size> primaryMinSize;
@@ -61,7 +117,7 @@ class WidgetDefaults {
   final SizedWidgetProperty<IconStyle> primaryIconStyle;
 
   /// The preset primary text style.
-  final SizedWidgetProperty<TextStyle> primaryTextStyle;
+  final SizedWidgetProperty<TextStyle> primaryLabelStyle;
 
   /// The preset secondary size.
   final SizedWidgetProperty<Size>? secondaryMinSize;
@@ -70,7 +126,7 @@ class WidgetDefaults {
   final SizedWidgetProperty<EdgeInsets>? secondaryPadding;
 
   /// The preset secondary text style.
-  final SizedWidgetProperty<TextStyle>? secondaryTextStyle;
+  final SizedWidgetProperty<TextStyle>? secondaryLabelStyle;
 
   /// The preset secondary icon style.
   final SizedWidgetProperty<IconStyle>? secondaryIconStyle;
@@ -82,7 +138,7 @@ class WidgetDefaults {
   final SizedWidgetProperty<EdgeInsets>? tertiaryPadding;
 
   /// The preset tertiary text style.
-  final SizedWidgetProperty<TextStyle>? tertiaryTextStyle;
+  final SizedWidgetProperty<TextStyle>? tertiaryLabelStyle;
 
   /// The preset tertiary icon style.
   final SizedWidgetProperty<IconStyle>? tertiaryIconStyle;

@@ -54,7 +54,7 @@ class BadgeWithSizeStory extends StoryObj<BadgeMeta> with _$BadgeWithSizeStory {
       gap: 16,
       mainAxisSize: MainAxisSize.min,
       children: [
-        for (final namedSize in NamedWidgetSize.values)
+        for (final namedSize in NamedSize.values)
           GappedRow(
             gap: 16,
             mainAxisSize: MainAxisSize.min,

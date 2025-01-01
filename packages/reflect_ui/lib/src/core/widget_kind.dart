@@ -1,4 +1,4 @@
-enum NamedWidgetKind {
+enum NamedKind {
   primary,
   secondary,
   success,
@@ -9,6 +9,6 @@ enum NamedWidgetKind {
 
 /// The kind of a widget.
 mixin WidgetKind on Enum {
-  NamedWidgetKind get namedKind =>
-      NamedWidgetKind.values.where((e) => e.name == name).first;
+  NamedKind get namedKind =>
+      NamedKind.values.where((e) => e.name == name).first;
 }

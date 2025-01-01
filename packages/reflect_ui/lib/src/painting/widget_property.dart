@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/core/widget_kind.dart';
+import 'package:reflect_ui/src/core/widget_radius.dart';
 import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/core/widget_variant.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
@@ -14,6 +15,7 @@ abstract class WidgetProperty<T> extends WidgetStateProperty<T> {
     WidgetKind? kind,
     WidgetVariant? variant,
     WidgetSize? size,
+    WidgetRadius? radius,
     Map<String, dynamic>? extra,
     DesignThemeData? theme,
   });
@@ -28,11 +30,9 @@ abstract class WidgetProperty<T> extends WidgetStateProperty<T> {
     double scale = 1,
   ]) {
     return SizedWidgetProperty<Size>(
-      tiny: Size.square((baseDimension - (sizingUnit * 2)) * scale),
       small: Size.square((baseDimension - sizingUnit) * scale),
       medium: Size.square(baseDimension * scale),
       large: Size.square((baseDimension + sizingUnit) * scale),
-      big: Size.square((baseDimension + (sizingUnit * 2)) * scale),
     );
   }
 
@@ -44,27 +44,27 @@ abstract class WidgetProperty<T> extends WidgetStateProperty<T> {
     double scale = 1,
   ]) {
     return SizedWidgetProperty<EdgeInsets>(
-      tiny: EdgeInsets.all((baseDimension - (spacingUnit * 2)) * scale),
       small: EdgeInsets.all((baseDimension - spacingUnit) * scale),
       medium: EdgeInsets.all(baseDimension * scale),
       large: EdgeInsets.all((baseDimension + spacingUnit) * scale),
-      big: EdgeInsets.all((baseDimension + (spacingUnit * 2)) * scale),
     );
   }
 
   /// Creates a [SizedWidgetProperty] that resolves to a set of [BorderRadius]
   /// based on the given [baseDimension] and [spacingUnit].
-  static SizedWidgetProperty<BorderRadius> sizedRadius(
+  static RoundedWidgetProperty<BorderRadius> roundedRadius(
     double baseDimension,
     double spacingUnit, [
     double scale = 1,
   ]) {
-    return SizedWidgetProperty<BorderRadius>(
+    return RoundedWidgetProperty<BorderRadius>(
+      none: BorderRadius.zero,
       tiny: BorderRadius.circular((baseDimension - (spacingUnit * 2)) * scale),
       small: BorderRadius.circular((baseDimension - spacingUnit) * scale),
       medium: BorderRadius.circular(baseDimension * scale),
       large: BorderRadius.circular((baseDimension + spacingUnit) * scale),
       big: BorderRadius.circular((baseDimension + (spacingUnit * 2)) * scale),
+      full: BorderRadius.circular(9999),
     );
   }
 
@@ -76,11 +76,9 @@ abstract class WidgetProperty<T> extends WidgetStateProperty<T> {
     double scale = 1,
   ]) {
     return SizedWidgetProperty<IconStyle>(
-      tiny: IconStyle(size: (baseDimension - (sizingUnit * 2)) * scale),
       small: IconStyle(size: (baseDimension - sizingUnit) * scale),
       medium: IconStyle(size: baseDimension * scale),
       large: IconStyle(size: (baseDimension + sizingUnit) * scale),
-      big: IconStyle(size: (baseDimension + (sizingUnit * 2)) * scale),
     );
   }
 }
@@ -102,6 +100,7 @@ class WidgetPropertyAll<T> implements WidgetProperty<T> {
     WidgetKind? kind,
     WidgetVariant? variant,
     WidgetSize? size,
+    WidgetRadius? radius,
     Map<String, dynamic>? extra,
     DesignThemeData? theme,
   }) {
@@ -138,14 +137,14 @@ class KindedWidgetProperty<T> implements WidgetProperty<T> {
 
   final String? debugName;
 
-  Map<NamedWidgetKind, T> get _values {
+  Map<NamedKind, T> get _values {
     return {
-      NamedWidgetKind.primary: primary,
-      NamedWidgetKind.secondary: secondary,
-      NamedWidgetKind.success: success,
-      NamedWidgetKind.danger: danger,
-      NamedWidgetKind.warning: warning,
-      NamedWidgetKind.info: info,
+      NamedKind.primary: primary,
+      NamedKind.secondary: secondary,
+      NamedKind.success: success,
+      NamedKind.danger: danger,
+      NamedKind.warning: warning,
+      NamedKind.info: info,
     };
   }
 
@@ -158,6 +157,7 @@ class KindedWidgetProperty<T> implements WidgetProperty<T> {
     WidgetKind? kind,
     WidgetVariant? variant,
     WidgetSize? size,
+    WidgetRadius? radius,
     Map<String, dynamic>? extra,
     DesignThemeData? theme,
   }) {
@@ -188,13 +188,13 @@ class VariantedWidgetProperty<T> implements WidgetProperty<T> {
 
   final String? debugName;
 
-  Map<NamedWidgetVariant, T> get _values {
+  Map<NamedVariant, T> get _values {
     return {
-      NamedWidgetVariant.filled: filled,
-      NamedWidgetVariant.tinted: tinted,
-      NamedWidgetVariant.outlined: outlined,
-      NamedWidgetVariant.subtle: subtle,
-      NamedWidgetVariant.plain: plain,
+      NamedVariant.filled: filled,
+      NamedVariant.tinted: tinted,
+      NamedVariant.outlined: outlined,
+      NamedVariant.subtle: subtle,
+      NamedVariant.plain: plain,
     };
   }
 
@@ -207,6 +207,7 @@ class VariantedWidgetProperty<T> implements WidgetProperty<T> {
     WidgetKind? kind,
     WidgetVariant? variant,
     WidgetSize? size,
+    WidgetRadius? radius,
     Map<String, dynamic>? extra,
     DesignThemeData? theme,
   }) {
@@ -221,29 +222,23 @@ class VariantedWidgetProperty<T> implements WidgetProperty<T> {
 
 class SizedWidgetProperty<T> implements WidgetProperty<T> {
   const SizedWidgetProperty({
-    required this.tiny,
     required this.small,
     required this.medium,
     required this.large,
-    required this.big,
     this.debugName,
   });
 
-  final T tiny;
   final T small;
   final T medium;
   final T large;
-  final T big;
 
   final String? debugName;
 
-  Map<NamedWidgetSize, T> get _values {
+  Map<NamedSize, T> get _values {
     return {
-      NamedWidgetSize.tiny: tiny,
-      NamedWidgetSize.small: small,
-      NamedWidgetSize.medium: medium,
-      NamedWidgetSize.large: large,
-      NamedWidgetSize.big: big,
+      NamedSize.small: small,
+      NamedSize.medium: medium,
+      NamedSize.large: large,
     };
   }
 
@@ -256,6 +251,7 @@ class SizedWidgetProperty<T> implements WidgetProperty<T> {
     WidgetKind? kind,
     WidgetVariant? variant,
     WidgetSize? size,
+    WidgetRadius? radius,
     Map<String, dynamic>? extra,
     DesignThemeData? theme,
   }) {
@@ -265,5 +261,61 @@ class SizedWidgetProperty<T> implements WidgetProperty<T> {
       );
     }
     return _values[size.namedSize]!;
+  }
+}
+
+class RoundedWidgetProperty<T> implements WidgetProperty<T> {
+  const RoundedWidgetProperty({
+    required this.none,
+    required this.tiny,
+    required this.small,
+    required this.medium,
+    required this.large,
+    required this.big,
+    required this.full,
+    this.debugName,
+  });
+
+  final T none;
+  final T tiny;
+  final T small;
+  final T medium;
+  final T large;
+  final T big;
+  final T full;
+
+  final String? debugName;
+
+  Map<NamedRadius, T> get _values {
+    return {
+      NamedRadius.none: none,
+      NamedRadius.tiny: tiny,
+      NamedRadius.small: small,
+      NamedRadius.medium: medium,
+      NamedRadius.large: large,
+      NamedRadius.big: big,
+      NamedRadius.full: full,
+    };
+  }
+
+  @override
+  T resolve(Set<WidgetState> states) => resolveWith(states);
+
+  @override
+  T resolveWith(
+    Set<WidgetState> states, {
+    WidgetKind? kind,
+    WidgetVariant? variant,
+    WidgetSize? size,
+    WidgetRadius? radius,
+    Map<String, dynamic>? extra,
+    DesignThemeData? theme,
+  }) {
+    if (radius == null) {
+      throw ArgumentError(
+        'radius is required for ${debugName ?? T.runtimeType} property.',
+      );
+    }
+    return _values[radius.namedRadius]!;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reflect_ui/src/core/widget_radius.dart';
 import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/widgets/alert/alert_kind.dart';
 import 'package:reflect_ui/src/widgets/alert/alert_style.dart';
@@ -66,7 +67,7 @@ class Alert extends StatefulWidget {
       borderRadius: defaults.primaryBorderRadius,
       borderWidth: defaults.primaryBorderWidth,
       iconStyle: defaults.primaryIconStyle,
-      textStyle: defaults.primaryTextStyle,
+      textStyle: defaults.primaryLabelStyle,
     );
   }
 }
@@ -82,6 +83,7 @@ class _AlertState extends State<Alert> {
       widget.kind,
       widget.variant,
       WidgetSize.medium,
+      WidgetRadius.none,
       theme,
     );
 

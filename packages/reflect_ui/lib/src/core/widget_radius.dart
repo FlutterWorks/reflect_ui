@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 /// The named radius of a widget.
-enum NamedWidgetRadius {
+enum NamedRadius {
   /// The radius of the widget is none.
   none,
 
@@ -29,7 +29,7 @@ class WidgetRadius extends BorderRadius {
   const WidgetRadius(this.namedRadius) : super.all(Radius.zero);
 
   /// The name of the radius.
-  final NamedWidgetRadius namedRadius;
+  final NamedRadius namedRadius;
 
   @override
   int get hashCode => Object.hash(
@@ -48,23 +48,23 @@ class WidgetRadius extends BorderRadius {
   }
 
   /// The radius of the widget is none.
-  static const WidgetRadius none = WidgetRadius(NamedWidgetRadius.none);
+  static const WidgetRadius none = WidgetRadius(NamedRadius.none);
 
   /// The radius of the widget is tiny.
-  static const WidgetRadius tiny = WidgetRadius(NamedWidgetRadius.tiny);
+  static const WidgetRadius tiny = WidgetRadius(NamedRadius.tiny);
 
   /// The radius of the widget is small.
-  static const WidgetRadius small = WidgetRadius(NamedWidgetRadius.small);
+  static const WidgetRadius small = WidgetRadius(NamedRadius.small);
 
   /// The radius of the widget is medium.
-  static const WidgetRadius medium = WidgetRadius(NamedWidgetRadius.medium);
+  static const WidgetRadius medium = WidgetRadius(NamedRadius.medium);
 
   /// The radius of the widget is large.
-  static const WidgetRadius large = WidgetRadius(NamedWidgetRadius.large);
+  static const WidgetRadius large = WidgetRadius(NamedRadius.large);
 
   /// The radius of the widget is big.
-  static const WidgetRadius big = WidgetRadius(NamedWidgetRadius.big);
+  static const WidgetRadius big = WidgetRadius(NamedRadius.big);
 
   /// The radius of the widget is full.
-  static const WidgetRadius full = WidgetRadius(NamedWidgetRadius.full);
+  static const WidgetRadius full = WidgetRadius(NamedRadius.full);
 }
