@@ -59,7 +59,6 @@ class Alert extends StatefulWidget {
     final defaults = theme.widgetDefaults;
     return AlertStyle(
       minSize: defaults.primaryMinSize,
-      margin: defaults.primaryMargin,
       padding: defaults.primaryPadding,
       backgroundColor: defaults.primaryBackgroundColor,
       foregroundColor: defaults.primaryForegroundColor,

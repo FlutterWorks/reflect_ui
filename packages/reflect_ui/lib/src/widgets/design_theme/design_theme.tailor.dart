@@ -15,7 +15,7 @@ mixin _$DesignThemeDataTailorMixin
   Brightness get brightness;
   ColorScheme get colorScheme;
   IconLibrary get iconLibrary;
-  ThemeTypography get typography;
+  Typography get typography;
   WidgetDefaults get widgetDefaults;
 
   @override
@@ -25,7 +25,7 @@ mixin _$DesignThemeDataTailorMixin
     Brightness? brightness,
     ColorScheme? colorScheme,
     IconLibrary? iconLibrary,
-    ThemeTypography? typography,
+    Typography? typography,
     WidgetDefaults? widgetDefaults,
   }) {
     return DesignThemeData(
@@ -122,7 +122,7 @@ extension DesignThemeDataBuildContextProps on BuildContext {
   IconLibrary get iconLibrary => designThemeData.iconLibrary;
 
   /// The typography of the design theme.
-  ThemeTypography get typography => designThemeData.typography;
+  Typography get typography => designThemeData.typography;
 
   /// The widget defaults of the design theme.
   WidgetDefaults get widgetDefaults => designThemeData.widgetDefaults;

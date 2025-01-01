@@ -2,10 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/core/widget_size.dart';
-import 'package:reflect_ui/src/utils/constants.dart';
 import 'package:reflect_ui/src/widgets/badge/badge_kind.dart';
 import 'package:reflect_ui/src/widgets/badge/badge_style.dart';
 import 'package:reflect_ui/src/widgets/badge/badge_variant.dart';
@@ -47,9 +45,9 @@ class Badge extends StatefulWidget {
     this.style,
     this.variant = BadgeVariant.filled,
     this.kind = BadgeKind.primary,
-    this.padding,
+    this.size = WidgetSize.medium,
     this.color,
-    this.disabledColor = CupertinoColors.quaternarySystemFill,
+    this.padding,
     this.borderRadius = const BorderRadius.all(Radius.circular(16)),
     this.alignment = Alignment.center,
   });
@@ -64,36 +62,30 @@ class Badge extends StatefulWidget {
   /// Defaults to null.
   final BadgeStyle? style;
 
-  /// The variant of the badge.
-  ///
-  /// Defaults to [BadgeVariant.filled].
-  final BadgeVariant variant;
-
   /// The kind of the badge.
   ///
   /// Defaults to [BadgeKind.primary].
   final BadgeKind kind;
 
+  /// The variant of the badge.
+  ///
+  /// Defaults to [BadgeVariant.filled].
+  final BadgeVariant variant;
+
+  /// The size of the badge.
+  ///
+  /// Defaults to [WidgetSize.medium].
+  final Size size;
+
+  /// The color of the badge's seed color.
+  ///
+  /// Defaults to null.
+  final Color? color;
+
   /// The amount of space to surround the child inside the bounds of the badge.
   ///
   /// Defaults to 16.0 pixels.
   final EdgeInsetsGeometry? padding;
-
-  /// The color of the badge's background.
-  ///
-  /// Defaults to null which produces a badge with no background or border.
-  ///
-  /// Defaults to the [CupertinoTheme]'s `primaryColor` when the
-  /// [Badge.filled] constructor is used.
-  final Color? color;
-
-  /// The color of the badge's background when the badge is disabled.
-  ///
-  /// Ignored if the [Badge] doesn't also have a [color].
-  ///
-  /// Defaults to [CupertinoColors.quaternarySystemFill] when [color] is
-  /// specified.
-  final Color disabledColor;
 
   /// The radius of the badge's corners when it has a background color.
   ///
@@ -119,16 +111,15 @@ class Badge extends StatefulWidget {
     final theme = DesignTheme.of(context);
     final defaults = theme.widgetDefaults;
     return BadgeStyle(
-      minSize: defaults.primaryMinSize,
-      margin: defaults.primaryMargin,
-      padding: defaults.primaryPadding,
+      minSize: defaults.secondaryMinSize ?? defaults.primaryMinSize,
+      padding: defaults.secondaryPadding ?? defaults.primaryPadding,
       backgroundColor: defaults.primaryBackgroundColor,
       foregroundColor: defaults.primaryForegroundColor,
       borderColor: defaults.primaryBorderColor,
       borderRadius: defaults.primaryBorderRadius,
       borderWidth: defaults.primaryBorderWidth,
-      iconStyle: defaults.primaryIconStyle,
-      textStyle: defaults.primaryTextStyle,
+      iconStyle: defaults.secondaryIconStyle ?? defaults.primaryIconStyle,
+      textStyle: defaults.secondaryTextStyle ?? defaults.primaryTextStyle,
     );
   }
 }
@@ -143,16 +134,19 @@ class _BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       {},
       widget.kind,
       widget.variant,
-      WidgetSize.medium,
+      widget.size is WidgetSize ? widget.size as WidgetSize : null,
       theme,
     );
 
     Size minSize = effectiveStyle.minSize;
 
+    print(effectiveStyle.minSize);
+    print(effectiveStyle.padding);
+
     return ConstrainedBox(
       constraints: BoxConstraints(
-        minWidth: minSize.width * kWidgetDimensionTertiaryScale,
-        minHeight: minSize.height * kWidgetDimensionTertiaryScale,
+        minWidth: minSize.width,
+        minHeight: minSize.height,
       ),
       child: Container(
         foregroundDecoration: BoxDecoration(
@@ -169,7 +163,8 @@ class _BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
           borderRadius: BorderRadius.circular(9999),
         ),
         child: Padding(
-          padding: widget.padding ?? effectiveStyle.padding,
+          // padding: widget.padding ?? effectiveStyle.padding,
+          padding: EdgeInsets.zero,
           child: Align(
             alignment: widget.alignment,
             widthFactor: 1.0,

@@ -20,6 +20,7 @@ final StorybookConfig storybookConfig = StorybookConfig(
     AlertDefaultStory(),
     AlertWithVariantStory(),
     BadgeDefaultStory(),
+    BadgeWithSizeStory(),
     ButtonDefaultStory(),
     ButtonWithKindStory(),
     ButtonWithVariantStory(),

@@ -6,16 +6,15 @@ import 'package:reflect_ui/src/widgets/icon/icon_style.dart';
 class WidgetDefaults {
   const WidgetDefaults({
     required this.primaryMinSize,
-    required this.primaryMargin,
     required this.primaryPadding,
     required this.primaryBackgroundColor,
     required this.primaryForegroundColor,
     required this.primaryBorderColor,
     required this.primaryBorderRadius,
     required this.primaryBorderWidth,
-    // required this.primaryOutlineColor,
-    // required this.primaryOutlineRadius,
-    // required this.primaryOutlineWidth,
+    this.primaryOutlineColor,
+    this.primaryOutlineRadius,
+    this.primaryOutlineWidth,
     required this.primaryIconStyle,
     required this.primaryTextStyle,
     this.secondaryMinSize,
@@ -30,9 +29,6 @@ class WidgetDefaults {
 
   /// The preset primary size.
   final SizedWidgetProperty<Size> primaryMinSize;
-
-  /// The preset primary margin.
-  final SizedWidgetProperty<EdgeInsets> primaryMargin;
 
   /// The preset primary padding.
   final SizedWidgetProperty<EdgeInsets> primaryPadding;
@@ -52,14 +48,14 @@ class WidgetDefaults {
   /// The preset primary border width.
   final WidgetProperty<double> primaryBorderWidth;
 
-  // /// The preset primary outline color.
-  // final VariantedWidgetStateColor primaryOutlineColor;
+  /// The preset primary outline color.
+  final VariantedWidgetStateColor? primaryOutlineColor;
 
-  // /// The preset primary outline radius.
-  // final SizedWidgetProperty<BorderRadius> primaryOutlineRadius;
+  /// The preset primary outline radius.
+  final SizedWidgetProperty<BorderRadius>? primaryOutlineRadius;
 
-  // /// The preset primary outline width.
-  // final SizedWidgetProperty<double> primaryOutlineWidth;
+  /// The preset primary outline width.
+  final SizedWidgetProperty<double>? primaryOutlineWidth;
 
   /// The preset primary icon style.
   final SizedWidgetProperty<IconStyle> primaryIconStyle;

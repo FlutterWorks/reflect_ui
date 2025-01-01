@@ -122,7 +122,6 @@ class Button extends StatefulWidget {
     final defaults = theme.widgetDefaults;
     return ButtonStyle(
       minSize: defaults.primaryMinSize,
-      margin: defaults.primaryMargin,
       padding: defaults.primaryPadding,
       backgroundColor: defaults.primaryBackgroundColor,
       foregroundColor: defaults.primaryForegroundColor,

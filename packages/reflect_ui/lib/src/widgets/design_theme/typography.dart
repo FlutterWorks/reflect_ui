@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-class ThemeTypography {
-  const ThemeTypography({
+class Typography {
+  const Typography({
     required this.bodySmall,
     required this.bodyMedium,
     required this.bodyLarge,
@@ -29,7 +29,7 @@ class ThemeTypography {
   });
 
   /// Create a typography with the Inter font family.
-  const ThemeTypography.inter()
+  const Typography.regular()
       : bodySmall = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 14,
@@ -106,7 +106,7 @@ class ThemeTypography {
           leadingDistribution: TextLeadingDistribution.even,
         );
 
-  const ThemeTypography.interCompact()
+  const Typography.compact()
       : bodySmall = const TextStyle(
           fontFamily: 'Inter',
           fontSize: 12,

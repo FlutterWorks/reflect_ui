@@ -45,3 +45,29 @@ class BadgeMeta extends Meta with _$BadgeMeta {
 
 @storybook.Story('Default')
 class BadgeDefaultStory extends StoryObj<BadgeMeta> with _$BadgeDefaultStory {}
+
+@storybook.Story('With Size')
+class BadgeWithSizeStory extends StoryObj<BadgeMeta> with _$BadgeWithSizeStory {
+  @override
+  Widget build(BuildContext context, List<Arg> args) {
+    return GappedColumn(
+      gap: 16,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (final namedSize in NamedWidgetSize.values)
+          GappedRow(
+            gap: 16,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (final variant in BadgeVariant.values)
+                Badge(
+                  size: WidgetSize(namedSize),
+                  variant: variant,
+                  child: const Text('Text Badge'),
+                ),
+            ],
+          ),
+      ],
+    );
+  }
+}

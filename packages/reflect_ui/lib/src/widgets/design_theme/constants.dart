@@ -5,7 +5,7 @@ import 'package:reflect_ui/src/painting/varianted_widget_state_color.dart';
 import 'package:reflect_ui/src/painting/widget_property.dart';
 
 // #region Regular constants.
-const kRegularMinSize = SizedWidgetProperty<Size>(
+const kRegularPrimaryMinSize = SizedWidgetProperty<Size>(
   tiny: Size.square(24),
   small: Size.square(32),
   medium: Size.square(44),
@@ -13,7 +13,7 @@ const kRegularMinSize = SizedWidgetProperty<Size>(
   big: Size.square(56),
 );
 
-const kRegularPadding = SizedWidgetProperty<EdgeInsets>(
+const kRegularPrimaryPadding = SizedWidgetProperty<EdgeInsets>(
   tiny: EdgeInsets.all(4),
   small: EdgeInsets.all(8),
   medium: EdgeInsets.all(12),
@@ -21,23 +21,21 @@ const kRegularPadding = SizedWidgetProperty<EdgeInsets>(
   big: EdgeInsets.all(20),
 );
 
-const kRegularBorderRadius = WidgetPropertyAll<BorderRadius>(
+const kRegularPrimaryBorderRadius = WidgetPropertyAll<BorderRadius>(
   BorderRadius.all(Radius.circular(6)),
 );
 
-// #endregion
+const kRegularPrimaryBorderWidth = WidgetPropertyAll<double>(1);
 
-// #region Compact constants.
-
-const kCompactMinSize = SizedWidgetProperty<Size>(
-  tiny: Size.square(24),
-  small: Size.square(28),
-  medium: Size.square(32),
-  large: Size.square(36),
-  big: Size.square(40),
+const kRegularSecondaryMinSize = SizedWidgetProperty<Size>(
+  tiny: Size.square(24 * 0.8),
+  small: Size.square(32 * 0.8),
+  medium: Size.square(44 * 0.8),
+  large: Size.square(48 * 0.8),
+  big: Size.square(56 * 0.8),
 );
 
-const kCompactPadding = SizedWidgetProperty<EdgeInsets>(
+const kRegularSecondaryPadding = SizedWidgetProperty<EdgeInsets>(
   tiny: EdgeInsets.all(2),
   small: EdgeInsets.all(4),
   medium: EdgeInsets.all(8),
@@ -45,15 +43,101 @@ const kCompactPadding = SizedWidgetProperty<EdgeInsets>(
   big: EdgeInsets.all(16),
 );
 
-const kCompactBorderRadius = WidgetPropertyAll<BorderRadius>(
+const kRegularSecondaryBorderRadius = WidgetPropertyAll<BorderRadius>(
+  BorderRadius.all(Radius.circular(6 * 0.8)),
+);
+
+const kRegularTertiaryMinSize = SizedWidgetProperty<Size>(
+  tiny: Size.square(24 * 0.56),
+  small: Size.square(32 * 0.56),
+  medium: Size.square(44 * 0.56),
+  large: Size.square(48 * 0.56),
+  big: Size.square(56 * 0.56),
+);
+
+const kRegularTertiaryPadding = SizedWidgetProperty<EdgeInsets>(
+  tiny: EdgeInsets.all(2),
+  small: EdgeInsets.all(4),
+  medium: EdgeInsets.all(8),
+  large: EdgeInsets.all(12),
+  big: EdgeInsets.all(16),
+);
+
+const kRegularTertiaryBorderRadius = WidgetPropertyAll<BorderRadius>(
+  BorderRadius.all(Radius.circular(6 * 0.56)),
+);
+
+// #endregion
+
+// #region Compact constants.
+
+const kCompactPrimaryMinSize = SizedWidgetProperty<Size>(
+  tiny: Size.square(24),
+  small: Size.square(28),
+  medium: Size.square(32),
+  large: Size.square(36),
+  big: Size.square(40),
+);
+
+const kCompactPrimaryPadding = SizedWidgetProperty<EdgeInsets>(
+  tiny: EdgeInsets.all(2),
+  small: EdgeInsets.all(4),
+  medium: EdgeInsets.all(8),
+  large: EdgeInsets.all(12),
+  big: EdgeInsets.all(16),
+);
+
+const kCompactPrimaryBorderRadius = WidgetPropertyAll<BorderRadius>(
   BorderRadius.all(Radius.circular(6)),
+);
+
+const kCompactPrimaryBorderWidth = WidgetPropertyAll<double>(1);
+
+const kCompactSecondaryMinSize = SizedWidgetProperty<Size>(
+  tiny: Size.square(24 * 0.8),
+  small: Size.square(28 * 0.8),
+  medium: Size.square(32 * 0.8),
+  large: Size.square(36 * 0.8),
+  big: Size.square(40 * 0.8),
+);
+
+const kCompactSecondaryPadding = SizedWidgetProperty<EdgeInsets>(
+  tiny: EdgeInsets.all(2),
+  small: EdgeInsets.all(4),
+  medium: EdgeInsets.all(8),
+  large: EdgeInsets.all(12),
+  big: EdgeInsets.all(16),
+);
+
+const kCompactSecondaryBorderRadius = WidgetPropertyAll<BorderRadius>(
+  BorderRadius.all(Radius.circular(6 * 0.8)),
+);
+
+const kCompactTertiaryMinSize = SizedWidgetProperty<Size>(
+  tiny: Size.square(24 * 0.56),
+  small: Size.square(28 * 0.56),
+  medium: Size.square(32 * 0.56),
+  large: Size.square(36 * 0.56),
+  big: Size.square(40 * 0.56),
+);
+
+const kCompactTertiaryPadding = SizedWidgetProperty<EdgeInsets>(
+  tiny: EdgeInsets.all(2),
+  small: EdgeInsets.all(4),
+  medium: EdgeInsets.all(8),
+  large: EdgeInsets.all(12),
+  big: EdgeInsets.all(16),
+);
+
+const kCompactTertiaryBorderRadius = WidgetPropertyAll<BorderRadius>(
+  BorderRadius.all(Radius.circular(6 * 0.56)),
 );
 
 // #endregion
 
 // #region Dark theme constants.
 
-const kDarkBackgroundColor = VariantedWidgetStateColor(
+const kDarkPrimaryBackgroundColor = VariantedWidgetStateColor(
   filled: {
     null: ColorDescriptor.shade(600),
     WidgetState.hovered: ColorDescriptor.shade(700),
@@ -73,7 +157,7 @@ const kDarkBackgroundColor = VariantedWidgetStateColor(
   },
 );
 
-const kDarkForegroundColor = VariantedWidgetStateColor(
+const kDarkPrimaryForegroundColor = VariantedWidgetStateColor(
   filled: {
     null: ColorDescriptor(color: Colors.white),
   },
@@ -91,7 +175,7 @@ const kDarkForegroundColor = VariantedWidgetStateColor(
   },
 );
 
-const kDarkBorderColor = VariantedWidgetStateColor(
+const kDarkPrimaryBorderColor = VariantedWidgetStateColor(
   filled: {
     null: ColorDescriptor.shade(600),
     WidgetState.hovered: ColorDescriptor.shade(700),
@@ -115,7 +199,7 @@ const kDarkBorderColor = VariantedWidgetStateColor(
 
 // #region Light theme constants.
 
-const kLightBackgroundColor = VariantedWidgetStateColor(
+const kLightPrimaryBackgroundColor = VariantedWidgetStateColor(
   filled: {
     null: ColorDescriptor.shade(600),
     WidgetState.hovered: ColorDescriptor.shade(700),
@@ -141,7 +225,7 @@ const kLightBackgroundColor = VariantedWidgetStateColor(
   },
 );
 
-const kLightForegroundColor = VariantedWidgetStateColor(
+const kLightPrimaryForegroundColor = VariantedWidgetStateColor(
   filled: {
     null: ColorDescriptor(color: Colors.white),
   },
@@ -159,7 +243,7 @@ const kLightForegroundColor = VariantedWidgetStateColor(
   },
 );
 
-const kLightBorderColor = VariantedWidgetStateColor(
+const kLightPrimaryBorderColor = VariantedWidgetStateColor(
   filled: {
     null: ColorDescriptor.shade(-1),
   },

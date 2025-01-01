@@ -17,77 +17,20 @@ class ButtonMeta extends Meta with _$ButtonMeta {
         return Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              color: Colors.gray,
-              height: 28,
-              width: 28,
-            ),
             Button(
               variant: ButtonVariant.filled,
               onPressed: () {},
               // borderRadius: BorderRadius.zero,
               child: const Text('Text Button'),
             ),
-            const SizedBox(width: 8),
-            Container(
-              color: Colors.gray,
-              height: 28,
-              width: 28,
-            ),
-            Button(
-              variant: ButtonVariant.tinted,
-              // borderRadius: BorderRadius.zero,
-              child: const Text('Text Button'),
-              onPressed: () {},
+            const Badge(
+              variant: BadgeVariant.filled,
+              child: Text('1'),
             ),
             const SizedBox(width: 8),
-            Container(
-              color: Colors.gray,
-              height: 28,
-              width: 28,
-            ),
-            Button(
-              variant: ButtonVariant.outlined,
-              // borderRadius: BorderRadius.zero,
-              child: const Text('Text Button'),
-              onPressed: () {},
-            ),
-            const SizedBox(width: 8),
-            Container(
-              color: Colors.gray,
-              height: 28,
-              width: 28,
-            ),
-            Button(
-              variant: ButtonVariant.subtle,
-              // borderRadius: BorderRadius.zero,
-              child: const Text('Text Button'),
-              onPressed: () {},
-            ),
-            const SizedBox(width: 8),
-            Container(
-              color: Colors.gray,
-              height: 28,
-              width: 28,
-            ),
-            Button(
-              variant: ButtonVariant.plain,
-              // borderRadius: BorderRadius.zero,
-              child: const Text('Text Button'),
-              onPressed: () {},
-            ),
-            const SizedBox(width: 8),
-            const SizedBox(
-              width: 140,
-              child: TextField(
-                placeholder: 'Type something...',
-              ),
-            ),
-            const SizedBox(width: 8),
-            Container(
-              color: Colors.gray,
-              height: 28,
-              width: 28,
+            const Badge(
+              variant: BadgeVariant.outlined,
+              child: Text('99+'),
             ),
             Checkbox(
               value: true,
@@ -108,15 +51,6 @@ class ButtonMeta extends Meta with _$ButtonMeta {
               onChanged: (newValue) => setState(() {
                 // value = newValue!;
               }),
-            ),
-            const Badge(
-              variant: BadgeVariant.filled,
-              child: Text('1'),
-            ),
-            const SizedBox(width: 8),
-            const Badge(
-              variant: BadgeVariant.outlined,
-              child: Text('99+'),
             ),
             Radio<String>(
               value: '1',

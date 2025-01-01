@@ -4,6 +4,7 @@ import 'package:reflect_ui/src/core/widget_kind.dart';
 import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/core/widget_variant.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
+import 'package:reflect_ui/src/widgets/icon/icon_style.dart';
 
 abstract class WidgetProperty<T> extends WidgetStateProperty<T> {
   /// Returns a value of type `T` that depends on [states] and the other
@@ -16,6 +17,72 @@ abstract class WidgetProperty<T> extends WidgetStateProperty<T> {
     Map<String, dynamic>? extra,
     DesignThemeData? theme,
   });
+
+  static WidgetProperty<T> all<T>(T value) => WidgetPropertyAll<T>(value);
+
+  /// Creates a [SizedWidgetProperty] that resolves to a set of [Size]
+  /// based on the given [baseDimension] and [sizingUnit].
+  static SizedWidgetProperty<Size> sizedSize(
+    double baseDimension,
+    double sizingUnit, [
+    double scale = 1,
+  ]) {
+    return SizedWidgetProperty<Size>(
+      tiny: Size.square((baseDimension - (sizingUnit * 2)) * scale),
+      small: Size.square((baseDimension - sizingUnit) * scale),
+      medium: Size.square(baseDimension * scale),
+      large: Size.square((baseDimension + sizingUnit) * scale),
+      big: Size.square((baseDimension + (sizingUnit * 2)) * scale),
+    );
+  }
+
+  /// Creates a [SizedWidgetProperty] that resolves to a set of [EdgeInsets]
+  /// based on the given [baseDimension] and [spacingUnit].
+  static SizedWidgetProperty<EdgeInsets> sizedInsets(
+    double baseDimension,
+    double spacingUnit, [
+    double scale = 1,
+  ]) {
+    return SizedWidgetProperty<EdgeInsets>(
+      tiny: EdgeInsets.all((baseDimension - (spacingUnit * 2)) * scale),
+      small: EdgeInsets.all((baseDimension - spacingUnit) * scale),
+      medium: EdgeInsets.all(baseDimension * scale),
+      large: EdgeInsets.all((baseDimension + spacingUnit) * scale),
+      big: EdgeInsets.all((baseDimension + (spacingUnit * 2)) * scale),
+    );
+  }
+
+  /// Creates a [SizedWidgetProperty] that resolves to a set of [BorderRadius]
+  /// based on the given [baseDimension] and [spacingUnit].
+  static SizedWidgetProperty<BorderRadius> sizedRadius(
+    double baseDimension,
+    double spacingUnit, [
+    double scale = 1,
+  ]) {
+    return SizedWidgetProperty<BorderRadius>(
+      tiny: BorderRadius.circular((baseDimension - (spacingUnit * 2)) * scale),
+      small: BorderRadius.circular((baseDimension - spacingUnit) * scale),
+      medium: BorderRadius.circular(baseDimension * scale),
+      large: BorderRadius.circular((baseDimension + spacingUnit) * scale),
+      big: BorderRadius.circular((baseDimension + (spacingUnit * 2)) * scale),
+    );
+  }
+
+  /// Creates a [SizedWidgetProperty] that resolves to a set of [IconStyle]
+  /// based on the given [baseDimension] and [sizingUnit].
+  static SizedWidgetProperty<IconStyle> sizedIconStyle(
+    double baseDimension,
+    double sizingUnit, [
+    double scale = 1,
+  ]) {
+    return SizedWidgetProperty<IconStyle>(
+      tiny: IconStyle(size: (baseDimension - (sizingUnit * 2)) * scale),
+      small: IconStyle(size: (baseDimension - sizingUnit) * scale),
+      medium: IconStyle(size: baseDimension * scale),
+      large: IconStyle(size: (baseDimension + sizingUnit) * scale),
+      big: IconStyle(size: (baseDimension + (sizingUnit * 2)) * scale),
+    );
+  }
 }
 
 class WidgetPropertyAll<T> implements WidgetProperty<T> {
