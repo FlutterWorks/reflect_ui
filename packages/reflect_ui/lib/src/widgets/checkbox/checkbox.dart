@@ -6,7 +6,10 @@
 
 import 'package:flutter/cupertino.dart' show CupertinoColors;
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/core/colors.dart';
+import 'package:reflect_ui/src/core/widget_radius.dart';
 import 'package:reflect_ui/src/core/widget_size.dart';
+import 'package:reflect_ui/src/widgets/checkbox/checkbox_style.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
 export './checkbox_style.dart';
@@ -61,14 +64,12 @@ class Checkbox extends StatefulWidget {
     required this.value,
     this.tristate = false,
     required this.onChanged,
-    this.activeColor,
-    this.inactiveColor,
-    this.checkColor,
-    this.focusColor,
+    this.style,
+    this.color,
+    this.size = WidgetSize.medium,
+    this.radius = WidgetRadius.small,
     this.focusNode,
     this.autofocus = false,
-    this.side,
-    this.shape,
   }) : assert(tristate || value != null);
 
   /// Whether this checkbox is checked.
@@ -108,21 +109,6 @@ class Checkbox extends StatefulWidget {
   /// ```
   final ValueChanged<bool?>? onChanged;
 
-  /// The color to use when this checkbox is checked.
-  ///
-  /// Defaults to [CupertinoColors.activeBlue].
-  final Color? activeColor;
-
-  /// The color used if the checkbox is inactive.
-  ///
-  /// By default, [CupertinoColors.inactiveGray] is used.
-  final Color? inactiveColor;
-
-  /// The color to use for the check icon when this checkbox is checked.
-  ///
-  /// If null, then the value of [CupertinoColors.white] is used.
-  final Color? checkColor;
-
   /// If true, the checkbox's [value] can be true, false, or null.
   ///
   /// [Checkbox] displays a dash when its value is null.
@@ -136,10 +122,25 @@ class Checkbox extends StatefulWidget {
   /// [onChanged] will only toggle between true and false.
   final bool tristate;
 
-  /// The color for the checkbox's border shadow when it has the input focus.
+  /// The style of the checkbox.
   ///
-  /// If null, then a paler form of the [activeColor] will be used.
-  final Color? focusColor;
+  /// Defaults to null.
+  final CheckboxStyle? style;
+
+  /// The color of the checkbox's seed color.
+  ///
+  /// Defaults to null.
+  final Color? color;
+
+  /// The size of the checkbox.
+  ///
+  /// Defaults to [WidgetSize.medium].
+  final Size size;
+
+  /// The radius of the checkbox.
+  ///
+  /// Defaults to [WidgetRadius.medium].
+  final BorderRadius radius;
 
   /// {@macro flutter.widgets.Focus.focusNode}
   final FocusNode? focusNode;
@@ -147,20 +148,20 @@ class Checkbox extends StatefulWidget {
   /// {@macro flutter.widgets.Focus.autofocus}
   final bool autofocus;
 
-  /// The color and width of the checkbox's border.
-  ///
-  /// If this property is null, then the side defaults to a one pixel wide
-  /// black, solid border.
-  final BorderSide? side;
-
-  /// The shape of the checkbox.
-  ///
-  /// If this property is null then the shape defaults to a
-  /// [RoundedRectangleBorder] with a circular corner radius of 4.0.
-  final OutlinedBorder? shape;
-
   @override
   State<Checkbox> createState() => _CheckboxState();
+
+  /// Returns a non-null [CheckboxStyle] from the theme.
+  @protected
+  CheckboxStyle themeStyleOf(BuildContext context) {
+    final theme = DesignTheme.of(context);
+    final defaults = theme.widgetDefaults;
+    return CheckboxStyle(
+      minSize: defaults.tertiaryMinSize!,
+      borderRadius: defaults.borderRadius,
+      interactiveSize: defaults.minSize,
+    );
+  }
 }
 
 class _CheckboxState extends State<Checkbox>
@@ -208,33 +209,30 @@ class _CheckboxState extends State<Checkbox>
   @override
   Widget build(BuildContext context) {
     final DesignThemeData theme = DesignTheme.of(context);
+    final CheckboxStyle style = widget.style ?? widget.themeStyleOf(context);
 
-    final Color effectiveActiveColor =
-        widget.activeColor ?? theme.colorScheme.primary;
-    final Color effectiveInactiveColor =
-        widget.inactiveColor ?? CupertinoColors.inactiveGray;
+    final Color effectiveActiveColor = theme.colorScheme.primary;
+    final Color effectiveInactiveColor = CupertinoColors.inactiveGray;
 
-    final Color effectiveFocusOverlayColor = widget.focusColor ??
-        HSLColor.fromColor(
-                effectiveActiveColor.withOpacity(_kCupertinoFocusColorOpacity))
-            .withLightness(_kCupertinoFocusColorBrightness)
-            .withSaturation(_kCupertinoFocusColorSaturation)
-            .toColor();
+    final Color effectiveFocusOverlayColor = HSLColor.fromColor(
+            effectiveActiveColor.withOpacity(_kCupertinoFocusColorOpacity))
+        .withLightness(_kCupertinoFocusColorBrightness)
+        .withSaturation(_kCupertinoFocusColorSaturation)
+        .toColor();
 
-    final Color effectiveCheckColor =
-        widget.checkColor ?? CupertinoColors.white;
-
-    final Size primaryMinSize =
-        theme.widgetDefaults.primaryMinSize!.resolveWith(
+    final Size minSize = style.minSize.resolveWith(
       {},
-      size: WidgetSize.medium,
+      size: widget.size as WidgetSize,
     );
-    final Size tertiaryMinSize =
-        theme.widgetDefaults.tertiaryMinSize!.resolveWith(
+    final BorderRadius borderRadius = style.borderRadius.resolveWith(
       {},
-      size: WidgetSize.medium,
+      radius: widget.radius as WidgetRadius,
     );
-    final BorderRadius borderRadius = BorderRadius.circular(6);
+
+    final Size interactiveSize = style.interactiveSize.resolveWith(
+      {},
+      size: widget.size as WidgetSize,
+    );
 
     return Semantics(
       checked: widget.value ?? false,
@@ -243,23 +241,22 @@ class _CheckboxState extends State<Checkbox>
         focusNode: widget.focusNode,
         autofocus: widget.autofocus,
         onFocusChange: onFocusChange,
-        size: primaryMinSize,
+        size: interactiveSize,
         painter: _painter
-          ..dimension = tertiaryMinSize.width
+          ..dimension = minSize.width
           ..focusColor = effectiveFocusOverlayColor
           ..isFocused = focused
           ..downPosition = downPosition
           ..activeColor = effectiveActiveColor
           ..inactiveColor = effectiveInactiveColor
-          ..checkColor = effectiveCheckColor
+          ..checkColor = Colors.white
           ..value = value
           ..previousValue = _previousValue
           ..isActive = widget.onChanged != null
-          ..shape = widget.shape ??
-              RoundedRectangleBorder(
-                borderRadius: borderRadius / 2,
-              )
-          ..side = widget.side,
+          ..shape = RoundedRectangleBorder(
+            borderRadius: borderRadius,
+          )
+          ..side = const BorderSide(color: Colors.gray),
       ),
     );
   }

@@ -63,7 +63,8 @@ class BadgeWithSizeStory extends StoryObj<BadgeMeta> with _$BadgeWithSizeStory {
                 Badge(
                   size: WidgetSize(namedSize),
                   variant: variant,
-                  child: const Text('Text Badge'),
+                  radius: BorderRadius.circular(0),
+                  child: const Text('1'),
                 ),
             ],
           ),

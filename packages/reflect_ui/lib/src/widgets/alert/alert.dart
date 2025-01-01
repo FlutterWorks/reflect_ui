@@ -59,15 +59,15 @@ class Alert extends StatefulWidget {
     final theme = DesignTheme.of(context);
     final defaults = theme.widgetDefaults;
     return AlertStyle(
-      minSize: defaults.primaryMinSize,
-      padding: defaults.primaryPadding,
-      backgroundColor: defaults.primaryBackgroundColor,
-      foregroundColor: defaults.primaryForegroundColor,
-      borderColor: defaults.primaryBorderColor,
-      borderRadius: defaults.primaryBorderRadius,
-      borderWidth: defaults.primaryBorderWidth,
-      iconStyle: defaults.primaryIconStyle,
-      textStyle: defaults.primaryLabelStyle,
+      minSize: defaults.minSize,
+      padding: defaults.padding,
+      backgroundColor: defaults.backgroundColor,
+      foregroundColor: defaults.foregroundColor,
+      borderColor: defaults.borderColor,
+      borderRadius: defaults.borderRadius,
+      borderWidth: defaults.borderWidth,
+      iconStyle: defaults.iconStyle,
+      textStyle: defaults.labelStyle,
     );
   }
 }

@@ -45,10 +45,11 @@ class Button extends StatefulWidget {
     super.key,
     required this.child,
     this.style,
+    this.color,
     this.kind = ButtonKind.primary,
     this.variant = ButtonVariant.filled,
     this.size = WidgetSize.medium,
-    this.color,
+    this.radius = WidgetRadius.medium,
     this.focusNode,
     this.autofocus = false,
     this.onFocusChange,
@@ -65,6 +66,11 @@ class Button extends StatefulWidget {
   /// Defaults to null.
   final ButtonStyle? style;
 
+  /// The color of the button's seed color.
+  ///
+  /// Defaults to null.
+  final Color? color;
+
   /// The kind of the button.
   ///
   /// Defaults to [ButtonKind.primary].
@@ -80,10 +86,10 @@ class Button extends StatefulWidget {
   /// Defaults to [WidgetSize.medium].
   final Size size;
 
-  /// The color of the button's seed color.
+  /// The radius of the button.
   ///
-  /// Defaults to null.
-  final Color? color;
+  /// Defaults to [WidgetRadius.medium].
+  final BorderRadius radius;
 
   /// {@macro flutter.widgets.Focus.focusNode}
   final FocusNode? focusNode;
@@ -122,15 +128,15 @@ class Button extends StatefulWidget {
     final theme = DesignTheme.of(context);
     final defaults = theme.widgetDefaults;
     return ButtonStyle(
-      minSize: defaults.primaryMinSize,
-      padding: defaults.primaryPadding,
-      backgroundColor: defaults.primaryBackgroundColor,
-      foregroundColor: defaults.primaryForegroundColor,
-      borderColor: defaults.primaryBorderColor,
-      borderRadius: defaults.primaryBorderRadius,
-      borderWidth: defaults.primaryBorderWidth,
-      iconStyle: defaults.primaryIconStyle,
-      textStyle: defaults.primaryLabelStyle,
+      minSize: defaults.minSize,
+      padding: defaults.padding,
+      backgroundColor: defaults.backgroundColor,
+      foregroundColor: defaults.foregroundColor,
+      borderColor: defaults.borderColor,
+      borderRadius: defaults.borderRadius,
+      borderWidth: defaults.borderWidth,
+      iconStyle: defaults.iconStyle,
+      textStyle: defaults.labelStyle,
     );
   }
 }

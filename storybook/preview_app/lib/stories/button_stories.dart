@@ -154,12 +154,12 @@ class ButtonWithSizeStory extends StoryObj<ButtonMeta>
       gap: 16,
       mainAxisSize: MainAxisSize.min,
       children: [
-        for (final namedSize in NamedSize.values)
+        for (final variant in ButtonVariant.values)
           GappedRow(
             gap: 16,
             mainAxisSize: MainAxisSize.min,
             children: [
-              for (final variant in ButtonVariant.values)
+              for (final namedSize in NamedSize.values)
                 Button(
                   size: WidgetSize(namedSize),
                   variant: variant,

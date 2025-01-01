@@ -44,12 +44,12 @@ class Badge extends StatefulWidget {
     super.key,
     required this.child,
     this.style,
+    this.color,
     this.variant = BadgeVariant.filled,
     this.kind = BadgeKind.primary,
     this.size = WidgetSize.medium,
-    this.color,
+    this.radius = WidgetRadius.full,
     this.padding,
-    this.borderRadius = const BorderRadius.all(Radius.circular(16)),
     this.alignment = Alignment.center,
   });
 
@@ -62,6 +62,11 @@ class Badge extends StatefulWidget {
   ///
   /// Defaults to null.
   final BadgeStyle? style;
+
+  /// The color of the badge's seed color.
+  ///
+  /// Defaults to null.
+  final Color? color;
 
   /// The kind of the badge.
   ///
@@ -78,20 +83,15 @@ class Badge extends StatefulWidget {
   /// Defaults to [WidgetSize.medium].
   final Size size;
 
-  /// The color of the badge's seed color.
+  /// The radius of the badge's corners when it has a background color.
   ///
-  /// Defaults to null.
-  final Color? color;
+  /// Defaults to round corners of 8 logical pixels.
+  final BorderRadius? radius;
 
   /// The amount of space to surround the child inside the bounds of the badge.
   ///
   /// Defaults to 16.0 pixels.
   final EdgeInsetsGeometry? padding;
-
-  /// The radius of the badge's corners when it has a background color.
-  ///
-  /// Defaults to round corners of 8 logical pixels.
-  final BorderRadius? borderRadius;
 
   /// The alignment of the badge's [child].
   ///
@@ -112,15 +112,15 @@ class Badge extends StatefulWidget {
     final theme = DesignTheme.of(context);
     final defaults = theme.widgetDefaults;
     return BadgeStyle(
-      minSize: defaults.secondaryMinSize ?? defaults.primaryMinSize,
-      padding: defaults.secondaryPadding ?? defaults.primaryPadding,
-      backgroundColor: defaults.primaryBackgroundColor,
-      foregroundColor: defaults.primaryForegroundColor,
-      borderColor: defaults.primaryBorderColor,
-      borderRadius: defaults.primaryBorderRadius,
-      borderWidth: defaults.primaryBorderWidth,
-      iconStyle: defaults.secondaryIconStyle ?? defaults.primaryIconStyle,
-      textStyle: defaults.secondaryLabelStyle ?? defaults.primaryLabelStyle,
+      minSize: defaults.secondaryMinSize ?? defaults.minSize,
+      padding: defaults.secondaryPadding ?? defaults.padding,
+      backgroundColor: defaults.backgroundColor,
+      foregroundColor: defaults.foregroundColor,
+      borderColor: defaults.borderColor,
+      borderRadius: defaults.borderRadius,
+      borderWidth: defaults.borderWidth,
+      iconStyle: defaults.secondaryIconStyle ?? defaults.iconStyle,
+      textStyle: defaults.secondaryLabelStyle ?? defaults.labelStyle,
     );
   }
 }
@@ -136,8 +136,8 @@ class _BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       widget.kind,
       widget.variant,
       widget.size is WidgetSize ? widget.size as WidgetSize : null,
-      widget.borderRadius is WidgetRadius
-          ? widget.borderRadius as WidgetRadius
+      widget.radius is WidgetRadius
+          ? widget.radius as WidgetRadius
           : WidgetRadius.medium,
       theme,
     );
@@ -164,8 +164,7 @@ class _BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
           borderRadius: BorderRadius.circular(9999),
         ),
         child: Padding(
-          // padding: widget.padding ?? effectiveStyle.padding,
-          padding: EdgeInsets.zero,
+          padding: widget.padding ?? effectiveStyle.padding,
           child: Align(
             alignment: widget.alignment,
             widthFactor: 1.0,

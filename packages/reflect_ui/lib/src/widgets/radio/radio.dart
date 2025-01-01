@@ -288,12 +288,13 @@ class _RadioState<T> extends State<Radio<T>>
         accessibilitySelected = widget._selected;
     }
 
-    final Size minSize = theme.widgetDefaults.primaryMinSize.resolveWith(
+    final Size minSize = theme.widgetDefaults.minSize.resolveWith(
       {},
       size: WidgetSize.medium,
     );
 
-     final Size tertiaryMinSize = theme.widgetDefaults.tertiaryMinSize!.resolveWith(
+    final Size tertiaryMinSize =
+        theme.widgetDefaults.tertiaryMinSize!.resolveWith(
       {},
       size: WidgetSize.medium,
     );
