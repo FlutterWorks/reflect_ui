@@ -211,7 +211,7 @@ class _CheckboxState extends State<Checkbox>
     final DesignThemeData theme = DesignTheme.of(context);
 
     final Color effectiveActiveColor =
-        widget.activeColor ?? theme.colors.primary;
+        widget.activeColor ?? theme.colorScheme.primary;
     final Color effectiveInactiveColor =
         widget.inactiveColor ?? CupertinoColors.inactiveGray;
 
@@ -225,9 +225,11 @@ class _CheckboxState extends State<Checkbox>
     final Color effectiveCheckColor =
         widget.checkColor ?? CupertinoColors.white;
 
-    final Size minSize =
-        theme.baseStyle.minSize.resolveWith({}, size: WidgetSize.medium);
-    final BorderRadius borderRadius = theme.borders.medium;
+    final Size minSize = theme.widgetDefaults.primaryMinSize.resolveWith(
+      {},
+      size: WidgetSize.medium,
+    );
+    final BorderRadius borderRadius = BorderRadius.circular(2);
 
     return Semantics(
       checked: widget.value ?? false,

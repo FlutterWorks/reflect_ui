@@ -173,7 +173,7 @@ class Card extends StatelessWidget {
         padding: margin ?? const EdgeInsets.all(4.0),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: themeData.colors.surfaceContainer,
+            color: themeData.colorScheme.surfaceContainer,
             borderRadius: _kCardBorderRadius,
             boxShadow: <BoxShadow>[
               BoxShadow(

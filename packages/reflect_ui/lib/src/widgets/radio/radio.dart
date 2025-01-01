@@ -247,7 +247,7 @@ class _RadioState<T> extends State<Radio<T>>
     final DesignThemeData theme = DesignTheme.of(context);
 
     final Color effectiveActiveColor =
-        widget.activeColor ?? theme.colors.primary;
+        widget.activeColor ?? theme.colorScheme.primary;
     final Color effectiveInactiveColor =
         widget.inactiveColor ?? CupertinoColors.white;
 
@@ -288,8 +288,10 @@ class _RadioState<T> extends State<Radio<T>>
         accessibilitySelected = widget._selected;
     }
 
-    final Size minSize =
-        theme.baseStyle.minSize.resolveWith({}, size: WidgetSize.medium);
+    final Size minSize = theme.widgetDefaults.primaryMinSize.resolveWith(
+      {},
+      size: WidgetSize.medium,
+    );
 
     return Semantics(
       inMutuallyExclusiveGroup: true,

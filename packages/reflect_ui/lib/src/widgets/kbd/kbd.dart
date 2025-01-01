@@ -19,9 +19,9 @@ class _KbdState extends State<Kbd> {
   Widget build(BuildContext context) {
     final DesignThemeData themeData = DesignTheme.of(context);
 
-    final backgroundColor = themeData.colors.surfaceContainer;
-    final borderColor = themeData.colors.outline;
-    final labelColor = themeData.colors.onSurface;
+    final backgroundColor = themeData.colorScheme.surfaceContainer;
+    final borderColor = themeData.colorScheme.outline;
+    final labelColor = themeData.colorScheme.onSurface;
 
     final TextStyle textStyle = (themeData.typography.labelMedium).copyWith(
       color: labelColor,

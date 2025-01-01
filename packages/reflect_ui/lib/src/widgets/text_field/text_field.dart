@@ -323,8 +323,10 @@ class TextField extends StatefulWidget {
           !expands || (maxLines == null && minLines == null),
           'minLines and maxLines must be null when expands is true.',
         ),
-        assert(!obscureText || maxLines == 1,
-            'Obscured fields cannot be multiline.'),
+        assert(
+          !obscureText || maxLines == 1,
+          'Obscured fields cannot be multiline.',
+        ),
         assert(maxLength == null || maxLength > 0),
         // Assert the following instead of setting it directly to avoid surprising the user by silently changing the value they set.
         assert(
@@ -451,8 +453,10 @@ class TextField extends StatefulWidget {
           !expands || (maxLines == null && minLines == null),
           'minLines and maxLines must be null when expands is true.',
         ),
-        assert(!obscureText || maxLines == 1,
-            'Obscured fields cannot be multiline.'),
+        assert(
+          !obscureText || maxLines == 1,
+          'Obscured fields cannot be multiline.',
+        ),
         assert(maxLength == null || maxLength > 0),
         // Assert the following instead of setting it directly to avoid surprising the user by silently changing the value they set.
         assert(
@@ -770,7 +774,9 @@ class TextField extends StatefulWidget {
   final EditableTextContextMenuBuilder? contextMenuBuilder;
 
   static Widget _defaultContextMenuBuilder(
-      BuildContext context, EditableTextState editableTextState) {
+    BuildContext context,
+    EditableTextState editableTextState,
+  ) {
     return CupertinoAdaptiveTextSelectionToolbar.editableText(
       editableTextState: editableTextState,
     );
@@ -846,127 +852,264 @@ class TextField extends StatefulWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<TextEditingController>(
-        'controller', controller,
-        defaultValue: null));
-    properties.add(DiagnosticsProperty<FocusNode>('focusNode', focusNode,
-        defaultValue: null));
-    properties.add(DiagnosticsProperty<UndoHistoryController>(
-        'undoController', undoController,
-        defaultValue: null));
+    properties.add(
+      DiagnosticsProperty<TextEditingController>(
+        'controller',
+        controller,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<FocusNode>(
+        'focusNode',
+        focusNode,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<UndoHistoryController>(
+        'undoController',
+        undoController,
+        defaultValue: null,
+      ),
+    );
     properties
         .add(DiagnosticsProperty<BoxDecoration>('decoration', decoration));
     properties.add(DiagnosticsProperty<EdgeInsetsGeometry>('padding', padding));
     properties.add(StringProperty('placeholder', placeholder));
     properties.add(
-        DiagnosticsProperty<TextStyle>('placeholderStyle', placeholderStyle));
-    properties.add(DiagnosticsProperty<OverlayVisibilityMode>(
-        'prefix', prefix == null ? null : prefixMode));
-    properties.add(DiagnosticsProperty<OverlayVisibilityMode>(
-        'suffix', suffix == null ? null : suffixMode));
-    properties.add(DiagnosticsProperty<OverlayVisibilityMode>(
-        'clearButtonMode', clearButtonMode));
-    properties.add(DiagnosticsProperty<String>(
-        'clearButtonSemanticLabel', clearButtonSemanticLabel));
-    properties.add(DiagnosticsProperty<TextInputType>(
-        'keyboardType', keyboardType,
-        defaultValue: TextInputType.text));
+      DiagnosticsProperty<TextStyle>('placeholderStyle', placeholderStyle),
+    );
     properties.add(
-        DiagnosticsProperty<TextStyle>('style', style, defaultValue: null));
+      DiagnosticsProperty<OverlayVisibilityMode>(
+        'prefix',
+        prefix == null ? null : prefixMode,
+      ),
+    );
     properties.add(
-        DiagnosticsProperty<bool>('autofocus', autofocus, defaultValue: false));
-    properties.add(DiagnosticsProperty<String>(
-        'obscuringCharacter', obscuringCharacter,
-        defaultValue: '•'));
-    properties.add(DiagnosticsProperty<bool>('obscureText', obscureText,
-        defaultValue: false));
-    properties.add(DiagnosticsProperty<bool>('autocorrect', autocorrect,
-        defaultValue: true));
-    properties.add(EnumProperty<SmartDashesType>(
-        'smartDashesType', smartDashesType,
+      DiagnosticsProperty<OverlayVisibilityMode>(
+        'suffix',
+        suffix == null ? null : suffixMode,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<OverlayVisibilityMode>(
+        'clearButtonMode',
+        clearButtonMode,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<String>(
+        'clearButtonSemanticLabel',
+        clearButtonSemanticLabel,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<TextInputType>(
+        'keyboardType',
+        keyboardType,
+        defaultValue: TextInputType.text,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<TextStyle>('style', style, defaultValue: null),
+    );
+    properties.add(
+      DiagnosticsProperty<bool>('autofocus', autofocus, defaultValue: false),
+    );
+    properties.add(
+      DiagnosticsProperty<String>(
+        'obscuringCharacter',
+        obscuringCharacter,
+        defaultValue: '•',
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<bool>(
+        'obscureText',
+        obscureText,
+        defaultValue: false,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<bool>(
+        'autocorrect',
+        autocorrect,
+        defaultValue: true,
+      ),
+    );
+    properties.add(
+      EnumProperty<SmartDashesType>(
+        'smartDashesType',
+        smartDashesType,
         defaultValue:
-            obscureText ? SmartDashesType.disabled : SmartDashesType.enabled));
-    properties.add(EnumProperty<SmartQuotesType>(
-        'smartQuotesType', smartQuotesType,
+            obscureText ? SmartDashesType.disabled : SmartDashesType.enabled,
+      ),
+    );
+    properties.add(
+      EnumProperty<SmartQuotesType>(
+        'smartQuotesType',
+        smartQuotesType,
         defaultValue:
-            obscureText ? SmartQuotesType.disabled : SmartQuotesType.enabled));
-    properties.add(DiagnosticsProperty<bool>(
-        'enableSuggestions', enableSuggestions,
-        defaultValue: true));
+            obscureText ? SmartQuotesType.disabled : SmartQuotesType.enabled,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<bool>(
+        'enableSuggestions',
+        enableSuggestions,
+        defaultValue: true,
+      ),
+    );
     properties.add(IntProperty('maxLines', maxLines, defaultValue: 1));
     properties.add(IntProperty('minLines', minLines, defaultValue: null));
     properties.add(
-        DiagnosticsProperty<bool>('expands', expands, defaultValue: false));
+      DiagnosticsProperty<bool>('expands', expands, defaultValue: false),
+    );
     properties.add(IntProperty('maxLength', maxLength, defaultValue: null));
-    properties.add(EnumProperty<MaxLengthEnforcement>(
-        'maxLengthEnforcement', maxLengthEnforcement,
-        defaultValue: null));
+    properties.add(
+      EnumProperty<MaxLengthEnforcement>(
+        'maxLengthEnforcement',
+        maxLengthEnforcement,
+        defaultValue: null,
+      ),
+    );
     properties
         .add(DoubleProperty('cursorWidth', cursorWidth, defaultValue: 2.0));
     properties
         .add(DoubleProperty('cursorHeight', cursorHeight, defaultValue: null));
-    properties.add(DiagnosticsProperty<Radius>('cursorRadius', cursorRadius,
-        defaultValue: null));
-    properties.add(DiagnosticsProperty<bool>(
-        'cursorOpacityAnimates', cursorOpacityAnimates,
-        defaultValue: true));
-    properties.add(createCupertinoColorProperty('cursorColor', cursorColor,
-        defaultValue: null));
-    properties.add(FlagProperty('selectionEnabled',
+    properties.add(
+      DiagnosticsProperty<Radius>(
+        'cursorRadius',
+        cursorRadius,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<bool>(
+        'cursorOpacityAnimates',
+        cursorOpacityAnimates,
+        defaultValue: true,
+      ),
+    );
+    properties.add(
+      createCupertinoColorProperty(
+        'cursorColor',
+        cursorColor,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      FlagProperty(
+        'selectionEnabled',
         value: selectionEnabled,
         defaultValue: true,
-        ifFalse: 'selection disabled'));
-    properties.add(DiagnosticsProperty<TextSelectionControls>(
-        'selectionControls', selectionControls,
-        defaultValue: null));
-    properties.add(DiagnosticsProperty<ScrollController>(
-        'scrollController', scrollController,
-        defaultValue: null));
-    properties.add(DiagnosticsProperty<ScrollPhysics>(
-        'scrollPhysics', scrollPhysics,
-        defaultValue: null));
-    properties.add(EnumProperty<TextAlign>('textAlign', textAlign,
-        defaultValue: TextAlign.start));
-    properties.add(DiagnosticsProperty<TextAlignVertical>(
-        'textAlignVertical', textAlignVertical,
-        defaultValue: null));
-    properties.add(EnumProperty<TextDirection>('textDirection', textDirection,
-        defaultValue: null));
-    properties.add(DiagnosticsProperty<Clip>('clipBehavior', clipBehavior,
-        defaultValue: Clip.hardEdge));
-    properties.add(DiagnosticsProperty<bool>('scribbleEnabled', scribbleEnabled,
-        defaultValue: true));
-    properties.add(DiagnosticsProperty<bool>(
-        'enableIMEPersonalizedLearning', enableIMEPersonalizedLearning,
-        defaultValue: true));
-    properties.add(DiagnosticsProperty<SpellCheckConfiguration>(
-        'spellCheckConfiguration', spellCheckConfiguration,
-        defaultValue: null));
-    properties.add(DiagnosticsProperty<List<String>>('contentCommitMimeTypes',
+        ifFalse: 'selection disabled',
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<TextSelectionControls>(
+        'selectionControls',
+        selectionControls,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<ScrollController>(
+        'scrollController',
+        scrollController,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<ScrollPhysics>(
+        'scrollPhysics',
+        scrollPhysics,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      EnumProperty<TextAlign>(
+        'textAlign',
+        textAlign,
+        defaultValue: TextAlign.start,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<TextAlignVertical>(
+        'textAlignVertical',
+        textAlignVertical,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      EnumProperty<TextDirection>(
+        'textDirection',
+        textDirection,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<Clip>(
+        'clipBehavior',
+        clipBehavior,
+        defaultValue: Clip.hardEdge,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<bool>(
+        'scribbleEnabled',
+        scribbleEnabled,
+        defaultValue: true,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<bool>(
+        'enableIMEPersonalizedLearning',
+        enableIMEPersonalizedLearning,
+        defaultValue: true,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<SpellCheckConfiguration>(
+        'spellCheckConfiguration',
+        spellCheckConfiguration,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<List<String>>(
+        'contentCommitMimeTypes',
         contentInsertionConfiguration?.allowedMimeTypes ?? const <String>[],
         defaultValue: contentInsertionConfiguration == null
             ? const <String>[]
-            : kDefaultContentInsertionMimeTypes));
+            : kDefaultContentInsertionMimeTypes,
+      ),
+    );
   }
 
   static final TextMagnifierConfiguration _iosMagnifierConfiguration =
-      TextMagnifierConfiguration(magnifierBuilder: (BuildContext context,
-          MagnifierController controller,
-          ValueNotifier<MagnifierInfo> magnifierInfo) {
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
-      case TargetPlatform.iOS:
-        return CupertinoTextMagnifier(
-          controller: controller,
-          magnifierInfo: magnifierInfo,
-        );
-      case TargetPlatform.fuchsia:
-      case TargetPlatform.linux:
-      case TargetPlatform.macOS:
-      case TargetPlatform.windows:
-        return null;
-    }
-  });
+      TextMagnifierConfiguration(
+    magnifierBuilder: (
+      BuildContext context,
+      MagnifierController controller,
+      ValueNotifier<MagnifierInfo> magnifierInfo,
+    ) {
+      switch (defaultTargetPlatform) {
+        case TargetPlatform.android:
+        case TargetPlatform.iOS:
+          return CupertinoTextMagnifier(
+            controller: controller,
+            magnifierInfo: magnifierInfo,
+          );
+        case TargetPlatform.fuchsia:
+        case TargetPlatform.linux:
+        case TargetPlatform.macOS:
+        case TargetPlatform.windows:
+          return null;
+      }
+    },
+  );
 
   /// Returns a new [SpellCheckConfiguration] where the given configuration has
   /// had any missing values replaced with their defaults for the iOS platform.
@@ -1131,7 +1274,9 @@ class _TextFieldState extends State<TextField>
   }
 
   void _handleSelectionChanged(
-      TextSelection selection, SelectionChangedCause? cause) {
+    TextSelection selection,
+    SelectionChangedCause? cause,
+  ) {
     final bool willShowSelectionHandles = _shouldShowSelectionHandles(cause);
     if (willShowSelectionHandles != _showSelectionHandles) {
       setState(() {
@@ -1232,7 +1377,10 @@ class _TextFieldState extends State<TextField>
   }
 
   Widget _addTextDependentAttachments(
-      Widget editableText, TextStyle textStyle, TextStyle placeholderStyle) {
+    Widget editableText,
+    TextStyle textStyle,
+    TextStyle placeholderStyle,
+  ) {
     // If there are no surrounding widgets, just return the core editable text
     // part.
     if (!_hasDecoration) {
@@ -1275,15 +1423,21 @@ class _TextFieldState extends State<TextField>
               );
 
         final Widget? prefixWidget = _shouldShowAttachment(
-                attachment: widget.prefixMode, hasText: hasText)
+          attachment: widget.prefixMode,
+          hasText: hasText,
+        )
             ? widget.prefix
             : null;
 
         // Show user specified suffix if applicable and fall back to clear button.
         final bool showUserSuffix = _shouldShowAttachment(
-            attachment: widget.suffixMode, hasText: hasText);
+          attachment: widget.suffixMode,
+          hasText: hasText,
+        );
         final bool showClearButton = _shouldShowAttachment(
-            attachment: widget.clearButtonMode, hasText: hasText);
+          attachment: widget.clearButtonMode,
+          hasText: hasText,
+        );
         final Widget? suffixWidget =
             switch ((showUserSuffix, showClearButton)) {
           (false, false) => null,
@@ -1291,28 +1445,30 @@ class _TextFieldState extends State<TextField>
           (true, true) => widget.suffix ?? _buildClearButton(),
           (false, true) => _buildClearButton(),
         };
-        return Row(children: <Widget>[
-          // Insert a prefix at the front if the prefix visibility mode matches
-          // the current text state.
-          if (prefixWidget != null) prefixWidget,
-          // In the middle part, stack the placeholder on top of the main EditableText
-          // if needed.
-          Expanded(
-            child: Stack(
-              // Ideally this should be baseline aligned. However that comes at
-              // the cost of the ability to compute the intrinsic dimensions of
-              // this widget.
-              // See also https://github.com/flutter/flutter/issues/13715.
-              alignment: AlignmentDirectional.center,
-              textDirection: widget.textDirection,
-              children: <Widget>[
-                if (placeholder != null) placeholder,
-                editableText,
-              ],
+        return Row(
+          children: <Widget>[
+            // Insert a prefix at the front if the prefix visibility mode matches
+            // the current text state.
+            if (prefixWidget != null) prefixWidget,
+            // In the middle part, stack the placeholder on top of the main EditableText
+            // if needed.
+            Expanded(
+              child: Stack(
+                // Ideally this should be baseline aligned. However that comes at
+                // the cost of the ability to compute the intrinsic dimensions of
+                // this widget.
+                // See also https://github.com/flutter/flutter/issues/13715.
+                alignment: AlignmentDirectional.center,
+                textDirection: widget.textDirection,
+                children: <Widget>[
+                  if (placeholder != null) placeholder,
+                  editableText,
+                ],
+              ),
             ),
-          ),
-          if (suffixWidget != null) suffixWidget
-        ]);
+            if (suffixWidget != null) suffixWidget,
+          ],
+        );
       },
     );
   }
@@ -1372,9 +1528,9 @@ class _TextFieldState extends State<TextField>
 
     final bool enabled = widget.enabled;
     final Offset cursorOffset = Offset(
-        _iOSHorizontalCursorOffsetPixels /
-            MediaQuery.devicePixelRatioOf(context),
-        0);
+      _iOSHorizontalCursorOffsetPixels / MediaQuery.devicePixelRatioOf(context),
+      0,
+    );
     final List<TextInputFormatter> formatters = <TextInputFormatter>[
       ...?widget.inputFormatters,
       if (widget.maxLength != null)
@@ -1389,7 +1545,9 @@ class _TextFieldState extends State<TextField>
     final TextStyle? resolvedStyle = widget.style?.copyWith(
       color: CupertinoDynamicColor.maybeResolve(widget.style?.color, context),
       backgroundColor: CupertinoDynamicColor.maybeResolve(
-          widget.style?.backgroundColor, context),
+        widget.style?.backgroundColor,
+        context,
+      ),
     );
 
     final TextStyle textStyle =
@@ -1398,9 +1556,13 @@ class _TextFieldState extends State<TextField>
     final TextStyle? resolvedPlaceholderStyle =
         widget.placeholderStyle?.copyWith(
       color: CupertinoDynamicColor.maybeResolve(
-          widget.placeholderStyle?.color, context),
+        widget.placeholderStyle?.color,
+        context,
+      ),
       backgroundColor: CupertinoDynamicColor.maybeResolve(
-          widget.placeholderStyle?.backgroundColor, context),
+        widget.placeholderStyle?.backgroundColor,
+        context,
+      ),
     );
 
     final TextStyle placeholderStyle =
@@ -1427,7 +1589,8 @@ class _TextFieldState extends State<TextField>
         return side == BorderSide.none
             ? side
             : side.copyWith(
-                color: CupertinoDynamicColor.resolve(side.color, context));
+                color: CupertinoDynamicColor.resolve(side.color, context),
+              );
       }
 
       resolvedBorder = border.runtimeType != Border
@@ -1518,7 +1681,9 @@ class _TextFieldState extends State<TextField>
             paintCursorAboveText: true,
             autocorrectionTextRectColor: selectionColor,
             backgroundCursorColor: CupertinoDynamicColor.resolve(
-                CupertinoColors.inactiveGray, context),
+              CupertinoColors.inactiveGray,
+              context,
+            ),
             selectionHeightStyle: widget.selectionHeightStyle,
             selectionWidthStyle: widget.selectionWidthStyle,
             scrollPadding: widget.scrollPadding,
@@ -1595,7 +1760,10 @@ class _TextFieldState extends State<TextField>
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: _addTextDependentAttachments(
-                    paddedEditable, textStyle, placeholderStyle),
+                  paddedEditable,
+                  textStyle,
+                  placeholderStyle,
+                ),
               ),
             ),
           ),

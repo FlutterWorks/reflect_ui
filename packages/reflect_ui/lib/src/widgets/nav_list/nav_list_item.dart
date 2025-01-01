@@ -171,7 +171,7 @@ class _NavListItemState extends State<NavListItem> {
   Widget build(BuildContext context) {
     final DesignThemeData themeData = DesignTheme.of(context);
     final textTheme = Theme.of(context).textTheme;
-    final colorScheme = themeData.colors;
+    final colorScheme = themeData.colorScheme;
 
     final TextStyle textStyle =
         (textTheme.bodyMedium ?? const TextStyle()).copyWith(

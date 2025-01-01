@@ -354,7 +354,7 @@ class _SwitchState extends State<Switch> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = DesignTheme.of(context).colors;
+    final colorScheme = DesignTheme.of(context).colorScheme;
     final Color activeColor = widget.activeColor ?? colorScheme.primary;
     final (Color onLabelColor, Color offLabelColor)? onOffLabelColors =
         MediaQuery.onOffSwitchLabelsOf(context)

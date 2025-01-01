@@ -19,34 +19,10 @@ class ButtonStyle extends WidgetStyle with Diagnosticable {
     super.borderColor,
     super.borderRadius,
     super.borderWidth,
-    super.outlineColor,
-    super.outlineRadius,
-    super.outlineWidth,
     super.boxShadow,
     super.iconStyle,
     super.textStyle,
   });
-
-  /// Creates a button style from a theme.
-  factory ButtonStyle.fromTheme(DesignThemeData theme) {
-    final baseStyle = theme.baseStyle;
-    return ButtonStyle(
-      minSize: baseStyle.minSize,
-      margin: baseStyle.margin,
-      padding: baseStyle.padding,
-      backgroundColor: baseStyle.backgroundColor,
-      foregroundColor: baseStyle.foregroundColor,
-      borderColor: baseStyle.borderColor,
-      borderRadius: baseStyle.borderRadius,
-      borderWidth: baseStyle.borderWidth,
-      outlineColor: baseStyle.outlineColor,
-      outlineRadius: baseStyle.outlineRadius,
-      outlineWidth: baseStyle.outlineWidth,
-      boxShadow: baseStyle.boxShadow,
-      iconStyle: baseStyle.iconStyle,
-      textStyle: baseStyle.textStyle,
-    );
-  }
 
   EffectiveButtonStyle resolve(
     Set<WidgetState> states, [

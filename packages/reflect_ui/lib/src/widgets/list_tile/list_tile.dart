@@ -187,7 +187,7 @@ class _ListTileState extends State<ListTile> {
     final textTheme = Theme.of(context).textTheme;
     final TextStyle textStyle = textTheme.bodyMedium ?? const TextStyle();
     final TextStyle coloredStyle = textStyle.copyWith(
-      color: themeData.colors.onSurface,
+      color: themeData.colorScheme.onSurface,
     );
 
     final Widget title = DefaultTextStyle(
@@ -214,7 +214,7 @@ class _ListTileState extends State<ListTile> {
     Color? backgroundColor = widget.backgroundColor;
     if (_tapped) {
       backgroundColor = widget.backgroundColorActivated ??
-          themeData.colors.secondary
+          themeData.colorScheme.secondary
               .withShade(themeData.brightness == Brightness.dark ? 800 : 200);
     }
 
@@ -316,9 +316,9 @@ class ListTileChevron extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = DesignTheme.of(context);
     return Icon(
-      themeData.icons.chevronRight,
+      themeData.iconLibrary.chevronRight,
       size: 18.0,
-      color: themeData.colors.secondary.withShade(400),
+      color: themeData.colorScheme.secondary.withShade(400),
     );
   }
 }

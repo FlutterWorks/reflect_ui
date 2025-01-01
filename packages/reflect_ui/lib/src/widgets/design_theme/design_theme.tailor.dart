@@ -13,38 +13,29 @@ mixin _$DesignThemeDataTailorMixin
   String get id;
   String get name;
   Brightness get brightness;
-  ThemeBorders get borders;
-  ThemeColors get colors;
-  ThemeIcons get icons;
-  ThemeSizing get sizing;
-  ThemeSpacing get spacing;
+  ColorScheme get colorScheme;
+  IconLibrary get iconLibrary;
   ThemeTypography get typography;
-  WidgetStyle get baseStyle;
+  WidgetDefaults get widgetDefaults;
 
   @override
   DesignThemeData copyWith({
     String? id,
     String? name,
     Brightness? brightness,
-    ThemeBorders? borders,
-    ThemeColors? colors,
-    ThemeIcons? icons,
-    ThemeSizing? sizing,
-    ThemeSpacing? spacing,
+    ColorScheme? colorScheme,
+    IconLibrary? iconLibrary,
     ThemeTypography? typography,
-    WidgetStyle? baseStyle,
+    WidgetDefaults? widgetDefaults,
   }) {
     return DesignThemeData(
       id: id ?? this.id,
       name: name ?? this.name,
       brightness: brightness ?? this.brightness,
-      borders: borders ?? this.borders,
-      colors: colors ?? this.colors,
-      icons: icons ?? this.icons,
-      sizing: sizing ?? this.sizing,
-      spacing: spacing ?? this.spacing,
+      colorScheme: colorScheme ?? this.colorScheme,
+      iconLibrary: iconLibrary ?? this.iconLibrary,
       typography: typography ?? this.typography,
-      baseStyle: baseStyle ?? this.baseStyle,
+      widgetDefaults: widgetDefaults ?? this.widgetDefaults,
     );
   }
 
@@ -56,13 +47,10 @@ mixin _$DesignThemeDataTailorMixin
       id: t < 0.5 ? id : other.id,
       name: t < 0.5 ? name : other.name,
       brightness: t < 0.5 ? brightness : other.brightness,
-      borders: t < 0.5 ? borders : other.borders,
-      colors: t < 0.5 ? colors : other.colors,
-      icons: t < 0.5 ? icons : other.icons,
-      sizing: t < 0.5 ? sizing : other.sizing,
-      spacing: t < 0.5 ? spacing : other.spacing,
+      colorScheme: t < 0.5 ? colorScheme : other.colorScheme,
+      iconLibrary: t < 0.5 ? iconLibrary : other.iconLibrary,
       typography: t < 0.5 ? typography : other.typography,
-      baseStyle: t < 0.5 ? baseStyle : other.baseStyle,
+      widgetDefaults: t < 0.5 ? widgetDefaults : other.widgetDefaults,
     );
   }
 
@@ -75,14 +63,14 @@ mixin _$DesignThemeDataTailorMixin
             const DeepCollectionEquality().equals(name, other.name) &&
             const DeepCollectionEquality()
                 .equals(brightness, other.brightness) &&
-            const DeepCollectionEquality().equals(borders, other.borders) &&
-            const DeepCollectionEquality().equals(colors, other.colors) &&
-            const DeepCollectionEquality().equals(icons, other.icons) &&
-            const DeepCollectionEquality().equals(sizing, other.sizing) &&
-            const DeepCollectionEquality().equals(spacing, other.spacing) &&
+            const DeepCollectionEquality()
+                .equals(colorScheme, other.colorScheme) &&
+            const DeepCollectionEquality()
+                .equals(iconLibrary, other.iconLibrary) &&
             const DeepCollectionEquality()
                 .equals(typography, other.typography) &&
-            const DeepCollectionEquality().equals(baseStyle, other.baseStyle));
+            const DeepCollectionEquality()
+                .equals(widgetDefaults, other.widgetDefaults));
   }
 
   @override
@@ -92,13 +80,10 @@ mixin _$DesignThemeDataTailorMixin
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(brightness),
-      const DeepCollectionEquality().hash(borders),
-      const DeepCollectionEquality().hash(colors),
-      const DeepCollectionEquality().hash(icons),
-      const DeepCollectionEquality().hash(sizing),
-      const DeepCollectionEquality().hash(spacing),
+      const DeepCollectionEquality().hash(colorScheme),
+      const DeepCollectionEquality().hash(iconLibrary),
       const DeepCollectionEquality().hash(typography),
-      const DeepCollectionEquality().hash(baseStyle),
+      const DeepCollectionEquality().hash(widgetDefaults),
     );
   }
 
@@ -110,13 +95,10 @@ mixin _$DesignThemeDataTailorMixin
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('brightness', brightness))
-      ..add(DiagnosticsProperty('borders', borders))
-      ..add(DiagnosticsProperty('colors', colors))
-      ..add(DiagnosticsProperty('icons', icons))
-      ..add(DiagnosticsProperty('sizing', sizing))
-      ..add(DiagnosticsProperty('spacing', spacing))
+      ..add(DiagnosticsProperty('colorScheme', colorScheme))
+      ..add(DiagnosticsProperty('iconLibrary', iconLibrary))
       ..add(DiagnosticsProperty('typography', typography))
-      ..add(DiagnosticsProperty('baseStyle', baseStyle));
+      ..add(DiagnosticsProperty('widgetDefaults', widgetDefaults));
   }
 }
 
@@ -133,24 +115,15 @@ extension DesignThemeDataBuildContextProps on BuildContext {
   /// The brightness of the design theme.
   Brightness get brightness => designThemeData.brightness;
 
-  /// The borders of the design theme.
-  ThemeBorders get borders => designThemeData.borders;
+  /// The color scheme of the design theme.
+  ColorScheme get colorScheme => designThemeData.colorScheme;
 
-  /// The colors of the design theme.
-  ThemeColors get colors => designThemeData.colors;
-
-  /// The icons of the design theme.
-  ThemeIcons get icons => designThemeData.icons;
-
-  /// The sizing of the design theme.
-  ThemeSizing get sizing => designThemeData.sizing;
-
-  /// The spacing of the design theme.
-  ThemeSpacing get spacing => designThemeData.spacing;
+  /// The icon library of the design theme.
+  IconLibrary get iconLibrary => designThemeData.iconLibrary;
 
   /// The typography of the design theme.
   ThemeTypography get typography => designThemeData.typography;
 
-  /// The default widget style of the design theme.
-  WidgetStyle get baseStyle => designThemeData.baseStyle;
+  /// The widget defaults of the design theme.
+  WidgetDefaults get widgetDefaults => designThemeData.widgetDefaults;
 }

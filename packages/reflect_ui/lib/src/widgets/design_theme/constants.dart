@@ -4,8 +4,8 @@ import 'package:reflect_ui/src/core/colors.dart';
 import 'package:reflect_ui/src/painting/varianted_widget_state_color.dart';
 import 'package:reflect_ui/src/painting/widget_property.dart';
 
-// #region Normal constants.
-const kNormalMinSize = SizedWidgetProperty<Size>(
+// #region Regular constants.
+const kRegularMinSize = SizedWidgetProperty<Size>(
   tiny: Size.square(24),
   small: Size.square(32),
   medium: Size.square(44),
@@ -13,7 +13,7 @@ const kNormalMinSize = SizedWidgetProperty<Size>(
   big: Size.square(56),
 );
 
-const kNormalPadding = SizedWidgetProperty<EdgeInsets>(
+const kRegularPadding = SizedWidgetProperty<EdgeInsets>(
   tiny: EdgeInsets.all(4),
   small: EdgeInsets.all(8),
   medium: EdgeInsets.all(12),
@@ -21,7 +21,7 @@ const kNormalPadding = SizedWidgetProperty<EdgeInsets>(
   big: EdgeInsets.all(20),
 );
 
-const kNormalBorderRadius = WidgetPropertyAll<BorderRadius>(
+const kRegularBorderRadius = WidgetPropertyAll<BorderRadius>(
   BorderRadius.all(Radius.circular(6)),
 );
 

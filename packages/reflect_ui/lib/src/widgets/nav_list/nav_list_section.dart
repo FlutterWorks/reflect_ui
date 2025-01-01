@@ -171,7 +171,7 @@ class NavListSection extends StatelessWidget {
   Widget build(BuildContext context) {
     DesignThemeData themeData = DesignTheme.of(context);
     TextTheme textTheme = Theme.of(context).textTheme;
-    final colorScheme = themeData.colors;
+    final colorScheme = themeData.colorScheme;
 
     Widget? headerWidget, footerWidget;
 

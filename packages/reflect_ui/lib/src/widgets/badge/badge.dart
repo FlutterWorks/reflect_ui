@@ -15,13 +15,6 @@ export './badge_kind.dart';
 export './badge_style.dart';
 export './badge_variant.dart';
 
-// Measured against iOS 12 in Xcode.
-const EdgeInsets _kBadgePadding = EdgeInsets.all(16.0);
-const EdgeInsets _kBackgroundBadgePadding = EdgeInsets.symmetric(
-  vertical: 1.0,
-  horizontal: 6.0,
-);
-
 /// A badge widget.
 ///
 /// Takes in a text or an icon that fades out and in on touch. May optionally have a
@@ -119,13 +112,32 @@ class Badge extends StatefulWidget {
 
   @override
   State<Badge> createState() => _BadgeState();
+
+  /// Returns a non-null [BadgeStyle] from the theme.
+  @protected
+  BadgeStyle themeStyleOf(BuildContext context) {
+    final theme = DesignTheme.of(context);
+    final defaults = theme.widgetDefaults;
+    return BadgeStyle(
+      minSize: defaults.primaryMinSize,
+      margin: defaults.primaryMargin,
+      padding: defaults.primaryPadding,
+      backgroundColor: defaults.primaryBackgroundColor,
+      foregroundColor: defaults.primaryForegroundColor,
+      borderColor: defaults.primaryBorderColor,
+      borderRadius: defaults.primaryBorderRadius,
+      borderWidth: defaults.primaryBorderWidth,
+      iconStyle: defaults.primaryIconStyle,
+      textStyle: defaults.primaryTextStyle,
+    );
+  }
 }
 
 class _BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final DesignThemeData theme = DesignTheme.of(context);
-    final BadgeStyle style = widget.style ?? BadgeStyle.fromTheme(theme);
+    final BadgeStyle style = widget.style ?? widget.themeStyleOf(context);
 
     final effectiveStyle = style.resolve(
       {},
@@ -150,11 +162,11 @@ class _BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
                   width: effectiveStyle.borderWidth ?? 0,
                 )
               : null,
-          borderRadius: theme.borders.full,
+          borderRadius: BorderRadius.circular(9999),
         ),
         decoration: BoxDecoration(
           color: effectiveStyle.backgroundColor,
-          borderRadius: theme.borders.full,
+          borderRadius: BorderRadius.circular(9999),
         ),
         child: Padding(
           padding: widget.padding ?? effectiveStyle.padding,

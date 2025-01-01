@@ -125,8 +125,8 @@ class _HomePageState extends State<_HomePage> {
     return DefaultTextStyle(
       style: (themeData.typography.bodyMedium),
       child: DefaultSelectionStyle(
-        cursorColor: themeData.colors.primary,
-        selectionColor: themeData.colors.primary.withShade(100),
+        cursorColor: themeData.colorScheme.primary,
+        selectionColor: themeData.colorScheme.primary.withShade(100),
         child: DesignTheme(
           data: themeData,
           child: Stack(

@@ -55,17 +55,17 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
     if (kind != null && theme != null) {
       switch (kind.namedKind) {
         case NamedWidgetKind.primary:
-          seedColor = theme.colors.primary;
+          seedColor = theme.colorScheme.primary;
         case NamedWidgetKind.secondary:
-          seedColor = theme.colors.secondary;
+          seedColor = theme.colorScheme.secondary;
         case NamedWidgetKind.success:
-          seedColor = theme.colors.success;
+          seedColor = theme.colorScheme.success;
         case NamedWidgetKind.danger:
-          seedColor = theme.colors.danger;
+          seedColor = theme.colorScheme.danger;
         case NamedWidgetKind.warning:
-          seedColor = theme.colors.warning;
+          seedColor = theme.colorScheme.warning;
         case NamedWidgetKind.info:
-          seedColor = theme.colors.info;
+          seedColor = theme.colorScheme.info;
       }
     }
 

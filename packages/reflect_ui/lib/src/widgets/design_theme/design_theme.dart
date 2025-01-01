@@ -4,22 +4,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show Theme, ThemeExtension;
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/painting/widget_property.dart';
-import 'package:reflect_ui/src/painting/widget_style.dart';
+import 'package:reflect_ui/src/widgets/design_theme/color_scheme.dart';
 import 'package:reflect_ui/src/widgets/design_theme/constants.dart';
-import 'package:reflect_ui/src/widgets/design_theme/theme_borders.dart';
-import 'package:reflect_ui/src/widgets/design_theme/theme_colors.dart';
-import 'package:reflect_ui/src/widgets/design_theme/theme_icons.dart';
-import 'package:reflect_ui/src/widgets/design_theme/theme_sizing.dart';
-import 'package:reflect_ui/src/widgets/design_theme/theme_spacing.dart';
-import 'package:reflect_ui/src/widgets/design_theme/theme_typography.dart';
+import 'package:reflect_ui/src/widgets/design_theme/icon_library.dart';
+import 'package:reflect_ui/src/widgets/design_theme/typography.dart';
+import 'package:reflect_ui/src/widgets/design_theme/widget_defaults.dart';
+import 'package:reflect_ui/src/widgets/icon/icon_style.dart';
 import 'package:theme_tailor_annotation/theme_tailor_annotation.dart';
 
-export 'package:reflect_ui/src/widgets/design_theme/theme_borders.dart';
-export 'package:reflect_ui/src/widgets/design_theme/theme_colors.dart';
-export 'package:reflect_ui/src/widgets/design_theme/theme_icons.dart';
-export 'package:reflect_ui/src/widgets/design_theme/theme_sizing.dart';
-export 'package:reflect_ui/src/widgets/design_theme/theme_spacing.dart';
-export 'package:reflect_ui/src/widgets/design_theme/theme_typography.dart';
+export 'package:reflect_ui/src/widgets/design_theme/color_scheme.dart';
+export 'package:reflect_ui/src/widgets/design_theme/icon_library.dart';
+export 'package:reflect_ui/src/widgets/design_theme/typography.dart';
 
 part 'design_theme.tailor.dart';
 
@@ -31,13 +26,10 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
     required this.id,
     required this.name,
     required this.brightness,
-    required this.borders,
-    required this.colors,
-    required this.icons,
-    required this.sizing,
-    required this.spacing,
+    required this.colorScheme,
+    required this.iconLibrary,
     required this.typography,
-    required this.baseStyle,
+    required this.widgetDefaults,
   });
 
   /// The id of the design theme.
@@ -49,26 +41,17 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
   /// The brightness of the design theme.
   final Brightness brightness;
 
-  /// The borders of the design theme.
-  final ThemeBorders borders;
+  /// The color scheme of the design theme.
+  final ColorScheme colorScheme;
 
-  /// The colors of the design theme.
-  final ThemeColors colors;
-
-  /// The icons of the design theme.
-  final ThemeIcons icons;
-
-  /// The sizing of the design theme.
-  final ThemeSizing sizing;
-
-  /// The spacing of the design theme.
-  final ThemeSpacing spacing;
+  /// The icon library of the design theme.
+  final IconLibrary iconLibrary;
 
   /// The typography of the design theme.
   final ThemeTypography typography;
 
-  /// The default widget style of the design theme.
-  final WidgetStyle baseStyle;
+  /// The widget defaults of the design theme.
+  final WidgetDefaults widgetDefaults;
 
   /// Creates a dark design theme.
   static DesignThemeData dark() {
@@ -77,20 +60,26 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
       id: 'dark',
       name: 'Dark',
       brightness: Brightness.dark,
-      borders: const ThemeBorders(),
-      colors: const ThemeColors.materialDark(),
-      icons: const ThemeIcons.material(),
-      sizing: const ThemeSizing(),
-      spacing: const ThemeSpacing(),
+      colorScheme: const ColorScheme.dark(),
+      iconLibrary: const IconLibrary.material(),
       typography: typography,
-      baseStyle: WidgetStyle(
-        minSize: kNormalMinSize,
-        padding: kNormalPadding,
-        backgroundColor: kDarkBackgroundColor,
-        foregroundColor: kDarkForegroundColor,
-        borderColor: kDarkBorderColor,
-        borderRadius: kNormalBorderRadius,
-        textStyle: SizedWidgetProperty<TextStyle>(
+      widgetDefaults: WidgetDefaults(
+        primaryMinSize: kRegularMinSize,
+        primaryMargin: kRegularPadding,
+        primaryPadding: kRegularPadding,
+        primaryBackgroundColor: kDarkBackgroundColor,
+        primaryForegroundColor: kDarkForegroundColor,
+        primaryBorderColor: kDarkBorderColor,
+        primaryBorderRadius: kRegularBorderRadius,
+        primaryBorderWidth: const WidgetPropertyAll(1),
+        primaryIconStyle: const SizedWidgetProperty<IconStyle>(
+          tiny: IconStyle(size: 16),
+          small: IconStyle(size: 16),
+          medium: IconStyle(size: 20),
+          large: IconStyle(size: 24),
+          big: IconStyle(size: 28),
+        ),
+        primaryTextStyle: SizedWidgetProperty<TextStyle>(
           tiny: typography.labelSmall,
           small: typography.labelSmall,
           medium: typography.labelMedium,
@@ -108,20 +97,26 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
       id: 'dark-compact',
       name: 'Dark Compact',
       brightness: Brightness.dark,
-      borders: const ThemeBorders(),
-      colors: const ThemeColors.materialDark(),
-      icons: const ThemeIcons.material(),
-      sizing: const ThemeSizing(),
-      spacing: const ThemeSpacing(),
+      colorScheme: const ColorScheme.dark(),
+      iconLibrary: const IconLibrary.material(),
       typography: typography,
-      baseStyle: WidgetStyle(
-        minSize: kCompactMinSize,
-        padding: kCompactPadding,
-        backgroundColor: kDarkBackgroundColor,
-        foregroundColor: kDarkForegroundColor,
-        borderColor: kDarkBorderColor,
-        borderRadius: kCompactBorderRadius,
-        textStyle: SizedWidgetProperty<TextStyle>(
+      widgetDefaults: WidgetDefaults(
+        primaryMinSize: kCompactMinSize,
+        primaryMargin: kCompactPadding,
+        primaryPadding: kCompactPadding,
+        primaryBackgroundColor: kDarkBackgroundColor,
+        primaryForegroundColor: kDarkForegroundColor,
+        primaryBorderColor: kDarkBorderColor,
+        primaryBorderRadius: kCompactBorderRadius,
+        primaryBorderWidth: const WidgetPropertyAll(1),
+        primaryIconStyle: const SizedWidgetProperty<IconStyle>(
+          tiny: IconStyle(size: 16),
+          small: IconStyle(size: 16),
+          medium: IconStyle(size: 20),
+          large: IconStyle(size: 24),
+          big: IconStyle(size: 28),
+        ),
+        primaryTextStyle: SizedWidgetProperty<TextStyle>(
           tiny: typography.labelSmall,
           small: typography.labelSmall,
           medium: typography.labelMedium,
@@ -134,28 +129,34 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
 
   /// Creates a light design theme.
   static DesignThemeData light({
-    ThemeColors? colors,
-    ThemeIcons? icons,
+    ColorScheme? colorScheme,
+    IconLibrary? iconLibrary,
   }) {
     const typography = ThemeTypography.inter();
     return DesignThemeData(
       id: 'light',
       name: 'Light',
       brightness: Brightness.light,
-      borders: const ThemeBorders(),
-      colors: colors ?? const ThemeColors.materialLight(),
-      icons: icons ?? const ThemeIcons.material(),
-      sizing: const ThemeSizing(),
-      spacing: const ThemeSpacing(),
+      colorScheme: colorScheme ?? const ColorScheme.light(),
+      iconLibrary: iconLibrary ?? const IconLibrary.material(),
       typography: typography,
-      baseStyle: WidgetStyle(
-        minSize: kNormalMinSize,
-        padding: kNormalPadding,
-        backgroundColor: kLightBackgroundColor,
-        foregroundColor: kLightForegroundColor,
-        borderColor: kLightBorderColor,
-        borderRadius: kNormalBorderRadius,
-        textStyle: SizedWidgetProperty<TextStyle>(
+      widgetDefaults: WidgetDefaults(
+        primaryMinSize: kRegularMinSize,
+        primaryMargin: kRegularPadding,
+        primaryPadding: kRegularPadding,
+        primaryBackgroundColor: kLightBackgroundColor,
+        primaryForegroundColor: kLightForegroundColor,
+        primaryBorderColor: kLightBorderColor,
+        primaryBorderRadius: kRegularBorderRadius,
+        primaryBorderWidth: const WidgetPropertyAll(1),
+        primaryIconStyle: const SizedWidgetProperty<IconStyle>(
+          tiny: IconStyle(size: 16),
+          small: IconStyle(size: 16),
+          medium: IconStyle(size: 20),
+          large: IconStyle(size: 24),
+          big: IconStyle(size: 28),
+        ),
+        primaryTextStyle: SizedWidgetProperty<TextStyle>(
           tiny: typography.labelSmall,
           small: typography.labelSmall,
           medium: typography.labelMedium,
@@ -168,8 +169,8 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
 
   /// Creates a light compact design theme.
   static DesignThemeData lightCompact({
-    ThemeColors? colors,
-    ThemeIcons? icons,
+    ColorScheme? colorScheme,
+    IconLibrary? iconLibrary,
   }) {
     const typography = ThemeTypography.interCompact();
 
@@ -177,20 +178,26 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
       id: 'light-compact',
       name: 'Light Compact',
       brightness: Brightness.light,
-      borders: const ThemeBorders(),
-      colors: colors ?? const ThemeColors.materialLight(),
-      icons: icons ?? const ThemeIcons.material(),
-      sizing: const ThemeSizing(),
-      spacing: const ThemeSpacing(),
+      colorScheme: colorScheme ?? const ColorScheme.light(),
+      iconLibrary: iconLibrary ?? const IconLibrary.material(),
       typography: typography,
-      baseStyle: WidgetStyle(
-        minSize: kCompactMinSize,
-        padding: kCompactPadding,
-        backgroundColor: kLightBackgroundColor,
-        foregroundColor: kLightForegroundColor,
-        borderColor: kLightBorderColor,
-        borderRadius: kCompactBorderRadius,
-        textStyle: SizedWidgetProperty<TextStyle>(
+      widgetDefaults: WidgetDefaults(
+        primaryMinSize: kCompactMinSize,
+        primaryMargin: kCompactPadding,
+        primaryPadding: kCompactPadding,
+        primaryBackgroundColor: kLightBackgroundColor,
+        primaryForegroundColor: kLightForegroundColor,
+        primaryBorderColor: kLightBorderColor,
+        primaryBorderRadius: kCompactBorderRadius,
+        primaryBorderWidth: const WidgetPropertyAll(1),
+        primaryIconStyle: const SizedWidgetProperty<IconStyle>(
+          tiny: IconStyle(size: 16),
+          small: IconStyle(size: 16),
+          medium: IconStyle(size: 20),
+          large: IconStyle(size: 24),
+          big: IconStyle(size: 28),
+        ),
+        primaryTextStyle: SizedWidgetProperty<TextStyle>(
           tiny: typography.labelSmall,
           small: typography.labelSmall,
           medium: typography.labelMedium,

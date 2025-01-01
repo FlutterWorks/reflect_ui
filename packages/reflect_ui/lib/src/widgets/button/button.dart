@@ -114,6 +114,25 @@ class Button extends StatefulWidget {
     properties
         .add(FlagProperty('enabled', value: enabled, ifFalse: 'disabled'));
   }
+
+  /// Returns a non-null [ButtonStyle] from the theme.
+  @protected
+  ButtonStyle themeStyleOf(BuildContext context) {
+    final theme = DesignTheme.of(context);
+    final defaults = theme.widgetDefaults;
+    return ButtonStyle(
+      minSize: defaults.primaryMinSize,
+      margin: defaults.primaryMargin,
+      padding: defaults.primaryPadding,
+      backgroundColor: defaults.primaryBackgroundColor,
+      foregroundColor: defaults.primaryForegroundColor,
+      borderColor: defaults.primaryBorderColor,
+      borderRadius: defaults.primaryBorderRadius,
+      borderWidth: defaults.primaryBorderWidth,
+      iconStyle: defaults.primaryIconStyle,
+      textStyle: defaults.primaryTextStyle,
+    );
+  }
 }
 
 class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
@@ -174,7 +193,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final DesignThemeData theme = DesignTheme.of(context);
-    final ButtonStyle style = widget.style ?? ButtonStyle.fromTheme(theme);
+    final ButtonStyle style = widget.style ?? widget.themeStyleOf(context);
 
     final effectiveStyle = style.resolve(
       states,

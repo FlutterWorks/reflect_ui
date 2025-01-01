@@ -4,9 +4,9 @@ import 'package:reflect_ui/src/core/colors.dart';
 
 /// A color scheme that defines the colors of the theme.
 @immutable
-class ThemeColors with Diagnosticable {
-  /// Create a ThemeColors instance from the given colors.
-  const ThemeColors({
+class ColorScheme with Diagnosticable {
+  /// Create a ColorScheme instance from the given colors.
+  const ColorScheme({
     required this.primary,
     required this.secondary,
     required this.tertiary,
@@ -21,7 +21,7 @@ class ThemeColors with Diagnosticable {
   });
 
   /// Create the light color scheme.
-  const ThemeColors.materialLight({
+  const ColorScheme.light({
     this.primary = Colors.indigo,
     this.secondary = Colors.gray,
     this.tertiary = Colors.yellow,
@@ -36,7 +36,7 @@ class ThemeColors with Diagnosticable {
   });
 
   /// Create the dark color scheme.
-  const ThemeColors.materialDark({
+  const ColorScheme.dark({
     this.primary = Colors.indigo,
     this.secondary = Colors.gray,
     this.tertiary = Colors.yellow,
@@ -93,7 +93,7 @@ class ThemeColors with Diagnosticable {
 
   /// Creates a copy of this color scheme with the given fields
   /// replaced by the non-null parameter values.
-  ThemeColors copyWith({
+  ColorScheme copyWith({
     Color? primary,
     Color? secondary,
     Color? tertiary,
@@ -106,7 +106,7 @@ class ThemeColors with Diagnosticable {
     Color? surfaceContainer,
     Color? outline,
   }) {
-    return ThemeColors(
+    return ColorScheme(
       primary: primary ?? this.primary,
       secondary: secondary ?? this.secondary,
       tertiary: tertiary ?? this.tertiary,
@@ -121,18 +121,18 @@ class ThemeColors with Diagnosticable {
     );
   }
 
-  /// Linearly interpolate between two [ThemeColors] objects.
+  /// Linearly interpolate between two [ColorScheme] objects.
   ///
   /// {@macro dart.ui.shadow.lerp}
-  static ThemeColors lerp(
-    ThemeColors a,
-    ThemeColors b,
+  static ColorScheme lerp(
+    ColorScheme a,
+    ColorScheme b,
     double t,
   ) {
     if (identical(a, b)) {
       return a;
     }
-    return ThemeColors(
+    return ColorScheme(
       primary: Color.lerp(a.primary, b.primary, t)!,
       secondary: Color.lerp(a.secondary, b.secondary, t)!,
       tertiary: Color.lerp(a.tertiary, b.tertiary, t)!,
@@ -155,7 +155,7 @@ class ThemeColors with Diagnosticable {
     if (other.runtimeType != runtimeType) {
       return false;
     }
-    return other is ThemeColors &&
+    return other is ColorScheme &&
         other.primary == primary &&
         other.secondary == secondary &&
         other.tertiary == tertiary &&
@@ -187,7 +187,7 @@ class ThemeColors with Diagnosticable {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    const ThemeColors s = ThemeColors.materialLight();
+    const ColorScheme s = ColorScheme.light();
 
     properties.add(
       ColorProperty('primary', primary, defaultValue: s.primary),

@@ -51,13 +51,32 @@ class Alert extends StatefulWidget {
 
   @override
   State<Alert> createState() => _AlertState();
+
+  /// Returns a non-null [ButtonStyle] from the theme.
+  @protected
+  AlertStyle themeStyleOf(BuildContext context) {
+    final theme = DesignTheme.of(context);
+    final defaults = theme.widgetDefaults;
+    return AlertStyle(
+      minSize: defaults.primaryMinSize,
+      margin: defaults.primaryMargin,
+      padding: defaults.primaryPadding,
+      backgroundColor: defaults.primaryBackgroundColor,
+      foregroundColor: defaults.primaryForegroundColor,
+      borderColor: defaults.primaryBorderColor,
+      borderRadius: defaults.primaryBorderRadius,
+      borderWidth: defaults.primaryBorderWidth,
+      iconStyle: defaults.primaryIconStyle,
+      textStyle: defaults.primaryTextStyle,
+    );
+  }
 }
 
 class _AlertState extends State<Alert> {
   @override
   Widget build(BuildContext context) {
     final DesignThemeData theme = DesignTheme.of(context);
-    final AlertStyle style = widget.style ?? AlertStyle.fromTheme(theme);
+    final AlertStyle style = widget.style ?? widget.themeStyleOf(context);
 
     final effectiveStyle = style.resolve(
       {},
@@ -103,7 +122,7 @@ class _AlertState extends State<Alert> {
               children: [
                 if (widget.title != null)
                   DefaultTextStyle(
-                    style: effectiveStyle.textStyle.copyWith(
+                    style: theme.typography.titleSmall.copyWith(
                       color: effectiveStyle.foregroundColor,
                       fontWeight: FontWeight.w600,
                     ),
@@ -111,7 +130,7 @@ class _AlertState extends State<Alert> {
                   ),
                 if (widget.message != null)
                   DefaultTextStyle(
-                    style: effectiveStyle.textStyle.copyWith(
+                    style: theme.typography.bodyMedium.copyWith(
                       color: effectiveStyle.foregroundColor,
                     ),
                     child: widget.message!,
