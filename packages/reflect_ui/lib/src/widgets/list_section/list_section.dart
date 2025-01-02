@@ -2,8 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/material.dart' show TextTheme, Theme, ThemeData;
+import 'package:flutter/material.dart' show Theme;
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
 // Margin on top of the list section. This was eyeballed from iOS 14.4 Simulator
 // and should be always present on top of the edge-to-edge variant.
@@ -222,11 +223,9 @@ class ListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData themeData = Theme.of(context);
-    TextTheme textTheme = themeData.textTheme;
+    final DesignThemeData theme = DesignTheme.of(context);
 
-    final Color dividerColor =
-        separatorColor ?? themeData.colorScheme.outlineVariant;
+    final Color dividerColor = separatorColor ?? theme.colorScheme.outline;
 
     // Short divider is used between rows.
     final Widget shortDivider = Container(
@@ -241,16 +240,16 @@ class ListSection extends StatelessWidget {
 
     if (header != null) {
       headerWidget = DefaultTextStyle(
-        style: textTheme.bodySmall!.copyWith(
-          color: themeData.colorScheme.onSurfaceVariant,
+        style: theme.typography.bodySmall.copyWith(
+          color: theme.colorScheme.onSurface,
         ),
         child: header!,
       );
     }
     if (footer != null) {
       footerWidget = DefaultTextStyle(
-        style: textTheme.bodySmall!.copyWith(
-          color: themeData.colorScheme.onSurfaceVariant,
+        style: theme.typography.bodySmall.copyWith(
+          color: theme.colorScheme.onSurface,
         ),
         child: footer!,
       );
@@ -275,8 +274,7 @@ class ListSection extends StatelessWidget {
       decoratedChildrenGroup = DecoratedBox(
         decoration: decoration ??
             BoxDecoration(
-              color: decoration?.color ??
-                  themeData.colorScheme.surfaceContainerLow,
+              color: decoration?.color ?? theme.colorScheme.surfaceContainer,
               borderRadius: childrenGroupBorderRadius,
             ),
         child: Column(children: childrenWithDividers),

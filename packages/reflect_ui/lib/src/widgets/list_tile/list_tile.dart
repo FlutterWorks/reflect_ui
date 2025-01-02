@@ -182,12 +182,13 @@ class _ListTileState extends State<ListTile> {
 
   @override
   Widget build(BuildContext context) {
-    final themeData = DesignTheme.of(context);
+    final DesignThemeData theme = DesignTheme.of(context);
 
-    final textTheme = Theme.of(context).textTheme;
-    final TextStyle textStyle = textTheme.bodyMedium ?? const TextStyle();
+    final TextStyle textStyle = theme.typography.bodyMedium.copyWith(
+      color: theme.colorScheme.onSurface,
+    );
     final TextStyle coloredStyle = textStyle.copyWith(
-      color: themeData.colorScheme.onSurface,
+      color: theme.colorScheme.onSurface,
     );
 
     final Widget title = DefaultTextStyle(
@@ -211,11 +212,10 @@ class _ListTileState extends State<ListTile> {
     // null and it will resolve to the correct color provided by context. But if
     // the tile was tapped, it is set to what user provided or if null to the
     // default color that matched the iOS-style.
-    Color? backgroundColor = widget.backgroundColor;
+    Color? backgroundColor =
+        widget.backgroundColor ?? theme.colorScheme.surfaceContainer;
     if (_tapped) {
-      backgroundColor = widget.backgroundColorActivated ??
-          themeData.colorScheme.secondary
-              .withShade(themeData.brightness == Brightness.dark ? 800 : 200);
+      backgroundColor = widget.backgroundColorActivated;
     }
 
     final double minHeight =
@@ -318,7 +318,7 @@ class ListTileChevron extends StatelessWidget {
     return Icon(
       themeData.iconLibrary.chevronRight,
       size: 18.0,
-      color: themeData.colorScheme.secondary.withShade(400),
+      color: themeData.colorScheme.outline,
     );
   }
 }

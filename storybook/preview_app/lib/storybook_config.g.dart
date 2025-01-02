@@ -4,6 +4,7 @@ import 'package:preview_app/stories/button_stories.dart';
 import 'package:preview_app/stories/card_stories.dart';
 import 'package:preview_app/stories/checkbox_stories.dart';
 import 'package:preview_app/stories/context_menu_region_stories.dart';
+import 'package:preview_app/stories/design_theme_stories.dart';
 import 'package:preview_app/stories/divider_stories.dart';
 import 'package:preview_app/stories/kbd_stories.dart';
 import 'package:preview_app/stories/loader_stories.dart';
@@ -28,6 +29,7 @@ final StorybookConfig storybookConfig = StorybookConfig(
     CardDefaultStory(),
     CheckboxDefaultStory(),
     ContextMenuRegionDefaultStory(),
+    DesignThemeDefaultStory(),
     DividerDefaultStory(),
     KbdDefaultStory(),
     LoaderDefaultStory(),

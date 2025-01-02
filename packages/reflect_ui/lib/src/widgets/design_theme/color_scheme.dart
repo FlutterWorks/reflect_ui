@@ -17,6 +17,7 @@ class ColorScheme with Diagnosticable {
     required this.surface,
     required this.onSurface,
     required this.surfaceContainer,
+    required this.onSurfaceContainer,
     required this.outline,
   });
 
@@ -29,9 +30,10 @@ class ColorScheme with Diagnosticable {
     this.danger = Colors.red,
     this.warning = Colors.amber,
     this.info = Colors.blue,
-    this.surface = Colors.white,
-    this.onSurface = Colors.black,
-    this.surfaceContainer = const Color(0xFFF5F5F5),
+    this.surface = const Color(0xfff3f4f6),
+    this.onSurface = Colors.gray,
+    this.surfaceContainer = Colors.white,
+    this.onSurfaceContainer = Colors.neutral,
     this.outline = Colors.gray,
   });
 
@@ -47,6 +49,7 @@ class ColorScheme with Diagnosticable {
     this.surface = Colors.black,
     this.onSurface = Colors.white,
     this.surfaceContainer = Colors.neutral,
+    this.onSurfaceContainer = Colors.neutral,
     this.outline = Colors.neutral,
   });
 
@@ -75,8 +78,6 @@ class ColorScheme with Diagnosticable {
 
   // #endregion
 
-  // #region Normal Colors
-
   /// A color that represents surface.
   final Color surface;
 
@@ -86,10 +87,11 @@ class ColorScheme with Diagnosticable {
   /// A color that represents surfaceContainer.
   final Color surfaceContainer;
 
+  /// A color that represents surfaceContainerHigh.
+  final Color onSurfaceContainer;
+
   /// A color that represents outline.
   final Color outline;
-
-  // #endregion
 
   /// Creates a copy of this color scheme with the given fields
   /// replaced by the non-null parameter values.
@@ -104,6 +106,7 @@ class ColorScheme with Diagnosticable {
     Color? surface,
     Color? onSurface,
     Color? surfaceContainer,
+    Color? onSurfaceContainer,
     Color? outline,
   }) {
     return ColorScheme(
@@ -117,6 +120,7 @@ class ColorScheme with Diagnosticable {
       surface: surface ?? this.surface,
       onSurface: onSurface ?? this.onSurface,
       surfaceContainer: surfaceContainer ?? this.surfaceContainer,
+      onSurfaceContainer: onSurfaceContainer ?? this.onSurfaceContainer,
       outline: outline ?? this.outline,
     );
   }
@@ -143,6 +147,8 @@ class ColorScheme with Diagnosticable {
       surface: Color.lerp(a.surface, b.surface, t)!,
       onSurface: Color.lerp(a.onSurface, b.onSurface, t)!,
       surfaceContainer: Color.lerp(a.surfaceContainer, b.surfaceContainer, t)!,
+      onSurfaceContainer:
+          Color.lerp(a.onSurfaceContainer, b.onSurfaceContainer, t)!,
       outline: Color.lerp(a.outline, b.outline, t)!,
     );
   }
@@ -166,6 +172,7 @@ class ColorScheme with Diagnosticable {
         other.surface == surface &&
         other.onSurface == onSurface &&
         other.surfaceContainer == surfaceContainer &&
+        other.onSurfaceContainer == onSurfaceContainer &&
         other.outline == outline;
   }
 
@@ -181,6 +188,7 @@ class ColorScheme with Diagnosticable {
         surface,
         onSurface,
         surfaceContainer,
+        onSurfaceContainer,
         outline,
       );
 
@@ -221,6 +229,13 @@ class ColorScheme with Diagnosticable {
         'surfaceContainer',
         surfaceContainer,
         defaultValue: s.surfaceContainer,
+      ),
+    );
+    properties.add(
+      ColorProperty(
+        'onSurfaceContainer',
+        onSurfaceContainer,
+        defaultValue: s.onSurfaceContainer,
       ),
     );
     properties.add(
