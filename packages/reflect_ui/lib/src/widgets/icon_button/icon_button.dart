@@ -8,7 +8,7 @@ enum IconButtonVariant with WidgetVariant {
   tinted,
   outlined,
   subtle,
-  transparent,
+  plain,
 }
 
 class IconButton extends Button {
@@ -35,7 +35,7 @@ class IconButton extends Button {
                   color: iconColor,
                 ),
           variant: ButtonVariant.values.firstWhere(
-            (e) => e.name == variant.name,
+            (e) => e.namedVariant == variant.namedVariant,
           ),
         );
 }

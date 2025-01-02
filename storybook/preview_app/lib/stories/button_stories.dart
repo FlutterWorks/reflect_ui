@@ -32,6 +32,18 @@ class ButtonMeta extends Meta with _$ButtonMeta {
               variant: BadgeVariant.outlined,
               child: Text('99+'),
             ),
+            Switch(
+              value: true,
+              onChanged: (newValue) => setState(() {
+                // value = newValue!;
+              }),
+            ),
+            Switch(
+              value: false,
+              onChanged: (newValue) => setState(() {
+                // value = newValue!;
+              }),
+            ),
             Checkbox(
               value: true,
               onChanged: (newValue) => setState(() {
@@ -64,18 +76,6 @@ class ButtonMeta extends Meta with _$ButtonMeta {
               groupValue: radioValue,
               onChanged: (newValue) => setState(() {
                 radioValue = newValue!;
-              }),
-            ),
-            Switch(
-              value: true,
-              onChanged: (newValue) => setState(() {
-                // value = newValue!;
-              }),
-            ),
-            Switch(
-              value: false,
-              onChanged: (newValue) => setState(() {
-                // value = newValue!;
               }),
             ),
           ],

@@ -51,28 +51,34 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
   final WidgetDefaults widgetDefaults;
 
   /// Creates a dark design theme.
-  static DesignThemeData dark() {
+  static DesignThemeData dark({
+    ColorScheme? colorScheme,
+    IconLibrary? iconLibrary,
+  }) {
     const typography = Typography.regular();
     return DesignThemeData(
       id: 'dark',
       name: 'Dark',
       brightness: Brightness.dark,
-      colorScheme: const ColorScheme.dark(),
-      iconLibrary: const IconLibrary.material(),
+      colorScheme: colorScheme ?? const ColorScheme.dark(),
+      iconLibrary: iconLibrary ?? const IconLibrary.material(),
       typography: typography,
       widgetDefaults: WidgetDefaults.regular(typography),
     );
   }
 
   /// Creates a dark compact design theme.
-  static DesignThemeData darkCompact() {
+  static DesignThemeData darkCompact({
+    ColorScheme? colorScheme,
+    IconLibrary? iconLibrary,
+  }) {
     const typography = Typography.compact();
     return DesignThemeData(
       id: 'dark-compact',
       name: 'Dark Compact',
       brightness: Brightness.dark,
-      colorScheme: const ColorScheme.dark(),
-      iconLibrary: const IconLibrary.material(),
+      colorScheme: colorScheme ?? const ColorScheme.dark(),
+      iconLibrary: iconLibrary ?? const IconLibrary.material(),
       typography: typography,
       widgetDefaults: WidgetDefaults.compact(typography),
     );

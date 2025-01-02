@@ -19,6 +19,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 import 'package:reflect_ui/src/widgets/switch/switch_thumb_painter.dart';
 
@@ -209,6 +210,8 @@ class _SwitchState extends State<Switch> with TickerProviderStateMixin {
   // switch must be animated to the position indicated by the widget's value.
   bool needsPositionAnimation = false;
 
+  double trackInnerLength = 0;
+
   @override
   void initState() {
     super.initState();
@@ -313,7 +316,7 @@ class _SwitchState extends State<Switch> with TickerProviderStateMixin {
       position
         ..curve = Curves.linear
         ..reverseCurve = Curves.linear;
-      final double delta = details.primaryDelta! / _kTrackInnerLength;
+      final double delta = details.primaryDelta! / trackInnerLength;
       _positionController.value += switch (Directionality.of(context)) {
         TextDirection.rtl => -delta,
         TextDirection.ltr => delta,
@@ -354,8 +357,8 @@ class _SwitchState extends State<Switch> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = DesignTheme.of(context).colorScheme;
-    final Color activeColor = widget.activeColor ?? colorScheme.primary;
+    final DesignThemeData theme = DesignTheme.of(context);
+    final Color activeColor = widget.activeColor ?? theme.colorScheme.primary;
     final (Color onLabelColor, Color offLabelColor)? onOffLabelColors =
         MediaQuery.onOffSwitchLabelsOf(context)
             ? (
@@ -372,6 +375,27 @@ class _SwitchState extends State<Switch> with TickerProviderStateMixin {
     if (needsPositionAnimation) {
       _resumePositionAnimation();
     }
+    final Size minSize = theme.widgetDefaults.minSize.resolveWith(
+      {},
+      size: WidgetSize.medium,
+    );
+    final Size secondaryMinSize =
+        theme.widgetDefaults.secondaryMinSize!.resolveWith(
+      {},
+      size: WidgetSize.medium,
+    );
+
+    final double switchWidth = minSize.width * 1.6;
+    final double switchHeight = minSize.height;
+    final double trackWidth = secondaryMinSize.width * 1.6;
+    final double trackHeight = secondaryMinSize.height;
+    final double trackInnerStart = trackHeight / 2.0;
+    final double trackInnerEnd = trackWidth - trackInnerStart;
+    final double trackInnerLength = trackInnerEnd - trackInnerStart;
+    if (trackInnerLength != this.trackInnerLength) {
+      this.trackInnerLength = trackInnerLength;
+    }
+
     return MouseRegion(
       cursor: isInteractive && kIsWeb
           ? SystemMouseCursors.click
@@ -387,6 +411,10 @@ class _SwitchState extends State<Switch> with TickerProviderStateMixin {
           autofocus: widget.autofocus,
           child: _SwitchRenderObjectWidget(
             value: widget.value,
+            switchWidth: switchWidth,
+            switchHeight: switchHeight,
+            trackWidth: trackWidth,
+            trackHeight: trackHeight,
             activeColor: activeColor,
             trackColor: CupertinoDynamicColor.resolve(
                 widget.trackColor ?? CupertinoColors.secondarySystemFill,
@@ -429,6 +457,10 @@ class _SwitchState extends State<Switch> with TickerProviderStateMixin {
 class _SwitchRenderObjectWidget extends LeafRenderObjectWidget {
   const _SwitchRenderObjectWidget({
     required this.value,
+    required this.switchWidth,
+    required this.switchHeight,
+    required this.trackWidth,
+    required this.trackHeight,
     required this.activeColor,
     required this.trackColor,
     required this.thumbColor,
@@ -441,6 +473,10 @@ class _SwitchRenderObjectWidget extends LeafRenderObjectWidget {
   });
 
   final bool value;
+  final double switchWidth;
+  final double switchHeight;
+  final double trackWidth;
+  final double trackHeight;
   final Color activeColor;
   final Color trackColor;
   final Color thumbColor;
@@ -455,6 +491,10 @@ class _SwitchRenderObjectWidget extends LeafRenderObjectWidget {
   _RenderSwitch createRenderObject(BuildContext context) {
     return _RenderSwitch(
       value: value,
+      switchWidth: switchWidth,
+      switchHeight: switchHeight,
+      trackWidth: trackWidth,
+      trackHeight: trackHeight,
       activeColor: activeColor,
       trackColor: trackColor,
       thumbColor: thumbColor,
@@ -472,6 +512,8 @@ class _SwitchRenderObjectWidget extends LeafRenderObjectWidget {
     assert(renderObject._state == state);
     renderObject
       ..value = value
+      ..trackWidth = trackWidth
+      ..trackHeight = trackHeight
       ..activeColor = activeColor
       ..trackColor = trackColor
       ..thumbColor = thumbColor
@@ -482,14 +524,14 @@ class _SwitchRenderObjectWidget extends LeafRenderObjectWidget {
   }
 }
 
-const double _kTrackWidth = 36.0;
-const double _kTrackHeight = 22.0;
-const double _kTrackRadius = _kTrackHeight / 2.0;
-const double _kTrackInnerStart = _kTrackHeight / 2.0;
-const double _kTrackInnerEnd = _kTrackWidth - _kTrackInnerStart;
-const double _kTrackInnerLength = _kTrackInnerEnd - _kTrackInnerStart;
-const double _kSwitchWidth = 42.0;
-const double _kSwitchHeight = 28.0;
+// const double _kTrackWidth = 36.0;
+// const double _kTrackHeight = 22.0;
+// const double _kTrackRadius = _kTrackHeight / 2.0;
+// const double _kTrackInnerStart = _kTrackHeight / 2.0;
+// const double _kTrackInnerEnd = _kTrackWidth - _kTrackInnerStart;
+// const double _kTrackInnerLength = _kTrackInnerEnd - _kTrackInnerStart;
+// const double _kSwitchWidth = 42.0;
+// const double _kSwitchHeight = 28.0;
 // Label sizes and padding taken from xcode inspector.
 // See https://github.com/flutter/flutter/issues/4830#issuecomment-528495360
 const double _kOnLabelWidth = 1.0;
@@ -518,6 +560,10 @@ const Duration _kToggleDuration = Duration(milliseconds: 200);
 class _RenderSwitch extends RenderConstrainedBox {
   _RenderSwitch({
     required bool value,
+    required double switchWidth,
+    required double switchHeight,
+    required double trackWidth,
+    required double trackHeight,
     required Color activeColor,
     required Color trackColor,
     required Color thumbColor,
@@ -528,18 +574,23 @@ class _RenderSwitch extends RenderConstrainedBox {
     required _SwitchState state,
     required (Color onLabelColor, Color offLabelColor)? onOffLabelColors,
   })  : _value = value,
+        _trackWidth = trackWidth,
+        _trackHeight = trackHeight,
         _activeColor = activeColor,
         _trackColor = trackColor,
         _focusColor = focusColor,
-        _thumbPainter = SwitchThumbPainter(color: thumbColor),
+        _thumbPainter = SwitchThumbPainter(
+          color: thumbColor,
+          radius: trackHeight * 0.8 / 2,
+        ),
         _onChanged = onChanged,
         _textDirection = textDirection,
         _isFocused = isFocused,
         _state = state,
         _onOffLabelColors = onOffLabelColors,
         super(
-            additionalConstraints: const BoxConstraints.tightFor(
-                width: _kSwitchWidth, height: _kSwitchHeight)) {
+            additionalConstraints: BoxConstraints.tightFor(
+                width: switchWidth, height: switchHeight)) {
     state.position.addListener(markNeedsPaint);
     state._reaction.addListener(markNeedsPaint);
   }
@@ -555,6 +606,34 @@ class _RenderSwitch extends RenderConstrainedBox {
     _value = value;
     markNeedsSemanticsUpdate();
   }
+
+  double get trackWidth => _trackWidth;
+  double _trackWidth;
+  set trackWidth(double value) {
+    if (value == _trackWidth) {
+      return;
+    }
+    _trackWidth = value;
+    markNeedsPaint();
+  }
+
+  double get trackHeight => _trackHeight;
+  double _trackHeight;
+  set trackHeight(double value) {
+    if (value == _trackHeight) {
+      return;
+    }
+    _trackHeight = value;
+    _thumbPainter = SwitchThumbPainter(
+      color: _thumbPainter.color,
+      radius: trackHeight * 0.8 / 2,
+    );
+    markNeedsPaint();
+  }
+
+  double get _trackRadius => _trackHeight / 2.0;
+  double get _trackInnerStart => _trackHeight / 2.0;
+  double get _trackInnerEnd => _trackWidth - _trackInnerStart;
 
   Color get activeColor => _activeColor;
   Color _activeColor;
@@ -582,7 +661,10 @@ class _RenderSwitch extends RenderConstrainedBox {
     if (value == thumbColor) {
       return;
     }
-    _thumbPainter = SwitchThumbPainter(color: value);
+    _thumbPainter = SwitchThumbPainter(
+      color: value,
+      radius: trackHeight * 0.8 / 2,
+    );
     markNeedsPaint();
   }
 
@@ -683,13 +765,13 @@ class _RenderSwitch extends RenderConstrainedBox {
       ..color = Color.lerp(trackColor, activeColor, currentValue)!;
 
     final Rect trackRect = Rect.fromLTWH(
-      offset.dx + (size.width - _kTrackWidth) / 2.0,
-      offset.dy + (size.height - _kTrackHeight) / 2.0,
-      _kTrackWidth,
-      _kTrackHeight,
+      offset.dx + (size.width - _trackWidth) / 2.0,
+      offset.dy + (size.height - _trackHeight) / 2.0,
+      _trackWidth,
+      _trackHeight,
     );
-    final RRect trackRRect = RRect.fromRectAndRadius(
-        trackRect, const Radius.circular(_kTrackRadius));
+    final RRect trackRRect =
+        RRect.fromRectAndRadius(trackRect, Radius.circular(_trackRadius));
     canvas.drawRRect(trackRRect, paint);
 
     if (_isFocused) {
@@ -755,27 +837,27 @@ class _RenderSwitch extends RenderConstrainedBox {
     final double currentThumbExtension =
         SwitchThumbPainter.extension * currentReactionValue;
     final double thumbLeft = lerpDouble(
-      trackRect.left + _kTrackInnerStart - SwitchThumbPainter.radius,
+      trackRect.left + _trackInnerStart - _thumbPainter.radius,
       trackRect.left +
-          _kTrackInnerEnd -
-          SwitchThumbPainter.radius -
+          _trackInnerEnd -
+          _thumbPainter.radius -
           currentThumbExtension,
       visualPosition,
     )!;
     final double thumbRight = lerpDouble(
       trackRect.left +
-          _kTrackInnerStart +
-          SwitchThumbPainter.radius +
+          _trackInnerStart +
+          _thumbPainter.radius +
           currentThumbExtension,
-      trackRect.left + _kTrackInnerEnd + SwitchThumbPainter.radius,
+      trackRect.left + _trackInnerEnd + _thumbPainter.radius,
       visualPosition,
     )!;
     final double thumbCenterY = offset.dy + size.height / 2.0;
     final Rect thumbBounds = Rect.fromLTRB(
       thumbLeft,
-      thumbCenterY - SwitchThumbPainter.radius,
+      thumbCenterY - _thumbPainter.radius,
       thumbRight,
-      thumbCenterY + SwitchThumbPainter.radius,
+      thumbCenterY + _thumbPainter.radius,
     );
 
     _clipRRectLayer.layer = context

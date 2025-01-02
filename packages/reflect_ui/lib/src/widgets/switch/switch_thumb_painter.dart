@@ -26,6 +26,7 @@ class SwitchThumbPainter {
   const SwitchThumbPainter({
     this.color = CupertinoColors.white,
     this.shadows = _kSwitchBoxShadows,
+    required this.radius,
   });
 
   /// The color of the interior of the thumb.
@@ -35,7 +36,7 @@ class SwitchThumbPainter {
   final List<BoxShadow> shadows;
 
   /// Half the default diameter of the thumb.
-  static const double radius = 9.0;
+  final double radius;
 
   /// The default amount the thumb should be extended horizontally when pressed.
   static const double extension = 7.0;
