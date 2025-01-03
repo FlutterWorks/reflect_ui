@@ -19,7 +19,7 @@ class _HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<_HomePage> {
-  Brightness _brightness = Brightness.light;
+  // Brightness _brightness = Brightness.light;
   bool _useCompactTheme = true;
 
   String _selectedStoryId = '';
@@ -110,7 +110,7 @@ class _HomePageState extends State<_HomePage> {
   Widget _build(BuildContext context) {
     final storyId = Uri.base.queryParameters['id'];
 
-    return Scaffold(
+    return PageScaffold(
       body: storyId != null
           ? _buildBodyWithSingleStory(context, storyId: storyId)
           : _buildBody(context),

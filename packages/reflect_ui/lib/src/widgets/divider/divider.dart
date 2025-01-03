@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/material.dart' show Theme, ThemeData;
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
 const double _kDividerSpace = 16;
 const double _kDividerThickness = 1.0;
@@ -145,10 +145,10 @@ class Divider extends StatelessWidget {
     Color? color,
     double? width,
   }) {
-    final ThemeData? themeData = context != null ? Theme.of(context) : null;
+    final DesignThemeData? theme =
+        context != null ? DesignTheme.of(context) : null;
 
-    final Color? effectiveColor =
-        color ?? themeData?.colorScheme.outlineVariant;
+    final Color? effectiveColor = color ?? theme?.colorScheme.outline;
     final double effectiveWidth = width ?? _kDividerThickness;
 
     // Prevent assertion since it is possible that context is null and no color

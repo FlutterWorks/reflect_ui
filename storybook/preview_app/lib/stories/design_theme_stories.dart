@@ -94,27 +94,11 @@ class DesignThemeMeta extends Meta with _$DesignThemeMeta {
                 ),
               ),
               ColoredBox(
-                color: colorScheme.surfaceContainerLow,
-                child: SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: Text('Surface Container Low'),
-                ),
-              ),
-              ColoredBox(
                 color: colorScheme.surfaceContainer,
                 child: SizedBox(
                   width: 100,
                   height: 100,
                   child: Text('Surface Container'),
-                ),
-              ),
-              ColoredBox(
-                color: colorScheme.surfaceContainerHigh,
-                child: SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: Text('Surface Container High'),
                 ),
               ),
             ],
