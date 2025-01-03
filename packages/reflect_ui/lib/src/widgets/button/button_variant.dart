@@ -14,6 +14,6 @@ enum ButtonVariant with WidgetVariant {
   /// A subtle button.
   subtle,
 
-  /// A transparent button.
+  /// A plain button.
   plain,
 }

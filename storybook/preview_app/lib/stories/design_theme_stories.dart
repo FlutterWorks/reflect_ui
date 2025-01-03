@@ -101,6 +101,22 @@ class DesignThemeMeta extends Meta with _$DesignThemeMeta {
                   child: Text('Surface Container'),
                 ),
               ),
+              ColoredBox(
+                color: colorScheme.onSurfaceContainer,
+                child: SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: Text('On Surface Container'),
+                ),
+              ),
+              ColoredBox(
+                color: colorScheme.outline,
+                child: SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: Text('Outline'),
+                ),
+              ),
             ],
           ),
         );

@@ -24,17 +24,17 @@ class ColorScheme with Diagnosticable {
   /// Create the light color scheme.
   const ColorScheme.light({
     this.primary = Colors.indigo,
-    this.secondary = Colors.gray,
+    this.secondary = Colors.neutral,
     this.tertiary = Colors.yellow,
     this.success = Colors.green,
     this.danger = Colors.red,
     this.warning = Colors.amber,
     this.info = Colors.blue,
-    this.surface = const Color(0xfff3f4f6),
-    this.onSurface = Colors.gray,
+    this.surface = const Color(0xfff5f5f4),
+    this.onSurface = const Color(0xff525252),
     this.surfaceContainer = Colors.white,
-    this.onSurfaceContainer = Colors.neutral,
-    this.outline = Colors.gray,
+    this.onSurfaceContainer = const Color(0xff262626),
+    this.outline = const Color(0xffe5e5e5),
   });
 
   /// Create the dark color scheme.
@@ -107,6 +107,8 @@ class ColorScheme with Diagnosticable {
     Color? onSurface,
     Color? surfaceContainer,
     Color? onSurfaceContainer,
+    Color? onSurfaceContainerLow,
+    Color? onSurfaceContainerHigh,
     Color? outline,
   }) {
     return ColorScheme(

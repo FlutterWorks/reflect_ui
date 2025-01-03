@@ -185,10 +185,10 @@ class _ListTileState extends State<ListTile> {
     final DesignThemeData theme = DesignTheme.of(context);
 
     final TextStyle textStyle = theme.typography.bodyMedium.copyWith(
-      color: theme.colorScheme.onSurface,
+      color: theme.colorScheme.onSurfaceContainer,
     );
     final TextStyle coloredStyle = textStyle.copyWith(
-      color: theme.colorScheme.onSurface,
+      color: theme.colorScheme.onSurfaceContainer,
     );
 
     final Widget title = DefaultTextStyle(

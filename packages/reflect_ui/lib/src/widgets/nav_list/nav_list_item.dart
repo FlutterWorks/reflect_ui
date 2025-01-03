@@ -5,17 +5,14 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' show Theme;
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/extensions/color.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
 // These constants were eyeballed from iOS 14.4 Settings app for base, Notes for
 // notched without leading, and Reminders app for notched with leading.
 const double _kLeadingSize = 18.0;
-const double _kMinHeight = 28;
-const EdgeInsetsDirectional _kPadding =
-    EdgeInsetsDirectional.only(start: 12.0, end: 12.0);
 const double _kLeadingToTitle = 6.0;
 const double _kAdditionalInfoToTrailing = 6.0;
 
@@ -169,16 +166,12 @@ class NavListItem extends StatefulWidget {
 class _NavListItemState extends State<NavListItem> {
   @override
   Widget build(BuildContext context) {
-    final DesignThemeData themeData = DesignTheme.of(context);
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = themeData.colorScheme;
+    final DesignThemeData theme = DesignTheme.of(context);
+    final colorScheme = theme.colorScheme;
 
-    final TextStyle textStyle =
-        (textTheme.bodyMedium ?? const TextStyle()).copyWith(
+    final TextStyle textStyle = (theme.typography.bodyMedium).copyWith(
       fontWeight: FontWeight.w500,
-      color: themeData.brightness == Brightness.light
-          ? colorScheme.secondary.withShade(700)
-          : colorScheme.secondary.withShade(300),
+      color: colorScheme.onSurfaceContainer,
     );
     final TextStyle coloredStyle = textStyle.copyWith(
       color: colorScheme.onSurface,
@@ -191,8 +184,6 @@ class _NavListItemState extends State<NavListItem> {
       child: widget.title,
     );
 
-    final EdgeInsetsGeometry padding = widget.padding ?? _kPadding;
-
     // The color for default state tile is set to either what user provided or
     // null and it will resolve to the correct color provided by context. But if
     // the tile was tapped, it is set to what user provided or if null to the
@@ -200,15 +191,25 @@ class _NavListItemState extends State<NavListItem> {
     Color? backgroundColor = widget.backgroundColor;
     if (widget.selected) {
       backgroundColor = widget.backgroundColorActivated ??
-          (themeData.brightness == Brightness.light
+          (theme.brightness == Brightness.light
               ? colorScheme.secondary.withShade(100)
               : colorScheme.secondary.withShade(700));
     }
 
+    final minSize = theme.widgetDefaults.minSize.resolveWith(
+      {},
+      size: WidgetSize.medium,
+    );
+    final EdgeInsetsGeometry padding = widget.padding ??
+        theme.widgetDefaults.padding.resolveWith(
+          {},
+          size: WidgetSize.medium,
+        );
+
     final Widget child = Container(
-      constraints: const BoxConstraints(
+      constraints: BoxConstraints(
         minWidth: double.infinity,
-        minHeight: _kMinHeight,
+        minHeight: minSize.height,
       ),
       decoration: BoxDecoration(
         color: backgroundColor,
@@ -225,7 +226,7 @@ class _NavListItemState extends State<NavListItem> {
                   child: IconTheme(
                     data: IconThemeData(
                       size: widget.leadingSize,
-                      color: (themeData.brightness == Brightness.light
+                      color: (theme.brightness == Brightness.light
                           ? colorScheme.secondary.withShade(700)
                           : colorScheme.secondary.withShade(300)),
                     ),
