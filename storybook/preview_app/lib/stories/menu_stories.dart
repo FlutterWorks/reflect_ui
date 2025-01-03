@@ -29,6 +29,23 @@ class MenuMeta extends Meta with _$MenuMeta {
             children: [
               Menu(
                 targetFocusNode: _buttonFocusNode,
+                targetBuilder: (
+                  BuildContext context,
+                  MenuController controller,
+                  Widget? target,
+                ) {
+                  return Button(
+                    focusNode: _buttonFocusNode,
+                    onPressed: () {
+                      if (controller.isOpen) {
+                        controller.close();
+                      } else {
+                        controller.open();
+                      }
+                    },
+                    child: const Text('OPEN MENU'),
+                  );
+                },
                 children: <Widget>[
                   const SizedBox(width: 200, height: 0),
                   MenuItemButton(
@@ -87,23 +104,6 @@ class MenuMeta extends Meta with _$MenuMeta {
                     child: const Text('Pixel grid'),
                   ),
                 ],
-                targetBuilder: (
-                  BuildContext context,
-                  MenuController controller,
-                  Widget? target,
-                ) {
-                  return Button(
-                    focusNode: _buttonFocusNode,
-                    onPressed: () {
-                      if (controller.isOpen) {
-                        controller.close();
-                      } else {
-                        controller.open();
-                      }
-                    },
-                    child: const Text('OPEN MENU'),
-                  );
-                },
               ),
             ],
           ),

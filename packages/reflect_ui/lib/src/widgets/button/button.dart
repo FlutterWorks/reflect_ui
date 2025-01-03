@@ -53,6 +53,7 @@ class Button extends StatefulWidget {
     this.focusNode,
     this.autofocus = false,
     this.onFocusChange,
+    this.onHover,
     required this.onPressed,
   });
 
@@ -97,16 +98,22 @@ class Button extends StatefulWidget {
   /// {@macro flutter.widgets.Focus.autofocus}
   final bool autofocus;
 
-  /// The callback that is called when the button is tapped or otherwise activated.
-  ///
-  /// If this is set to null, the button will be disabled.
-  final VoidCallback? onPressed;
-
   /// Handler called when the focus changes.
   ///
   /// Called with true if this widget's node gains focus, and false if it loses
   /// focus.
   final ValueChanged<bool>? onFocusChange;
+
+  /// Handler called when the hover state changes.
+  ///
+  /// Called with true if this widget's node gains hover, and false if it loses
+  /// hover.
+  final ValueChanged<bool>? onHover;
+
+  /// The callback that is called when the button is tapped or otherwise activated.
+  ///
+  /// If this is set to null, the button will be disabled.
+  final VoidCallback? onPressed;
 
   /// Whether the button is enabled or disabled. Buttons are disabled by default. To
   /// enable a button, set its [onPressed] property to a non-null value.
@@ -191,6 +198,9 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
   }
 
   void _onShowHoverHighlight(bool showHighlight) {
+    if (widget.onHover != null) {
+      widget.onHover?.call(showHighlight);
+    }
     setState(() {
       _isHovered = showHighlight;
     });

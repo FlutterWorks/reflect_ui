@@ -18,6 +18,7 @@ class ColorScheme with Diagnosticable {
     required this.onSurface,
     required this.surfaceContainer,
     required this.onSurfaceContainer,
+    required this.backdrop,
     required this.outline,
   });
 
@@ -35,6 +36,7 @@ class ColorScheme with Diagnosticable {
     this.surfaceContainer = Colors.white,
     this.onSurfaceContainer = const Color(0xff262626),
     this.outline = const Color(0xffe5e5e5),
+    this.backdrop = Colors.white,
   });
 
   /// Create the dark color scheme.
@@ -51,6 +53,7 @@ class ColorScheme with Diagnosticable {
     this.surfaceContainer = Colors.neutral,
     this.onSurfaceContainer = Colors.neutral,
     this.outline = Colors.neutral,
+    this.backdrop = Colors.black,
   });
 
   // #region Seed Colors
@@ -93,6 +96,9 @@ class ColorScheme with Diagnosticable {
   /// A color that represents outline.
   final Color outline;
 
+  /// A color that represents backdrop.
+  final Color backdrop;
+
   /// Creates a copy of this color scheme with the given fields
   /// replaced by the non-null parameter values.
   ColorScheme copyWith({
@@ -107,9 +113,8 @@ class ColorScheme with Diagnosticable {
     Color? onSurface,
     Color? surfaceContainer,
     Color? onSurfaceContainer,
-    Color? onSurfaceContainerLow,
-    Color? onSurfaceContainerHigh,
     Color? outline,
+    Color? backdrop,
   }) {
     return ColorScheme(
       primary: primary ?? this.primary,
@@ -124,6 +129,7 @@ class ColorScheme with Diagnosticable {
       surfaceContainer: surfaceContainer ?? this.surfaceContainer,
       onSurfaceContainer: onSurfaceContainer ?? this.onSurfaceContainer,
       outline: outline ?? this.outline,
+      backdrop: backdrop ?? this.backdrop,
     );
   }
 
@@ -152,6 +158,7 @@ class ColorScheme with Diagnosticable {
       onSurfaceContainer:
           Color.lerp(a.onSurfaceContainer, b.onSurfaceContainer, t)!,
       outline: Color.lerp(a.outline, b.outline, t)!,
+      backdrop: Color.lerp(a.backdrop, b.backdrop, t)!,
     );
   }
 
@@ -175,7 +182,8 @@ class ColorScheme with Diagnosticable {
         other.onSurface == onSurface &&
         other.surfaceContainer == surfaceContainer &&
         other.onSurfaceContainer == onSurfaceContainer &&
-        other.outline == outline;
+        other.outline == outline &&
+        other.backdrop == backdrop;
   }
 
   @override
@@ -192,6 +200,7 @@ class ColorScheme with Diagnosticable {
         surfaceContainer,
         onSurfaceContainer,
         outline,
+        backdrop,
       );
 
   @override
@@ -242,6 +251,9 @@ class ColorScheme with Diagnosticable {
     );
     properties.add(
       ColorProperty('outline', outline, defaultValue: s.outline),
+    );
+    properties.add(
+      ColorProperty('backdrop', backdrop, defaultValue: s.backdrop),
     );
   }
 }

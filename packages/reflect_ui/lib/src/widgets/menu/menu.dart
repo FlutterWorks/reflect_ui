@@ -30,6 +30,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/widgets/button/button.dart' hide ButtonStyle;
 import 'package:reflect_ui/src/widgets/checkbox/checkbox.dart';
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart' hide ColorScheme;
 import 'package:reflect_ui/src/widgets/hoverable_area/hoverable_area.dart';
 import 'package:reflect_ui/src/widgets/menu/menu_style.dart';
 import 'package:reflect_ui/src/widgets/radio/radio.dart';
@@ -1095,7 +1096,7 @@ class _MenuItemButtonState extends State<MenuItemButton> {
           child: Button(
             variant: hovered ? ButtonVariant.filled : ButtonVariant.plain,
             onPressed: widget.enabled ? _handleSelect : null,
-            // onHover: widget.enabled ? _handleHover : null,
+            onHover: widget.enabled ? _handleHover : null,
             onFocusChange: widget.enabled ? widget.onFocusChange : null,
             focusNode: _focusNode,
             // style: mergedStyle,
@@ -3335,6 +3336,8 @@ class _MenuPanelState extends State<_MenuPanel> {
 
   @override
   Widget build(BuildContext context) {
+    final DesignThemeData theme = DesignTheme.of(context);
+
     final (MenuStyle? themeStyle, MenuStyle defaultStyle) =
         switch (widget.orientation) {
       Axis.horizontal => (null, _MenuBarDefaultsM3(context)),
@@ -3358,8 +3361,7 @@ class _MenuPanelState extends State<_MenuPanel> {
       );
     }
 
-    final Color? backgroundColor =
-        resolve<Color?>((MenuStyle? style) => style?.backgroundColor);
+    final Color backgroundColor = theme.colorScheme.surfaceContainer;
     final Color? shadowColor =
         resolve<Color?>((MenuStyle? style) => style?.shadowColor);
     final Color? surfaceTintColor =
