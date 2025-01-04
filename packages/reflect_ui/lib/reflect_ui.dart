@@ -1,13 +1,7 @@
 library reflect_ui;
 
 export 'package:flutter/material.dart'
-    show
-        Brightness,
-        SelectableText,
-        Theme,
-        ThemeData,
-        ThemeMode,
-        Tooltip;
+    show Brightness, SelectableText, Theme, ThemeData, ThemeMode, Tooltip;
 export 'package:flutter/widgets.dart';
 
 export 'src/core/colors.dart';
@@ -44,5 +38,6 @@ export 'src/widgets/radio/radio.dart';
 export 'src/widgets/segmented_control/segmented_control.dart';
 export 'src/widgets/slider/slider.dart';
 export 'src/widgets/switch/switch.dart';
+export 'src/widgets/tab_bar/tab_bar.dart';
 export 'src/widgets/text_field/text_field.dart';
 export 'src/widgets/tooltip/tooltip.dart';

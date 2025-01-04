@@ -2,28 +2,34 @@ import 'package:flutter/material.dart' show Scaffold;
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
+/// A scaffold that provides a page layout.
+///
+/// This is a wrapper around [Scaffold] that provides a navigation bar and a
+/// child.
 class PageScaffold extends StatelessWidget {
   const PageScaffold({
     super.key,
-    this.appBar,
-    this.body,
-    this.bottomNavigationBar,
+    this.navigationBar,
+    this.backgroundColor,
+    this.child,
   });
 
-  final PreferredSizeWidget? appBar;
+  /// The navigation bar of the page.
+  final PreferredSizeWidget? navigationBar;
 
-  final Widget? body;
+  /// The background color of the page.
+  final Color? backgroundColor;
 
-  final Widget? bottomNavigationBar;
+  /// The content of the page.
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
     final DesignThemeData theme = DesignTheme.of(context);
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
-      appBar: appBar,
-      body: body,
-      bottomNavigationBar: bottomNavigationBar,
+      appBar: navigationBar,
+      body: child,
+      backgroundColor: backgroundColor ?? theme.colorScheme.surface,
     );
   }
 }

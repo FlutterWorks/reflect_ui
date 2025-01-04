@@ -108,7 +108,7 @@ class _HomePageState extends State<_HomePage> {
     final storyId = Uri.base.queryParameters['id'];
 
     return PageScaffold(
-      body: storyId != null
+      child: storyId != null
           ? _buildBodyWithSingleStory(context, storyId: storyId)
           : _buildBody(context),
     );
