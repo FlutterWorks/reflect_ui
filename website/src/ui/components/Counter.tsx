@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { type getDictionary } from '../get-dictionary';
+import { type getDictionary } from '../../get-dictionary';
 
 export function Counter({
   dictionary,
@@ -12,11 +12,19 @@ export function Counter({
   return (
     <p>
       This component is rendered on client:
-      <button onClick={() => setCount((n) => n - 1)} type="button">
+      <button
+        onClick={() => setCount((n) => n - 1)}
+        type="button"
+        className="bg-primary-500"
+      >
         {dictionary.decrement}
       </button>
       {count}
-      <button onClick={() => setCount((n) => n + 1)} type="button">
+      <button
+        onClick={() => setCount((n) => n + 1)}
+        type="button"
+        className="bg-primary-500"
+      >
         {dictionary.increment}
       </button>
     </p>
