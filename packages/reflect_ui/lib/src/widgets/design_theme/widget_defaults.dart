@@ -58,8 +58,8 @@ class WidgetDefaults {
 
   static WidgetDefaults compact(Typography typography) {
     return WidgetDefaults(
-      minSize: WidgetProperty.sizedSize(32, 4),
-      padding: WidgetProperty.sizedInsets(8, 4),
+      minSize: WidgetProperty.sizedSize(30, 4),
+      padding: WidgetProperty.all<EdgeInsets>(const EdgeInsets.all(6)),
       backgroundColor: kLightPrimaryBackgroundColor,
       foregroundColor: kLightPrimaryForegroundColor,
       borderColor: kLightPrimaryBorderColor,
@@ -72,22 +72,22 @@ class WidgetDefaults {
         large: typography.labelLarge,
       ),
       secondaryMinSize: WidgetProperty.sizedSize(24, 4),
-      secondaryPadding: WidgetProperty.sizedInsets(4, 4),
+      secondaryPadding: WidgetProperty.all<EdgeInsets>(const EdgeInsets.all(5)),
       secondaryLabelStyle: SizedWidgetProperty<TextStyle>(
         small: typography.labelTiny,
         medium: typography.labelSmall,
         large: typography.labelMedium,
       ),
       tertiaryMinSize: WidgetProperty.sizedSize(16, 4),
-      tertiaryPadding: WidgetProperty.sizedInsets(4, 4),
+      tertiaryPadding: WidgetProperty.sizedInsets(2, 4),
     );
   }
 
   /// The preset primary size.
-  final SizedWidgetProperty<Size> minSize;
+  final WidgetProperty<Size> minSize;
 
   /// The preset primary padding.
-  final SizedWidgetProperty<EdgeInsets> padding;
+  final WidgetProperty<EdgeInsets> padding;
 
   /// The preset primary background color.
   final VariantedWidgetStateColor backgroundColor;
@@ -108,38 +108,38 @@ class WidgetDefaults {
   final VariantedWidgetStateColor? outlineColor;
 
   /// The preset primary outline radius.
-  final SizedWidgetProperty<BorderRadius>? outlineRadius;
+  final WidgetProperty<BorderRadius>? outlineRadius;
 
   /// The preset primary outline width.
-  final SizedWidgetProperty<double>? outlineWidth;
+  final WidgetProperty<double>? outlineWidth;
 
   /// The preset primary icon style.
-  final SizedWidgetProperty<IconStyle> iconStyle;
+  final WidgetProperty<IconStyle> iconStyle;
 
   /// The preset primary text style.
-  final SizedWidgetProperty<TextStyle> labelStyle;
+  final WidgetProperty<TextStyle> labelStyle;
 
   /// The preset secondary size.
-  final SizedWidgetProperty<Size>? secondaryMinSize;
+  final WidgetProperty<Size>? secondaryMinSize;
 
   /// The preset secondary padding.
-  final SizedWidgetProperty<EdgeInsets>? secondaryPadding;
+  final WidgetProperty<EdgeInsets>? secondaryPadding;
 
   /// The preset secondary text style.
-  final SizedWidgetProperty<TextStyle>? secondaryLabelStyle;
+  final WidgetProperty<TextStyle>? secondaryLabelStyle;
 
   /// The preset secondary icon style.
-  final SizedWidgetProperty<IconStyle>? secondaryIconStyle;
+  final WidgetProperty<IconStyle>? secondaryIconStyle;
 
   /// The preset tertiary size.
-  final SizedWidgetProperty<Size>? tertiaryMinSize;
+  final WidgetProperty<Size>? tertiaryMinSize;
 
   /// The preset tertiary padding.
-  final SizedWidgetProperty<EdgeInsets>? tertiaryPadding;
+  final WidgetProperty<EdgeInsets>? tertiaryPadding;
 
   /// The preset tertiary text style.
-  final SizedWidgetProperty<TextStyle>? tertiaryLabelStyle;
+  final WidgetProperty<TextStyle>? tertiaryLabelStyle;
 
   /// The preset tertiary icon style.
-  final SizedWidgetProperty<IconStyle>? tertiaryIconStyle;
+  final WidgetProperty<IconStyle>? tertiaryIconStyle;
 }

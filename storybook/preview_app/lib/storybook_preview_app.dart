@@ -19,8 +19,7 @@ class _HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<_HomePage> {
-  // Brightness _brightness = Brightness.light;
-  bool _useCompactTheme = true;
+  DesignThemeData _themeData = DesignThemeData.lightCompact();
 
   String _selectedStoryId = '';
 
@@ -30,20 +29,17 @@ class _HomePageState extends State<_HomePage> {
   }) {
     final story =
         widget.config.stories.firstWhereOrNull((e) => e.id == storyId);
-    return ColoredBox(
-      color: Colors.white,
-      child: Center(
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          constraints: const BoxConstraints(maxWidth: 1440),
-          child: Builder(
-            builder: (context) {
-              if (story == null) {
-                return const Text('Not found');
-              }
-              return story.build(context, []);
-            },
-          ),
+    return Center(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        constraints: const BoxConstraints(maxWidth: 1440),
+        child: Builder(
+          builder: (context) {
+            if (story == null) {
+              return const Text('Not found');
+            }
+            return story.build(context, []);
+          },
         ),
       ),
     );
@@ -52,8 +48,9 @@ class _HomePageState extends State<_HomePage> {
   Widget _buildBody(BuildContext context) {
     return Row(
       children: [
-        SizedBox(
+        Container(
           width: 240,
+          color: _themeData.colorScheme.surfaceContainer,
           child: ListView.separated(
             itemCount: widget.config.stories.length,
             itemBuilder: (context, index) {
@@ -119,16 +116,13 @@ class _HomePageState extends State<_HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final themeData = _useCompactTheme
-        ? DesignThemeData.lightCompact()
-        : DesignThemeData.light();
     return DefaultTextStyle(
-      style: (themeData.typography.bodyMedium),
+      style: (_themeData.typography.bodyMedium),
       child: DefaultSelectionStyle(
-        cursorColor: themeData.colorScheme.primary,
-        selectionColor: themeData.colorScheme.primary.withShade(100),
+        cursorColor: _themeData.colorScheme.primary,
+        selectionColor: _themeData.colorScheme.primary.withShade(100),
         child: DesignTheme(
-          data: themeData,
+          data: _themeData,
           child: Stack(
             children: [
               _build(context),
@@ -156,11 +150,12 @@ class _HomePageState extends State<_HomePage> {
                       //     },
                       //   ),
                       Switch(
-                        value: _useCompactTheme,
+                        value: _themeData.name == 'Light Compact',
                         onChanged: (value) {
-                          setState(() {
-                            _useCompactTheme = value;
-                          });
+                          _themeData = value
+                              ? DesignThemeData.lightCompact()
+                              : DesignThemeData.light();
+                          setState(() {});
                         },
                       ),
                     ],
@@ -184,7 +179,11 @@ class StorybookPreviewApp extends StorybookPreviewer
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'StorybookPreviewer',
-      theme: theme,
+      theme: theme.copyWith(
+        extensions: [
+          DesignThemeData.lightCompact(),
+        ],
+      ),
       home: _HomePage(config: config),
     );
   }
