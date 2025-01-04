@@ -19,9 +19,9 @@ const buttonStyles = cva(['font-semibold'], {
       plain: '',
     },
     size: {
-      small: 'px-2 py-2 text-[10px] leading-[16px]',
-      medium: 'px-2 py-2 text-xs',
-      large: 'px-2 py-2 text-sm',
+      small: 'px-2 py-1.5 text-xs',
+      medium: 'px-2 py-1.5 text-sm',
+      large: 'px-2 py-1.5 text-base',
     },
     radius: {
       none: 'rounded-none',
