@@ -15,7 +15,7 @@ class ButtonMeta extends Meta with _$ButtonMeta {
     return StatefulBuilder(
       builder: (context, setState) {
         return Container(
-          width: 600,
+          width: double.infinity,
           height: 400,
           color: Colors.white,
           child: Row(
@@ -25,6 +25,22 @@ class ButtonMeta extends Meta with _$ButtonMeta {
                 onPressed: () {},
                 // borderRadius: BorderRadius.zero,
                 child: const Text('Text Button'),
+              ),
+              const SizedBox(width: 8),
+              Button(
+                kind: ButtonKind.primary,
+                variant: ButtonVariant.filled,
+                onPressed: () {},
+                // borderRadius: BorderRadius.zero,
+                child: const Text('Text Button'),
+              ),
+              Button(
+                kind: ButtonKind.primary,
+                variant: ButtonVariant.filled,
+                highContrast: true,
+                onPressed: () {},
+                // borderRadius: BorderRadius.zero,
+                child: const Text('Text Button (highContrast)'),
               ),
               const SizedBox(width: 8),
               const Badge(

@@ -6,7 +6,6 @@ import 'package:reflect_ui/src/core/widget_radius.dart';
 import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/core/widget_variant.dart';
 import 'package:reflect_ui/src/painting/widget_property.dart';
-import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
 class VariantedWidgetStateColor implements WidgetProperty<Color> {
   const VariantedWidgetStateColor({
@@ -49,28 +48,14 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
     WidgetVariant? variant,
     WidgetSize? size,
     WidgetRadius? radius,
-    DesignThemeData? theme,
     Map<String, dynamic>? extra,
   }) {
+    bool isHighContrast = false;
     Color? seedColor;
-    if (extra != null && extra.containsKey('seedColor')) {
-      seedColor = extra['seedColor'];
-    }
-    if (kind != null && theme != null) {
-      switch (kind.namedKind) {
-        case NamedKind.primary:
-          seedColor = theme.colorScheme.primary;
-        case NamedKind.secondary:
-          seedColor = theme.colorScheme.secondary;
-        case NamedKind.success:
-          seedColor = theme.colorScheme.success;
-        case NamedKind.danger:
-          seedColor = theme.colorScheme.danger;
-        case NamedKind.warning:
-          seedColor = theme.colorScheme.warning;
-        case NamedKind.info:
-          seedColor = theme.colorScheme.info;
-      }
+    if (extra != null) {
+      seedColor = extra.containsKey('seedColor') ? extra['seedColor'] : null;
+      isHighContrast =
+          extra.containsKey('highContrast') ? extra['highContrast'] : false;
     }
 
     ColorDescriptor? colorDescriptor;
@@ -85,17 +70,31 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
     if (colorDescriptor?.color != null) {
       seedColor = colorDescriptor?.color;
     }
+    int? colorShade = colorDescriptor?.shade;
+    double? colorOpacity = colorDescriptor?.opacity;
+
+    if (isHighContrast) {
+      if (colorDescriptor?.highContrastColor != null) {
+        seedColor = colorDescriptor?.highContrastColor;
+      }
+      if (colorDescriptor?.highContrastShade != null) {
+        colorShade = colorDescriptor?.highContrastShade;
+      }
+      if (colorDescriptor?.highContrastOpacity != null) {
+        colorOpacity = colorDescriptor?.highContrastOpacity;
+      }
+    }
 
     Color resolvedColor = seedColor ?? Colors.black;
-    if (seedColor is ColorSwatch<int> && colorDescriptor?.shade != null) {
-      if (colorDescriptor?.shade != -1) {
-        resolvedColor = seedColor[colorDescriptor!.shade!]!;
+    if (seedColor is ColorSwatch<int> && colorShade != null) {
+      if (colorShade != -1) {
+        resolvedColor = seedColor[colorShade]!;
       } else {
         resolvedColor = Colors.transparent;
       }
     }
-    if (colorDescriptor?.opacity != null) {
-      resolvedColor = resolvedColor.withOpacity(colorDescriptor!.opacity!);
+    if (colorOpacity != null) {
+      resolvedColor = resolvedColor.withOpacity(colorOpacity);
     }
     return resolvedColor;
   }

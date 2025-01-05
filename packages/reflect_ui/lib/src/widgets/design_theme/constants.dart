@@ -85,9 +85,20 @@ final kLightPrimaryBackgroundColor = VariantedWidgetStateColor(
     WidgetState.hovered: ColorDescriptor(color: Colors.neutral.shade100),
   },
   filled: {
-    null: ColorDescriptor.shade(600),
-    WidgetState.hovered: ColorDescriptor.shade(700),
-    WidgetState.pressed: ColorDescriptor.shade(800),
+    null: ColorDescriptor(
+      shade: 600,
+      highContrastShade: 900,
+    ),
+    WidgetState.hovered: ColorDescriptor(
+      shade: 700,
+      highContrastShade: 900,
+      highContrastOpacity: 0.8,
+    ),
+    WidgetState.pressed: ColorDescriptor(
+      shade: 800,
+      highContrastShade: 900,
+      highContrastOpacity: 0.8,
+    ),
   },
   tinted: {
     null: ColorDescriptor.shade(50),

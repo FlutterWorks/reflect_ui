@@ -219,11 +219,24 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
 
     Size minSize = style.minSize.sized(widget.size);
     EdgeInsets padding = style.padding.sized(widget.size);
-    Color backgroundColor =
-        style.backgroundColor.varianted(variant, states, seedColor);
-    Color foregroundColor =
-        style.foregroundColor.varianted(variant, states, seedColor);
-    Color borderColor = style.borderColor.varianted(variant, states, seedColor);
+    Color backgroundColor = style.backgroundColor.varianted(
+      variant,
+      states,
+      seedColor,
+      highContrast: widget.highContrast,
+    );
+    Color foregroundColor = style.foregroundColor.varianted(
+      variant,
+      states,
+      seedColor,
+      highContrast: widget.highContrast,
+    );
+    Color borderColor = style.borderColor.varianted(
+      variant,
+      states,
+      seedColor,
+      highContrast: widget.highContrast,
+    );
     BorderRadius borderRadius = style.borderRadius.rounded(widget.radius);
     double borderWidth = style.borderWidth.sized(widget.size);
     TextStyle textStyle = style.textStyle.sized(widget.size);

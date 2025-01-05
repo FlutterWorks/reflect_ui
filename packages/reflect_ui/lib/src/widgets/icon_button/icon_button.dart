@@ -8,8 +8,8 @@ enum IconButtonVariant with WidgetVariant {
   filled,
   tinted,
   outlined,
-  subtle,
-  plain,
+  muted,
+  cleared,
 }
 
 class IconButton extends Button {

@@ -5,6 +5,9 @@ class ColorDescriptor {
     this.color,
     this.shade,
     this.opacity,
+    this.highContrastColor,
+    this.highContrastShade,
+    this.highContrastOpacity,
   });
 
   const ColorDescriptor.shade(int shade) : this(shade: shade);
@@ -14,4 +17,8 @@ class ColorDescriptor {
   final Color? color;
   final int? shade;
   final double? opacity;
+
+  final Color? highContrastColor;
+  final int? highContrastShade;
+  final double? highContrastOpacity;
 }
