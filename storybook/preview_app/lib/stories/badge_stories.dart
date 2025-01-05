@@ -33,7 +33,7 @@ class BadgeMeta extends Meta with _$BadgeMeta {
               child: Text('Badge'),
             ),
             Badge(
-              variant: BadgeVariant.subtle,
+              variant: BadgeVariant.muted,
               child: Text('Badge'),
             ),
           ],

@@ -21,10 +21,10 @@ const kDarkPrimaryBackgroundColor = VariantedWidgetStateColor(
   outlined: {
     null: ColorDescriptor.shade(600),
   },
-  subtle: {
+  muted: {
     null: ColorDescriptor.shade(600),
   },
-  plain: {
+  cleared: {
     null: ColorDescriptor.shade(600),
   },
 );
@@ -43,10 +43,10 @@ const kDarkPrimaryForegroundColor = VariantedWidgetStateColor(
   outlined: {
     null: ColorDescriptor.shade(600),
   },
-  subtle: {
+  muted: {
     null: ColorDescriptor.shade(600),
   },
-  plain: {
+  cleared: {
     null: ColorDescriptor.shade(600),
   },
 );
@@ -67,10 +67,10 @@ const kDarkPrimaryBorderColor = VariantedWidgetStateColor(
   outlined: {
     null: ColorDescriptor.shade(600),
   },
-  subtle: {
+  muted: {
     null: ColorDescriptor.shade(600),
   },
-  plain: {
+  cleared: {
     null: ColorDescriptor.shade(600),
   },
 );
@@ -99,12 +99,12 @@ final kLightPrimaryBackgroundColor = VariantedWidgetStateColor(
     WidgetState.hovered: ColorDescriptor.shade(50),
     WidgetState.pressed: ColorDescriptor.shade(100),
   },
-  subtle: {
+  muted: {
     null: ColorDescriptor.shade(-1),
     WidgetState.hovered: ColorDescriptor.shade(50),
     WidgetState.pressed: ColorDescriptor.shade(100),
   },
-  plain: {
+  cleared: {
     null: ColorDescriptor.shade(-1),
   },
 );
@@ -122,10 +122,10 @@ final kLightPrimaryForegroundColor = VariantedWidgetStateColor(
   outlined: {
     null: ColorDescriptor.shade(600),
   },
-  subtle: {
+  muted: {
     null: ColorDescriptor.shade(600),
   },
-  plain: {
+  cleared: {
     null: ColorDescriptor.shade(600),
   },
 );
@@ -143,10 +143,10 @@ final kLightPrimaryBorderColor = VariantedWidgetStateColor(
   outlined: {
     null: ColorDescriptor.shade(600),
   },
-  subtle: {
+  muted: {
     null: ColorDescriptor.shade(-1),
   },
-  plain: {
+  cleared: {
     null: ColorDescriptor.shade(-1),
   },
 );

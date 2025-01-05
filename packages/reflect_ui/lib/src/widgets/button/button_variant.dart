@@ -11,9 +11,9 @@ enum ButtonVariant with WidgetVariant {
   /// An outlined button.
   outlined,
 
-  /// A subtle button.
-  subtle,
+  /// A muted button.
+  muted,
 
-  /// A plain button.
-  plain,
+  /// A cleared button.
+  cleared,
 }

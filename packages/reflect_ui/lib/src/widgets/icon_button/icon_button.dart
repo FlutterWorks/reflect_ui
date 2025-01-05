@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reflect_ui/src/core/widget_variant.dart';
 import 'package:reflect_ui/src/widgets/button/button.dart';
+import 'package:collection/collection.dart';
 
 enum IconButtonVariant with WidgetVariant {
   filled,
@@ -19,7 +20,7 @@ class IconButton extends Button {
     Color? iconColor,
     double? iconSize,
     super.style,
-    IconButtonVariant variant = IconButtonVariant.filled,
+    IconButtonVariant? variant,
     super.kind,
     super.color,
     super.focusNode,
@@ -34,8 +35,8 @@ class IconButton extends Button {
                   size: iconSize ?? 22,
                   color: iconColor,
                 ),
-          variant: ButtonVariant.values.firstWhere(
-            (e) => e.namedVariant == variant.namedVariant,
+          variant: ButtonVariant.values.firstWhereOrNull(
+            (e) => e.namedVariant == variant?.namedVariant,
           ),
         );
 }

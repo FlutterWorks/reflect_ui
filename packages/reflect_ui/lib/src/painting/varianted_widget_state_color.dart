@@ -14,8 +14,8 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
     required this.filled,
     required this.tinted,
     required this.outlined,
-    required this.subtle,
-    required this.plain,
+    required this.muted,
+    required this.cleared,
     this.debugName,
   });
 
@@ -23,8 +23,8 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
   final Map<WidgetState?, ColorDescriptor> filled;
   final Map<WidgetState?, ColorDescriptor> tinted;
   final Map<WidgetState?, ColorDescriptor> outlined;
-  final Map<WidgetState?, ColorDescriptor> subtle;
-  final Map<WidgetState?, ColorDescriptor> plain;
+  final Map<WidgetState?, ColorDescriptor> muted;
+  final Map<WidgetState?, ColorDescriptor> cleared;
 
   final String? debugName;
 
@@ -34,8 +34,8 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
       NamedVariant.filled: filled,
       NamedVariant.tinted: tinted,
       NamedVariant.outlined: outlined,
-      NamedVariant.subtle: subtle,
-      NamedVariant.plain: plain,
+      NamedVariant.muted: muted,
+      NamedVariant.cleared: cleared,
     };
   }
 

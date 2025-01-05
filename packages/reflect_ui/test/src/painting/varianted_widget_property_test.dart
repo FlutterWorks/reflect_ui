@@ -7,8 +7,8 @@ enum MockWidgetVariant with WidgetVariant {
   filled,
   tinted,
   outlined,
-  subtle,
-  plain,
+  muted,
+  cleared,
 }
 
 void main() {
@@ -19,8 +19,8 @@ void main() {
         filled: Colors.indigo,
         tinted: Colors.gray,
         outlined: Colors.green,
-        subtle: Colors.red,
-        plain: Colors.yellow,
+        muted: Colors.red,
+        cleared: Colors.yellow,
       );
       final filledValue = property.varianted(
         MockWidgetVariant.filled,
@@ -40,18 +40,18 @@ void main() {
         null,
       );
       expect(outlinedValue, Colors.green);
-      final subtleValue = property.varianted(
-        MockWidgetVariant.subtle,
+      final mutedValue = property.varianted(
+        MockWidgetVariant.muted,
         {},
         null,
       );
-      expect(subtleValue, Colors.red);
-      final plainValue = property.varianted(
-        MockWidgetVariant.plain,
+      expect(mutedValue, Colors.red);
+      final clearedValue = property.varianted(
+        MockWidgetVariant.cleared,
         {},
         null,
       );
-      expect(plainValue, Colors.yellow);
+      expect(clearedValue, Colors.yellow);
     });
   });
 }

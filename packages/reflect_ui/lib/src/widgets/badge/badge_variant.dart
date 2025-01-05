@@ -4,5 +4,5 @@ enum BadgeVariant with WidgetVariant {
   filled,
   tinted,
   outlined,
-  subtle,
+  muted,
 }

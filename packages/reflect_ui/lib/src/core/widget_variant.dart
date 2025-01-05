@@ -14,15 +14,15 @@ enum NamedVariant {
   /// An outlined widget has a border around the widget.
   outlined,
 
-  /// The subtle variant of a widget.
+  /// The muted variant of a widget.
   ///
-  /// A subtle widget has a background color that is a lighter shade of the primary color.
-  subtle,
+  /// A muted widget has a background color that is a lighter shade of the primary color.
+  muted,
 
-  /// The plain variant of a widget.
+  /// The cleared variant of a widget.
   ///
-  /// A plain widget without background and border.
-  plain,
+  /// A cleared widget without background and border.
+  cleared,
 }
 
 /// The variant of a widget.
