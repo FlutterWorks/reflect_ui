@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/core/widget_radius.dart';
 import 'package:reflect_ui/src/core/widget_size.dart';
+import 'package:reflect_ui/src/painting/widget_property.dart';
 import 'package:reflect_ui/src/widgets/button/button_kind.dart';
 import 'package:reflect_ui/src/widgets/button/button_style.dart';
 import 'package:reflect_ui/src/widgets/button/button_variant.dart';
@@ -20,25 +21,9 @@ export 'package:reflect_ui/src/widgets/button/button_variant.dart';
 /// Takes in a text or an icon that fades out and in on touch. May optionally have a
 /// background.
 ///
-/// The [padding] defaults to 16.0 pixels. When using a [Button] within
-/// a fixed height parent, like a [CupertinoNavigationBar], a smaller, or even
-/// [EdgeInsets.zero], should be used to prevent clipping larger [child]
-/// widgets.
-///
-/// Preserves any parent [IconThemeData] but overwrites its [IconThemeData.color]
-/// with the [CupertinoThemeData.primaryColor] (or
-/// [CupertinoThemeData.primaryContrastingColor] if the button is disabled).
-///
-/// {@tool dartpad}
-/// This sample shows produces an enabled and disabled [Button] and
-/// [Button.filled].
-///
-/// ** See code in examples/api/lib/cupertino/button/cupertino_button.0.dart **
-/// {@end-tool}
-///
 /// See also:
 ///
-///  * <https://developer.apple.com/design/human-interface-guidelines/buttons/>
+///  * <https://reflect-ui.leanflutter.dev/design-system/buttons/>
 class Button extends StatefulWidget {
   /// Creates an iOS-style button.
   const Button({
@@ -46,10 +31,12 @@ class Button extends StatefulWidget {
     required this.child,
     this.style,
     this.color,
-    this.kind = ButtonKind.primary,
-    this.variant = ButtonVariant.filled,
+    this.kind,
+    this.variant,
     this.size = WidgetSize.medium,
     this.radius = WidgetRadius.medium,
+    this.highContrast = false,
+    this.expand = false,
     this.focusNode,
     this.autofocus = false,
     this.onFocusChange,
@@ -74,13 +61,13 @@ class Button extends StatefulWidget {
 
   /// The kind of the button.
   ///
-  /// Defaults to [ButtonKind.primary].
-  final ButtonKind kind;
+  /// Defaults to null.
+  final ButtonKind? kind;
 
   /// The variant of the button.
   ///
-  /// Defaults to [ButtonVariant.filled].
-  final ButtonVariant variant;
+  /// Defaults to null.
+  final ButtonVariant? variant;
 
   /// The size of the button.
   ///
@@ -91,6 +78,17 @@ class Button extends StatefulWidget {
   ///
   /// Defaults to [WidgetRadius.medium].
   final BorderRadius radius;
+
+  /// Whether the button should have a high contrast background and foreground
+  /// color.
+  ///
+  /// Defaults to false.
+  final bool highContrast;
+
+  /// Whether the button should expand to fill its container.
+  ///
+  /// Defaults to false.
+  final bool expand;
 
   /// {@macro flutter.widgets.Focus.focusNode}
   final FocusNode? focusNode;
@@ -211,6 +209,11 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
     final DesignThemeData theme = DesignTheme.of(context);
     final ButtonStyle style = widget.style ?? widget.themeStyleOf(context);
 
+    Color seedColor = widget.color ?? style.color.kinded(widget.kind);
+    Color bgColor = style.backgroundColor.varianted(widget.variant, seedColor);
+    Color fgColor = style.foregroundColor.varianted(widget.variant, seedColor);
+    Color borderColor = style.borderColor.varianted(widget.variant, seedColor);
+
     final effectiveStyle = style.resolve(
       states,
       widget.kind,
@@ -244,6 +247,7 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
               minHeight: effectiveStyle.minSize.height,
             ),
             child: Container(
+              width: widget.expand ? double.infinity : null,
               foregroundDecoration: BoxDecoration(
                 border: effectiveStyle.borderColor != null
                     ? Border.all(

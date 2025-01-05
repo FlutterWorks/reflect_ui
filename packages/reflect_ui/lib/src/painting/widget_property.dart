@@ -7,6 +7,38 @@ import 'package:reflect_ui/src/core/widget_variant.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 import 'package:reflect_ui/src/widgets/icon/icon_style.dart';
 
+extension WidgetPropertyWithSized on WidgetProperty {
+  /// Resolves the property for the given [kind].
+  T kinded<T>(WidgetKind? kind) {
+    return resolveWith({}, kind: kind);
+  }
+
+  /// Resolves the property for the given [radius].
+  T rounded<T>(BorderRadius radius) {
+    if (radius is! WidgetRadius) {
+      throw ArgumentError('radius must be a WidgetRadius');
+    }
+    return resolveWith({}, radius: radius);
+  }
+
+  /// Resolves the property for the given [size].
+  T sized<T>(Size size) {
+    if (size is! WidgetSize) {
+      throw ArgumentError('size must be a WidgetSize');
+    }
+    return resolveWith({}, size: size);
+  }
+
+  /// Resolves the property for the given [variant].
+  T varianted<T>(
+    WidgetVariant? variant,
+    Color? seedColor, {
+    bool? highContrast,
+  }) {
+    return resolveWith({}, variant: variant);
+  }
+}
+
 abstract class WidgetProperty<T> extends WidgetStateProperty<T> {
   /// Returns a value of type `T` that depends on [states] and the other
   /// properties.

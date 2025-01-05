@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
-const double _kTabBarHeight = 60.0;
+const double _kTabBarHeight = 62.0;
 
 /// An iOS-styled bottom navigation tab bar.
 ///
@@ -252,7 +252,7 @@ class TabBar extends StatelessWidget implements PreferredSizeWidget {
       active ? item.activeIcon : item.icon,
       if (item.label != null) ...[
         Padding(
-          padding: const EdgeInsets.only(top: 2.0, bottom: 4.0),
+          padding: const EdgeInsets.only(top: 0.0, bottom: 4.0),
           child: Text(item.label!),
         ),
       ],

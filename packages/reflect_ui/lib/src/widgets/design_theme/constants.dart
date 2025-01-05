@@ -6,6 +6,10 @@ import 'package:reflect_ui/src/painting/varianted_widget_state_color.dart';
 // #region Dark theme constants.
 
 const kDarkPrimaryBackgroundColor = VariantedWidgetStateColor(
+  normal: {
+    null: ColorDescriptor(color: Colors.gray),
+    WidgetState.hovered: ColorDescriptor(color: Colors.gray),
+  },
   filled: {
     null: ColorDescriptor.shade(600),
     WidgetState.hovered: ColorDescriptor.shade(700),
@@ -26,6 +30,10 @@ const kDarkPrimaryBackgroundColor = VariantedWidgetStateColor(
 );
 
 const kDarkPrimaryForegroundColor = VariantedWidgetStateColor(
+  normal: {
+    null: ColorDescriptor(color: Colors.gray),
+    WidgetState.hovered: ColorDescriptor(color: Colors.gray),
+  },
   filled: {
     null: ColorDescriptor(color: Colors.white),
   },
@@ -44,6 +52,10 @@ const kDarkPrimaryForegroundColor = VariantedWidgetStateColor(
 );
 
 const kDarkPrimaryBorderColor = VariantedWidgetStateColor(
+  normal: {
+    null: ColorDescriptor(color: Colors.gray),
+    WidgetState.hovered: ColorDescriptor(color: Colors.gray),
+  },
   filled: {
     null: ColorDescriptor.shade(600),
     WidgetState.hovered: ColorDescriptor.shade(700),
@@ -67,7 +79,11 @@ const kDarkPrimaryBorderColor = VariantedWidgetStateColor(
 
 // #region Light theme constants.
 
-const kLightPrimaryBackgroundColor = VariantedWidgetStateColor(
+final kLightPrimaryBackgroundColor = VariantedWidgetStateColor(
+  normal: {
+    null: ColorDescriptor(color: Colors.transparent),
+    WidgetState.hovered: ColorDescriptor(color: Colors.neutral.shade100),
+  },
   filled: {
     null: ColorDescriptor.shade(600),
     WidgetState.hovered: ColorDescriptor.shade(700),
@@ -93,7 +109,10 @@ const kLightPrimaryBackgroundColor = VariantedWidgetStateColor(
   },
 );
 
-const kLightPrimaryForegroundColor = VariantedWidgetStateColor(
+final kLightPrimaryForegroundColor = VariantedWidgetStateColor(
+  normal: {
+    null: ColorDescriptor(color: Colors.neutral.shade900),
+  },
   filled: {
     null: ColorDescriptor(color: Colors.white),
   },
@@ -111,7 +130,10 @@ const kLightPrimaryForegroundColor = VariantedWidgetStateColor(
   },
 );
 
-const kLightPrimaryBorderColor = VariantedWidgetStateColor(
+final kLightPrimaryBorderColor = VariantedWidgetStateColor(
+  normal: {
+    null: ColorDescriptor(color: Colors.neutral.shade300),
+  },
   filled: {
     null: ColorDescriptor.shade(-1),
   },

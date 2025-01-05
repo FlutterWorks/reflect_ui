@@ -52,69 +52,69 @@ class DesignThemeData extends ThemeExtension<DesignThemeData>
 
   /// Creates a dark design theme.
   static DesignThemeData dark({
-    ColorScheme? colorScheme,
-    IconLibrary? iconLibrary,
+    ColorScheme colorScheme = const ColorScheme.dark(),
+    IconLibrary iconLibrary = const IconLibrary.material(),
   }) {
     const typography = Typography.regular();
     return DesignThemeData(
       id: 'dark',
       name: 'Dark',
       brightness: Brightness.dark,
-      colorScheme: colorScheme ?? const ColorScheme.dark(),
-      iconLibrary: iconLibrary ?? const IconLibrary.material(),
+      colorScheme: colorScheme,
+      iconLibrary: iconLibrary,
       typography: typography,
-      widgetDefaults: WidgetDefaults.regular(typography),
+      widgetDefaults: WidgetDefaults.regular(colorScheme, typography),
     );
   }
 
   /// Creates a dark compact design theme.
   static DesignThemeData darkCompact({
-    ColorScheme? colorScheme,
-    IconLibrary? iconLibrary,
+    ColorScheme colorScheme = const ColorScheme.dark(),
+    IconLibrary iconLibrary = const IconLibrary.material(),
   }) {
     const typography = Typography.compact();
     return DesignThemeData(
       id: 'dark-compact',
       name: 'Dark Compact',
       brightness: Brightness.dark,
-      colorScheme: colorScheme ?? const ColorScheme.dark(),
-      iconLibrary: iconLibrary ?? const IconLibrary.material(),
+      colorScheme: colorScheme,
+      iconLibrary: iconLibrary,
       typography: typography,
-      widgetDefaults: WidgetDefaults.compact(typography),
+      widgetDefaults: WidgetDefaults.compact(colorScheme, typography),
     );
   }
 
   /// Creates a light design theme.
   static DesignThemeData light({
-    ColorScheme? colorScheme,
-    IconLibrary? iconLibrary,
+    ColorScheme colorScheme = const ColorScheme.light(),
+    IconLibrary iconLibrary = const IconLibrary.material(),
   }) {
     const typography = Typography.regular();
     return DesignThemeData(
       id: 'light',
       name: 'Light',
       brightness: Brightness.light,
-      colorScheme: colorScheme ?? const ColorScheme.light(),
-      iconLibrary: iconLibrary ?? const IconLibrary.material(),
+      colorScheme: colorScheme,
+      iconLibrary: iconLibrary,
       typography: typography,
-      widgetDefaults: WidgetDefaults.regular(typography),
+      widgetDefaults: WidgetDefaults.regular(colorScheme, typography),
     );
   }
 
   /// Creates a light compact design theme.
   static DesignThemeData lightCompact({
-    ColorScheme? colorScheme,
-    IconLibrary? iconLibrary,
+    ColorScheme colorScheme = const ColorScheme.light(),
+    IconLibrary iconLibrary = const IconLibrary.material(),
   }) {
     const typography = Typography.compact();
     return DesignThemeData(
       id: 'light-compact',
       name: 'Light Compact',
       brightness: Brightness.light,
-      colorScheme: colorScheme ?? const ColorScheme.light(),
-      iconLibrary: iconLibrary ?? const IconLibrary.material(),
+      colorScheme: colorScheme,
+      iconLibrary: iconLibrary,
       typography: typography,
-      widgetDefaults: WidgetDefaults.compact(typography),
+      widgetDefaults: WidgetDefaults.compact(colorScheme, typography),
     );
   }
 }

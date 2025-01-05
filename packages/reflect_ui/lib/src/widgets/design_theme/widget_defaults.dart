@@ -7,6 +7,7 @@ import 'package:reflect_ui/src/widgets/icon/icon_style.dart';
 
 class WidgetDefaults {
   const WidgetDefaults({
+    required this.seedColor,
     required this.minSize,
     required this.padding,
     required this.backgroundColor,
@@ -29,8 +30,19 @@ class WidgetDefaults {
     this.tertiaryLabelStyle,
   });
 
-  static WidgetDefaults regular(Typography typography) {
+  static WidgetDefaults regular(
+    ColorScheme colorScheme,
+    Typography typography,
+  ) {
     return WidgetDefaults(
+      seedColor: KindedWidgetProperty<Color>(
+        primary: colorScheme.primary,
+        secondary: colorScheme.secondary,
+        success: colorScheme.success,
+        danger: colorScheme.danger,
+        warning: colorScheme.warning,
+        info: colorScheme.info,
+      ),
       minSize: WidgetProperty.sizedSize(44, 4),
       padding: WidgetProperty.sizedInsets(12, 4),
       backgroundColor: kLightPrimaryBackgroundColor,
@@ -56,8 +68,19 @@ class WidgetDefaults {
     );
   }
 
-  static WidgetDefaults compact(Typography typography) {
+  static WidgetDefaults compact(
+    ColorScheme colorScheme,
+    Typography typography,
+  ) {
     return WidgetDefaults(
+      seedColor: KindedWidgetProperty<Color>(
+        primary: colorScheme.primary,
+        secondary: colorScheme.secondary,
+        success: colorScheme.success,
+        danger: colorScheme.danger,
+        warning: colorScheme.warning,
+        info: colorScheme.info,
+      ),
       minSize: WidgetProperty.sizedSize(30, 4),
       padding: WidgetProperty.all<EdgeInsets>(const EdgeInsets.all(6)),
       backgroundColor: kLightPrimaryBackgroundColor,
@@ -82,6 +105,8 @@ class WidgetDefaults {
       tertiaryPadding: WidgetProperty.sizedInsets(2, 4),
     );
   }
+
+  final WidgetProperty<Color> seedColor;
 
   /// The preset primary size.
   final WidgetProperty<Size> minSize;

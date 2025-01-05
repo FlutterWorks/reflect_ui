@@ -10,6 +10,7 @@ import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
 class VariantedWidgetStateColor implements WidgetProperty<Color> {
   const VariantedWidgetStateColor({
+    required this.normal,
     required this.filled,
     required this.tinted,
     required this.outlined,
@@ -17,6 +18,8 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
     required this.plain,
     this.debugName,
   });
+
+  final Map<WidgetState?, ColorDescriptor> normal;
   final Map<WidgetState?, ColorDescriptor> filled;
   final Map<WidgetState?, ColorDescriptor> tinted;
   final Map<WidgetState?, ColorDescriptor> outlined;
@@ -25,8 +28,9 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
 
   final String? debugName;
 
-  Map<NamedVariant, Map<WidgetState?, ColorDescriptor>> get _values {
+  Map<NamedVariant?, Map<WidgetState?, ColorDescriptor>> get _values {
     return {
+      null: normal,
       NamedVariant.filled: filled,
       NamedVariant.tinted: tinted,
       NamedVariant.outlined: outlined,
@@ -48,11 +52,6 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
     DesignThemeData? theme,
     Map<String, dynamic>? extra,
   }) {
-    if (variant == null) {
-      throw ArgumentError(
-        'variant is required for ${debugName ?? 'Color'} property.',
-      );
-    }
     Color? seedColor;
     if (kind != null && theme != null) {
       switch (kind.namedKind) {
@@ -73,13 +72,13 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
 
     ColorDescriptor? colorDescriptor;
     if (states.contains(WidgetState.disabled)) {
-      colorDescriptor = _values[variant.namedVariant]![WidgetState.disabled];
+      colorDescriptor = _values[variant?.namedVariant]![WidgetState.disabled];
     } else if (states.contains(WidgetState.pressed)) {
-      colorDescriptor = _values[variant.namedVariant]![WidgetState.pressed];
+      colorDescriptor = _values[variant?.namedVariant]![WidgetState.pressed];
     } else if (states.contains(WidgetState.hovered)) {
-      colorDescriptor = _values[variant.namedVariant]![WidgetState.hovered];
+      colorDescriptor = _values[variant?.namedVariant]![WidgetState.hovered];
     }
-    colorDescriptor ??= _values[variant.namedVariant]![null];
+    colorDescriptor ??= _values[variant?.namedVariant]![null];
     if (colorDescriptor?.color != null) {
       seedColor = colorDescriptor?.color;
     }

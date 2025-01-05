@@ -14,71 +14,76 @@ class ButtonMeta extends Meta with _$ButtonMeta {
   Widget buildWidget(BuildContext context, List<Arg> args) {
     return StatefulBuilder(
       builder: (context, setState) {
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Button(
-              variant: ButtonVariant.filled,
-              onPressed: () {},
-              // borderRadius: BorderRadius.zero,
-              child: const Text('Text Button'),
-            ),
-            const Badge(
-              variant: BadgeVariant.filled,
-              child: Text('1'),
-            ),
-            const SizedBox(width: 8),
-            const Badge(
-              variant: BadgeVariant.outlined,
-              child: Text('99+'),
-            ),
-            Switch(
-              value: true,
-              onChanged: (newValue) => setState(() {
-                // value = newValue!;
-              }),
-            ),
-            Switch(
-              value: false,
-              onChanged: (newValue) => setState(() {
-                // value = newValue!;
-              }),
-            ),
-            Checkbox(
-              value: true,
-              onChanged: (newValue) => setState(() {
-                // value = newValue!;
-              }),
-              // shape: CircleBorder(),
-            ),
-            Checkbox(
-              value: false,
-              onChanged: (newValue) => setState(() {
-                // value = newValue!;
-              }),
-            ),
-            Checkbox(
-              value: null,
-              tristate: true,
-              onChanged: (newValue) => setState(() {
-                // value = newValue!;
-              }),
-            ),
-            Radio<String>(
-              value: '1',
-              groupValue: radioValue,
-              onChanged: (newValue) => setState(() {
-                radioValue = newValue!;
-              }),
-            ),
-            Radio<String>(
-              value: '2',
-              groupValue: radioValue,
-              onChanged: (newValue) => setState(() {
-                radioValue = newValue!;
-              }),
-            ),
-          ],
+        return Container(
+          width: 600,
+          height: 400,
+          color: Colors.white,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Button(
+                onPressed: () {},
+                // borderRadius: BorderRadius.zero,
+                child: const Text('Text Button'),
+              ),
+              const SizedBox(width: 8),
+              const Badge(
+                variant: BadgeVariant.filled,
+                child: Text('1'),
+              ),
+              const SizedBox(width: 8),
+              const Badge(
+                variant: BadgeVariant.outlined,
+                child: Text('99+'),
+              ),
+              Switch(
+                value: true,
+                onChanged: (newValue) => setState(() {
+                  // value = newValue!;
+                }),
+              ),
+              Switch(
+                value: false,
+                onChanged: (newValue) => setState(() {
+                  // value = newValue!;
+                }),
+              ),
+              Checkbox(
+                value: true,
+                onChanged: (newValue) => setState(() {
+                  // value = newValue!;
+                }),
+                // shape: CircleBorder(),
+              ),
+              Checkbox(
+                value: false,
+                onChanged: (newValue) => setState(() {
+                  // value = newValue!;
+                }),
+              ),
+              Checkbox(
+                value: null,
+                tristate: true,
+                onChanged: (newValue) => setState(() {
+                  // value = newValue!;
+                }),
+              ),
+              Radio<String>(
+                value: '1',
+                groupValue: radioValue,
+                onChanged: (newValue) => setState(() {
+                  radioValue = newValue!;
+                }),
+              ),
+              Radio<String>(
+                value: '2',
+                groupValue: radioValue,
+                onChanged: (newValue) => setState(() {
+                  radioValue = newValue!;
+                }),
+              ),
+            ],
+          ),
         );
       },
     );
@@ -162,6 +167,7 @@ class ButtonWithSizeStory extends StoryObj<ButtonMeta>
               for (final namedSize in NamedSize.values)
                 Button(
                   size: WidgetSize(namedSize),
+                  kind: ButtonKind.primary,
                   variant: variant,
                   onPressed: () {},
                   child: const Text('Text Button'),

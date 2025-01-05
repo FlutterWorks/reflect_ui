@@ -9,6 +9,7 @@ class WidgetStyle {
     this.minSize = const WidgetPropertyAll(Size.zero),
     this.margin = const WidgetPropertyAll(EdgeInsets.zero),
     this.padding = const WidgetPropertyAll(EdgeInsets.zero),
+    this.color = const WidgetPropertyAll(Colors.transparent),
     this.backgroundColor = const WidgetPropertyAll(Colors.transparent),
     this.foregroundColor = const WidgetPropertyAll(Colors.transparent),
     this.borderColor = const WidgetPropertyAll(Colors.transparent),
@@ -30,6 +31,9 @@ class WidgetStyle {
 
   /// A widget style that has a padding.
   final WidgetProperty<EdgeInsets> padding;
+
+  /// A widget style that has a color, That is a seed color.
+  final WidgetProperty<Color> color;
 
   /// A widget style that has a background color.
   final WidgetProperty<Color> backgroundColor;
