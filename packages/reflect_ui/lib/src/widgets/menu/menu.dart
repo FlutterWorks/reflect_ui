@@ -30,7 +30,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:reflect_ui/src/widgets/button/button.dart' hide ButtonStyle;
 import 'package:reflect_ui/src/widgets/checkbox/checkbox.dart';
-import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart' hide ColorScheme;
+import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart'
+    hide ColorScheme;
 import 'package:reflect_ui/src/widgets/hoverable_area/hoverable_area.dart';
 import 'package:reflect_ui/src/widgets/menu/menu_style.dart';
 import 'package:reflect_ui/src/widgets/radio/radio.dart';
@@ -1094,7 +1095,8 @@ class _MenuItemButtonState extends State<MenuItemButton> {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
           child: Button(
-            variant: hovered ? ButtonVariant.filled : ButtonVariant.plain,
+            kind: hovered ? ButtonKind.primary : null,
+            variant: hovered ? ButtonVariant.filled : null,
             onPressed: widget.enabled ? _handleSelect : null,
             onHover: widget.enabled ? _handleHover : null,
             onFocusChange: widget.enabled ? widget.onFocusChange : null,

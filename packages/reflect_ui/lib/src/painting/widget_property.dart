@@ -7,7 +7,7 @@ import 'package:reflect_ui/src/core/widget_variant.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 import 'package:reflect_ui/src/widgets/icon/icon_style.dart';
 
-extension WidgetPropertyWithSized on WidgetProperty {
+extension WidgetPropertyX on WidgetProperty {
   /// Resolves the property for the given [kind].
   T kinded<T>(WidgetKind? kind) {
     return resolveWith({}, kind: kind);
@@ -32,10 +32,18 @@ extension WidgetPropertyWithSized on WidgetProperty {
   /// Resolves the property for the given [variant].
   T varianted<T>(
     WidgetVariant? variant,
+    Set<WidgetState> states,
     Color? seedColor, {
     bool? highContrast,
   }) {
-    return resolveWith({}, variant: variant);
+    return resolveWith(
+      states,
+      variant: variant,
+      extra: {
+        'seedColor': seedColor,
+        'highContrast': highContrast,
+      }..removeWhere((key, value) => value == null),
+    );
   }
 }
 
@@ -49,7 +57,6 @@ abstract class WidgetProperty<T> extends WidgetStateProperty<T> {
     WidgetSize? size,
     WidgetRadius? radius,
     Map<String, dynamic>? extra,
-    DesignThemeData? theme,
   });
 
   static WidgetProperty<T> all<T>(T value) => WidgetPropertyAll<T>(value);
@@ -191,7 +198,6 @@ class KindedWidgetProperty<T> implements WidgetProperty<T> {
     WidgetSize? size,
     WidgetRadius? radius,
     Map<String, dynamic>? extra,
-    DesignThemeData? theme,
   }) {
     if (kind == null) {
       throw ArgumentError(

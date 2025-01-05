@@ -53,6 +53,9 @@ class VariantedWidgetStateColor implements WidgetProperty<Color> {
     Map<String, dynamic>? extra,
   }) {
     Color? seedColor;
+    if (extra != null && extra.containsKey('seedColor')) {
+      seedColor = extra['seedColor'];
+    }
     if (kind != null && theme != null) {
       switch (kind.namedKind) {
         case NamedKind.primary:

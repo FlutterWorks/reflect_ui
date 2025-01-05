@@ -112,6 +112,7 @@ class Badge extends StatefulWidget {
     final theme = DesignTheme.of(context);
     final defaults = theme.widgetDefaults;
     return BadgeStyle(
+      color: defaults.seedColor,
       minSize: defaults.secondaryMinSize ?? defaults.minSize,
       padding: defaults.secondaryPadding ?? defaults.padding,
       backgroundColor: defaults.backgroundColor,

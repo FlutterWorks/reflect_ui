@@ -4,6 +4,7 @@ import 'package:reflect_ui/src/core/widget_kind.dart';
 import 'package:reflect_ui/src/core/widget_radius.dart';
 import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/core/widget_variant.dart';
+import 'package:reflect_ui/src/painting/widget_property.dart';
 import 'package:reflect_ui/src/painting/widget_style.dart';
 import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 
@@ -12,6 +13,7 @@ import 'package:reflect_ui/src/widgets/design_theme/design_theme.dart';
 /// A badge style is a set of properties that define the appearance of a badge.
 class BadgeStyle extends WidgetStyle with Diagnosticable {
   const BadgeStyle({
+    super.color,
     super.minSize,
     super.margin,
     super.padding,
@@ -33,6 +35,8 @@ class BadgeStyle extends WidgetStyle with Diagnosticable {
     WidgetRadius? radius,
     DesignThemeData? theme,
   ]) {
+    Color? seedColor = kind != null ? color.kinded(kind) : null;
+
     return EffectiveBadgeStyle(
       minSize: minSize.resolveWith(
         states,
@@ -51,21 +55,27 @@ class BadgeStyle extends WidgetStyle with Diagnosticable {
         kind: kind,
         variant: variant,
         size: size,
-        theme: theme,
+        extra: {
+          'seedColor': seedColor,
+        }..removeWhere((key, value) => value == null),
       ),
       foregroundColor: foregroundColor.resolveWith(
         states,
         kind: kind,
         variant: variant,
         size: size,
-        theme: theme,
+        extra: {
+          'seedColor': seedColor,
+        }..removeWhere((key, value) => value == null),
       ),
       borderColor: borderColor.resolveWith(
         states,
         kind: kind,
         variant: variant,
         size: size,
-        theme: theme,
+        extra: {
+          'seedColor': seedColor,
+        }..removeWhere((key, value) => value == null),
       ),
       borderRadius: borderRadius.resolveWith(
         states,
@@ -73,7 +83,6 @@ class BadgeStyle extends WidgetStyle with Diagnosticable {
         variant: variant,
         size: size,
         radius: radius,
-        theme: theme,
       ),
       borderWidth: borderWidth.resolveWith(
         states,
@@ -86,7 +95,6 @@ class BadgeStyle extends WidgetStyle with Diagnosticable {
         kind: kind,
         variant: variant,
         size: size,
-        theme: theme,
       ),
     );
   }

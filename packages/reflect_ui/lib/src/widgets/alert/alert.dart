@@ -59,6 +59,7 @@ class Alert extends StatefulWidget {
     final theme = DesignTheme.of(context);
     final defaults = theme.widgetDefaults;
     return AlertStyle(
+      color: defaults.seedColor,
       minSize: defaults.minSize,
       padding: defaults.padding,
       backgroundColor: defaults.backgroundColor,

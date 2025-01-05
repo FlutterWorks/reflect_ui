@@ -4,6 +4,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:reflect_ui/src/core/widget_kind.dart';
 import 'package:reflect_ui/src/core/widget_radius.dart';
 import 'package:reflect_ui/src/core/widget_size.dart';
 import 'package:reflect_ui/src/painting/widget_property.dart';
@@ -133,6 +134,7 @@ class Button extends StatefulWidget {
     final theme = DesignTheme.of(context);
     final defaults = theme.widgetDefaults;
     return ButtonStyle(
+      color: defaults.seedColor,
       minSize: defaults.minSize,
       padding: defaults.padding,
       backgroundColor: defaults.backgroundColor,
@@ -206,22 +208,25 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final DesignThemeData theme = DesignTheme.of(context);
     final ButtonStyle style = widget.style ?? widget.themeStyleOf(context);
 
-    Color seedColor = widget.color ?? style.color.kinded(widget.kind);
-    Color bgColor = style.backgroundColor.varianted(widget.variant, seedColor);
-    Color fgColor = style.foregroundColor.varianted(widget.variant, seedColor);
-    Color borderColor = style.borderColor.varianted(widget.variant, seedColor);
+    final WidgetKind? kind =
+        widget.kind ?? (widget.variant != null ? ButtonKind.primary : null);
+    final ButtonVariant? variant = widget.variant;
 
-    final effectiveStyle = style.resolve(
-      states,
-      widget.kind,
-      widget.variant,
-      widget.size is WidgetSize ? widget.size as WidgetSize : null,
-      WidgetRadius.medium,
-      theme,
-    );
+    Color? seedColor =
+        widget.color ?? (kind != null ? style.color.kinded(kind) : null);
+
+    Size minSize = style.minSize.sized(widget.size);
+    EdgeInsets padding = style.padding.sized(widget.size);
+    Color backgroundColor =
+        style.backgroundColor.varianted(variant, states, seedColor);
+    Color foregroundColor =
+        style.foregroundColor.varianted(variant, states, seedColor);
+    Color borderColor = style.borderColor.varianted(variant, states, seedColor);
+    BorderRadius borderRadius = style.borderRadius.rounded(widget.radius);
+    double borderWidth = style.borderWidth.sized(widget.size);
+    TextStyle textStyle = style.textStyle.sized(widget.size);
 
     return FocusableActionDetector(
       enabled: widget.enabled,
@@ -243,36 +248,34 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
           button: true,
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              minWidth: effectiveStyle.minSize.width,
-              minHeight: effectiveStyle.minSize.height,
+              minWidth: minSize.width,
+              minHeight: minSize.height,
             ),
             child: Container(
               width: widget.expand ? double.infinity : null,
               foregroundDecoration: BoxDecoration(
-                border: effectiveStyle.borderColor != null
-                    ? Border.all(
-                        color: effectiveStyle.borderColor!,
-                        width: effectiveStyle.borderWidth ?? 0,
-                      )
-                    : null,
-                borderRadius: effectiveStyle.borderRadius,
+                border: Border.all(
+                  color: borderColor,
+                  width: borderWidth,
+                ),
+                borderRadius: borderRadius,
               ),
               decoration: BoxDecoration(
-                color: effectiveStyle.backgroundColor,
-                borderRadius: effectiveStyle.borderRadius,
+                color: backgroundColor,
+                borderRadius: borderRadius,
               ),
-              padding: effectiveStyle.padding,
+              padding: padding,
               child: Align(
                 alignment: Alignment.center,
                 widthFactor: 1.0,
                 heightFactor: 1.0,
                 child: DefaultTextStyle(
-                  style: effectiveStyle.textStyle.copyWith(
-                    color: effectiveStyle.foregroundColor,
+                  style: textStyle.copyWith(
+                    color: foregroundColor,
                   ),
                   child: IconTheme(
                     data: IconTheme.of(context).copyWith(
-                      color: effectiveStyle.foregroundColor,
+                      color: foregroundColor,
                     ),
                     child: widget.child,
                   ),

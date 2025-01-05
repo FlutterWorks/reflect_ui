@@ -22,16 +22,35 @@ void main() {
         subtle: Colors.red,
         plain: Colors.yellow,
       );
-      final filledValue = property.varianted(MockWidgetVariant.filled, null);
+      final filledValue = property.varianted(
+        MockWidgetVariant.filled,
+        {},
+        null,
+      );
       expect(filledValue, Colors.indigo);
-      final tintedValue = property.varianted(MockWidgetVariant.tinted, null);
+      final tintedValue = property.varianted(
+        MockWidgetVariant.tinted,
+        {},
+        null,
+      );
       expect(tintedValue, Colors.gray);
-      final outlinedValue =
-          property.varianted(MockWidgetVariant.outlined, null);
+      final outlinedValue = property.varianted(
+        MockWidgetVariant.outlined,
+        {},
+        null,
+      );
       expect(outlinedValue, Colors.green);
-      final subtleValue = property.varianted(MockWidgetVariant.subtle, null);
+      final subtleValue = property.varianted(
+        MockWidgetVariant.subtle,
+        {},
+        null,
+      );
       expect(subtleValue, Colors.red);
-      final plainValue = property.varianted(MockWidgetVariant.plain, null);
+      final plainValue = property.varianted(
+        MockWidgetVariant.plain,
+        {},
+        null,
+      );
       expect(plainValue, Colors.yellow);
     });
   });
